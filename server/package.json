@@ -1,0 +1,19 @@
+{
+  "name": "flexio-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Flexio adatmunkák: magyar ételkatalógus betöltése és Open Food Facts import.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build:catalog": "node scripts/build_catalog.mjs",
+    "seed:foods": "node scripts/seed_foods.mjs",
+    "import:off": "node worker/import_off.mjs",
+    "coach": "node coach/server.mjs"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}

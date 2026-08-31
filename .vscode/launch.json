@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flexio (Supabase)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "toolArgs": [
+        "--dart-define=SUPABASE_URL=https://qbppiqfmhoaogyzaueix.supabase.co",
+        "--dart-define=SUPABASE_PUBLISHABLE_KEY=sb_publishable_mrz9KTmx8srXnsJwantU5Q_6hEBO94q"
+      ]
+    },
+    {
+      "name": "Flexio (Supabase + Render API)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "toolArgs": [
+        "--dart-define=SUPABASE_URL=https://qbppiqfmhoaogyzaueix.supabase.co",
+        "--dart-define=SUPABASE_PUBLISHABLE_KEY=sb_publishable_mrz9KTmx8srXnsJwantU5Q_6hEBO94q",
+        "--dart-define=API_BASE_URL=https://flexio-api.onrender.com"
+      ]
+    },
+    {
+      "name": "Flexio (helyi, offline)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart"
+    }
+  ]
+}

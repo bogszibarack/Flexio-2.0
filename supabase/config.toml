@@ -1,0 +1,6 @@
+# Flexio Supabase projekt (Frankfurt EU).
+# A migrációk futtatása: scripts/setup_supabase.sh
+project_id = "qbppiqfmhoaogyzaueix"
+
+[db]
+major_version = 15

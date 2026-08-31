@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <UserSecretsId>flexio-api</UserSecretsId>
+  </PropertyGroup>
+
+  <!--
+    Az Api az egyetlen projekt, ami az Application-t es az Infrastructure-t is
+    ismeri: ez a composition root. Uzleti logika itt nem lehet.
+  -->
+  <ItemGroup>
+    <ProjectReference Include="..\Flexio.Application\Flexio.Application.csproj" />
+    <ProjectReference Include="..\Flexio.Infrastructure\Flexio.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <!-- A HTTP határ típusai internal-ok; a tesztek a szerelvényen belülről látják. -->
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Flexio.IntegrationTests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Formatting.Compact" />
+  </ItemGroup>
+
+</Project>

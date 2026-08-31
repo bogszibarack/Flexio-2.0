@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    A Domain retegnek szandekosan nincs egyetlen kulso referenciaja sem:
+    se ASP.NET, se adatbazis-driver. Ha ide kerulne egy, az azt jelentene,
+    hogy egy uzleti szabaly infrastrukturatol fugg.
+  -->
+
+</Project>

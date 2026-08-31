@@ -1,0 +1,1252 @@
+[
+  {
+    "name": "Haskerék kigurítás",
+    "searchTerms": "Haskerék kigurítás Ab Wheel Rollout",
+    "image": "assets/img/repdb/ab-wheel-rollout-peak.webp"
+  },
+  {
+    "name": "Levegő bicikli",
+    "searchTerms": "Levegő bicikli Air Bike",
+    "image": "assets/img/repdb/air-bike-main.webp"
+  },
+  {
+    "name": "Archer Húzódzkodás",
+    "searchTerms": "Archer Húzódzkodás Archer Pull Ups",
+    "image": "assets/img/repdb/archer-pull-ups-peak.webp"
+  },
+  {
+    "name": "Archer Fekvőtámasz",
+    "searchTerms": "Archer Fekvőtámasz Archer Push Ups",
+    "image": "assets/img/repdb/archer-push-ups-peak.webp"
+  },
+  {
+    "name": "Arnold-nyomás",
+    "searchTerms": "Arnold-nyomás Arnold Press",
+    "image": "assets/img/repdb/arnold-press-peak.webp"
+  },
+  {
+    "name": "Gépes Segített Tolódzkodás",
+    "searchTerms": "Gépes Segített Tolódzkodás Machine Assisted Dips",
+    "image": "assets/img/repdb/assisted-dips-peak.webp"
+  },
+  {
+    "name": "Segített Húzódzkodás",
+    "searchTerms": "Segített Húzódzkodás Assisted Pull Ups",
+    "image": "assets/img/repdb/assisted-pull-ups-peak.webp"
+  },
+  {
+    "name": "Hiperhajlítás",
+    "searchTerms": "Hiperhajlítás Back Extension",
+    "image": "assets/img/repdb/back-extension-peak.webp"
+  },
+  {
+    "name": "Gumiszalagos Húzódzkodás",
+    "searchTerms": "Gumiszalagos Húzódzkodás Band Assisted Pull Ups",
+    "image": "assets/img/repdb/band-assisted-pull-ups-peak.webp"
+  },
+  {
+    "name": "Gumiszalagos Közelítő Nyújtás",
+    "searchTerms": "Gumiszalagos Közelítő Nyújtás Banded Adductor Stretch",
+    "image": "assets/img/repdb/banded-adductor-stretch-main.webp"
+  },
+  {
+    "name": "Gumiszalagos Ankle Nyújtás",
+    "searchTerms": "Gumiszalagos Ankle Nyújtás Banded Ankle Stretch",
+    "image": "assets/img/repdb/banded-ankle-stretch-main.webp"
+  },
+  {
+    "name": "Gumiszalagos Calf Nyújtás",
+    "searchTerms": "Gumiszalagos Calf Nyújtás Banded Calf Stretch",
+    "image": "assets/img/repdb/banded-calf-stretch-main.webp"
+  },
+  {
+    "name": "Gumiszalagos Mellkas Nyújtás",
+    "searchTerms": "Gumiszalagos Mellkas Nyújtás Banded Chest Stretch",
+    "image": "assets/img/repdb/banded-chest-stretch-main.webp"
+  },
+  {
+    "name": "Gumiszalagos 4-es alakú Nyújtás",
+    "searchTerms": "Gumiszalagos 4-es alakú Nyújtás Banded Figure-4 Stretch",
+    "image": "assets/img/repdb/banded-figure-4-stretch-main.webp"
+  },
+  {
+    "name": "Gumiszalagos Combhajlító Nyújtás",
+    "searchTerms": "Gumiszalagos Combhajlító Nyújtás Banded Hamstring Stretch",
+    "image": "assets/img/repdb/banded-hamstring-stretch-main.webp"
+  },
+  {
+    "name": "Gumiszalagos Iliotibiális szalag Nyújtás",
+    "searchTerms": "Gumiszalagos Iliotibiális szalag Nyújtás Banded IT-Band Stretch",
+    "image": "assets/img/repdb/banded-it-band-stretch-main.webp"
+  },
+  {
+    "name": "Gumiszalagos Lat Nyújtás",
+    "searchTerms": "Gumiszalagos Lat Nyújtás Banded Lat Stretch",
+    "image": "assets/img/repdb/banded-lat-stretch-main.webp"
+  },
+  {
+    "name": "Gumiszalagos Hátsó váll Nyújtás",
+    "searchTerms": "Gumiszalagos Hátsó váll Nyújtás Banded Rear Delt Stretch",
+    "image": "assets/img/repdb/banded-rear-delt-stretch-main.webp"
+  },
+  {
+    "name": "Gumiszalagos Váll Nyújtás",
+    "searchTerms": "Gumiszalagos Váll Nyújtás Banded Shoulder Stretch",
+    "image": "assets/img/repdb/banded-shoulder-stretch-main.webp"
+  },
+  {
+    "name": "Gumiszalagos Tricepszs Nyújtás",
+    "searchTerms": "Gumiszalagos Tricepszs Nyújtás Banded Triceps Stretch",
+    "image": "assets/img/repdb/banded-triceps-stretch-main.webp"
+  },
+  {
+    "name": "Rudas Vádliemelés",
+    "searchTerms": "Rudas Vádliemelés Barbell Calf Raise",
+    "image": "assets/img/repdb/barbell-calf-raise-peak.webp"
+  },
+  {
+    "name": "Rudas Hajlítás",
+    "searchTerms": "Rudas Hajlítás Barbell Curl",
+    "image": "assets/img/repdb/barbell-curl-peak.webp"
+  },
+  {
+    "name": "Rudas Elülső Emelés",
+    "searchTerms": "Rudas Elülső Emelés Barbell Front Raise",
+    "image": "assets/img/repdb/barbell-front-raise-peak.webp"
+  },
+  {
+    "name": "Rudas Csípőemelés",
+    "searchTerms": "Rudas Csípőemelés Barbell Glute Bridge",
+    "image": "assets/img/repdb/barbell-glute-bridge-peak.webp"
+  },
+  {
+    "name": "Rudas Kitörés",
+    "searchTerms": "Rudas Kitörés Barbell Lunge",
+    "image": "assets/img/repdb/barbell-reverse-lunge-peak.webp"
+  },
+  {
+    "name": "Rudas Áthúzás",
+    "searchTerms": "Rudas Áthúzás Barbell Pullover",
+    "image": "assets/img/repdb/barbell-pullover-peak.webp"
+  },
+  {
+    "name": "Rudas Fordított Kitörés",
+    "searchTerms": "Rudas Fordított Kitörés Barbell Reverse Lunge",
+    "image": "assets/img/repdb/barbell-reverse-lunge-peak.webp"
+  },
+  {
+    "name": "Döntött törzsű Rudas Evezés",
+    "searchTerms": "Döntött törzsű Rudas Evezés Bent-Over Barbell Row",
+    "image": "assets/img/repdb/barbell-row-peak.webp"
+  },
+  {
+    "name": "Kötélhullám",
+    "searchTerms": "Kötélhullám Battle Ropes",
+    "image": "assets/img/repdb/battle-ropes-main.webp"
+  },
+  {
+    "name": "Hát mögötti Rudas Vállvonogatás",
+    "searchTerms": "Hát mögötti Rudas Vállvonogatás Behind the Back Barbell Shrug",
+    "image": "assets/img/repdb/behind-the-back-barbell-shrug-peak.webp"
+  },
+  {
+    "name": "Nyak mögötti Nyomás",
+    "searchTerms": "Nyak mögötti Nyomás Behind the Neck Press",
+    "image": "assets/img/repdb/behind-the-neck-press-peak.webp"
+  },
+  {
+    "name": "Pados Közelítő Nyújtás",
+    "searchTerms": "Pados Közelítő Nyújtás Bench Adductor Stretch",
+    "image": "assets/img/repdb/bench-adductor-stretch-main.webp"
+  },
+  {
+    "name": "Pados Ankle Nyújtás",
+    "searchTerms": "Pados Ankle Nyújtás Bench Ankle Stretch",
+    "image": "assets/img/repdb/bench-ankle-stretch-main.webp"
+  },
+  {
+    "name": "Pados Bolgár osztott Nyújtás",
+    "searchTerms": "Pados Bolgár osztott Nyújtás Bench Bulgarian Split Stretch",
+    "image": "assets/img/repdb/bench-bulgarian-split-stretch-main.webp"
+  },
+  {
+    "name": "Pados Calf Nyújtás",
+    "searchTerms": "Pados Calf Nyújtás Bench Calf Stretch",
+    "image": "assets/img/repdb/bench-calf-stretch-main.webp"
+  },
+  {
+    "name": "Pados Mellkas Nyújtás",
+    "searchTerms": "Pados Mellkas Nyújtás Bench Chest Stretch",
+    "image": "assets/img/repdb/bench-chest-stretch-main.webp"
+  },
+  {
+    "name": "Pados Gyermekpóz",
+    "searchTerms": "Pados Gyermekpóz Bench Child's Pose",
+    "image": "assets/img/repdb/bench-childs-pose-main.webp"
+  },
+  {
+    "name": "Pados Kanapés Nyújtás",
+    "searchTerms": "Pados Kanapés Nyújtás Bench Couch Stretch",
+    "image": "assets/img/repdb/bench-couch-stretch-main.webp"
+  },
+  {
+    "name": "Pados Tolódzkodás",
+    "searchTerms": "Pados Tolódzkodás Bench Dips",
+    "image": "assets/img/repdb/bench-dips-peak.webp"
+  },
+  {
+    "name": "Pados 4-es alakú Glute Nyújtás",
+    "searchTerms": "Pados 4-es alakú Glute Nyújtás Bench Figure-4 Glute Stretch",
+    "image": "assets/img/repdb/bench-figure-4-glute-stretch-main.webp"
+  },
+  {
+    "name": "Pados Combhajlító Nyújtás",
+    "searchTerms": "Pados Combhajlító Nyújtás Bench Hamstring Stretch",
+    "image": "assets/img/repdb/bench-hamstring-stretch-main.webp"
+  },
+  {
+    "name": "Pados Lat Nyújtás",
+    "searchTerms": "Pados Lat Nyújtás Bench Lat Stretch",
+    "image": "assets/img/repdb/bench-lat-stretch-main.webp"
+  },
+  {
+    "name": "Rudas Fekvenyomás",
+    "searchTerms": "Rudas Fekvenyomás Barbell Bench Press",
+    "image": "assets/img/repdb/bench-press-peak.webp"
+  },
+  {
+    "name": "Padon evezés",
+    "searchTerms": "Padon evezés Bench Pull",
+    "image": "assets/img/repdb/bench-pull-peak.webp"
+  },
+  {
+    "name": "Bent Arm Rudas Áthúzás",
+    "searchTerms": "Bent Arm Rudas Áthúzás Bent Arm Barbell Pullover",
+    "image": "assets/img/repdb/bent-arm-barbell-pullover-peak.webp"
+  },
+  {
+    "name": "Döntött törzsű EZ-rudas Evezés",
+    "searchTerms": "Döntött törzsű EZ-rudas Evezés Bent-Over EZ-Bar Row",
+    "image": "assets/img/repdb/bent-over-ez-bar-row-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Bicepsz Hajlítás",
+    "searchTerms": "Kézisúlyzós Bicepsz Hajlítás Dumbbell Bicep Curl",
+    "image": "assets/img/repdb/bicep-curl-peak.webp"
+  },
+  {
+    "name": "Biciklis hasprés",
+    "searchTerms": "Biciklis hasprés Bicycle Crunch",
+    "image": "assets/img/repdb/bicycle-crunch-peak.webp"
+  },
+  {
+    "name": "Madár-kutya tartás",
+    "searchTerms": "Madár-kutya tartás Bird Dog Hold",
+    "image": "assets/img/repdb/bird-dog-hold-main.webp"
+  },
+  {
+    "name": "Saját testsúlyos Vádliemelés",
+    "searchTerms": "Saját testsúlyos Vádliemelés Bodyweight Calf Raise",
+    "image": "assets/img/repdb/bodyweight-calf-raise-peak.webp"
+  },
+  {
+    "name": "Saját testsúlyos Jó reggelt",
+    "searchTerms": "Saját testsúlyos Jó reggelt Bodyweight Good Morning",
+    "image": "assets/img/repdb/bodyweight-good-morning-peak.webp"
+  },
+  {
+    "name": "Saját testsúlyos Oldalsó Emelés",
+    "searchTerms": "Saját testsúlyos Oldalsó Emelés Bodyweight Lateral Raise",
+    "image": "assets/img/repdb/bodyweight-lateral-raise-peak.webp"
+  },
+  {
+    "name": "Saját testsúlyos Fej fölötti Nyomás",
+    "searchTerms": "Saját testsúlyos Fej fölötti Nyomás Bodyweight Overhead Press",
+    "image": "assets/img/repdb/bodyweight-overhead-press-peak.webp"
+  },
+  {
+    "name": "Saját testsúlyos Guggolás",
+    "searchTerms": "Saját testsúlyos Guggolás Bodyweight Squat",
+    "image": "assets/img/repdb/bodyweight-squat-peak.webp"
+  },
+  {
+    "name": "Dobozugrás",
+    "searchTerms": "Dobozugrás Box Jump",
+    "image": "assets/img/repdb/box-jump-peak.webp"
+  },
+  {
+    "name": "Box Guggolás",
+    "searchTerms": "Box Guggolás Box Squat",
+    "image": "assets/img/repdb/box-squat-peak.webp"
+  },
+  {
+    "name": "Bolgár osztott Guggolás",
+    "searchTerms": "Bolgár osztott Guggolás Bulgarian Split Squat",
+    "image": "assets/img/repdb/bulgarian-split-squat-peak.webp"
+  },
+  {
+    "name": "Burpee",
+    "searchTerms": "Burpee Burpees",
+    "image": "assets/img/repdb/burpees-main.webp"
+  },
+  {
+    "name": "Csigás Döntött törzsű Evezés",
+    "searchTerms": "Csigás Döntött törzsű Evezés Cable Bent-Over Row",
+    "image": "assets/img/repdb/cable-bent-over-row-peak.webp"
+  },
+  {
+    "name": "Csigás Mellkas Nyomás",
+    "searchTerms": "Csigás Mellkas Nyomás Cable Chest Press",
+    "image": "assets/img/repdb/cable-chest-press-peak.webp"
+  },
+  {
+    "name": "Csigás Hasprés",
+    "searchTerms": "Csigás Hasprés Cable Crunch",
+    "image": "assets/img/repdb/cable-crunch-peak.webp"
+  },
+  {
+    "name": "Csigás Hajlítás",
+    "searchTerms": "Csigás Hajlítás Cable Curl",
+    "image": "assets/img/repdb/cable-curl-peak.webp"
+  },
+  {
+    "name": "Csigás Külső forgatás",
+    "searchTerms": "Csigás Külső forgatás Cable External Rotation",
+    "image": "assets/img/repdb/cable-external-rotation-peak.webp"
+  },
+  {
+    "name": "Csigás Tárogatás",
+    "searchTerms": "Csigás Tárogatás Cable Fly",
+    "image": "assets/img/repdb/cable-fly-peak.webp"
+  },
+  {
+    "name": "Csigás Elülső Emelés",
+    "searchTerms": "Csigás Elülső Emelés Cable Front Raise",
+    "image": "assets/img/repdb/cable-front-raise-peak.webp"
+  },
+  {
+    "name": "Csigás Kalapács Hajlítás",
+    "searchTerms": "Csigás Kalapács Hajlítás Cable Hammer Curl",
+    "image": "assets/img/repdb/cable-hammer-curl-peak.webp"
+  },
+  {
+    "name": "Csigás Glute Hátrarúgás",
+    "searchTerms": "Csigás Glute Hátrarúgás Cable Glute Kickback",
+    "image": "assets/img/repdb/cable-kickback-peak.webp"
+  },
+  {
+    "name": "Csigás Oldalsó Emelés",
+    "searchTerms": "Csigás Oldalsó Emelés Cable Lateral Raise",
+    "image": "assets/img/repdb/cable-lateral-raise-peak.webp"
+  },
+  {
+    "name": "Csigás Tricepsz Hátrarúgás",
+    "searchTerms": "Csigás Tricepsz Hátrarúgás Cable Tricep Kickback",
+    "image": "assets/img/repdb/cable-tricep-kickback-peak.webp"
+  },
+  {
+    "name": "Csigás Álló evezés",
+    "searchTerms": "Csigás Álló evezés Cable Upright Row",
+    "image": "assets/img/repdb/cable-upright-row-peak.webp"
+  },
+  {
+    "name": "Csigás Csukló Hajlítás",
+    "searchTerms": "Csigás Csukló Hajlítás Cable Wrist Curl",
+    "image": "assets/img/repdb/cable-wrist-curl-peak.webp"
+  },
+  {
+    "name": "Kapitányi szék Térdelő Emelés",
+    "searchTerms": "Kapitányi szék Térdelő Emelés Captain's Chair Knee Raise",
+    "image": "assets/img/repdb/captains-chair-knee-raise-peak.webp"
+  },
+  {
+    "name": "Kapitányi szék Leg Emelés",
+    "searchTerms": "Kapitányi szék Leg Emelés Captain's Chair Leg Raise",
+    "image": "assets/img/repdb/captains-chair-leg-raise-peak.webp"
+  },
+  {
+    "name": "Csaló Hajlítás",
+    "searchTerms": "Csaló Hajlítás Cheat Curl",
+    "image": "assets/img/repdb/cheat-curl-peak.webp"
+  },
+  {
+    "name": "Gépes Mellkas Nyomás",
+    "searchTerms": "Gépes Mellkas Nyomás Machine Chest Press",
+    "image": "assets/img/repdb/chest-press-machine-peak.webp"
+  },
+  {
+    "name": "Mellkassal támasztott Kézisúlyzós Evezés",
+    "searchTerms": "Mellkassal támasztott Kézisúlyzós Evezés Chest-Supported Dumbbell Row",
+    "image": "assets/img/repdb/chest-supported-db-row-peak.webp"
+  },
+  {
+    "name": "Mellkas Támasztott Kézisúlyzós Vállvonogatás",
+    "searchTerms": "Mellkas Támasztott Kézisúlyzós Vállvonogatás Chest Supported Dumbbell Shrug",
+    "image": "assets/img/repdb/chest-supported-dumbbell-shrug-peak.webp"
+  },
+  {
+    "name": "Chin Tuck Hold",
+    "searchTerms": "Chin Tuck Hold Chin Tuck Hold",
+    "image": "assets/img/repdb/chin-tuck-hold-main.webp"
+  },
+  {
+    "name": "Chin-Ups",
+    "searchTerms": "Chin-Ups Chin-Ups",
+    "image": "assets/img/repdb/chin-ups-peak.webp"
+  },
+  {
+    "name": "Kagyló gyakorlat",
+    "searchTerms": "Kagyló gyakorlat Clamshells",
+    "image": "assets/img/repdb/clamshells-peak.webp"
+  },
+  {
+    "name": "Tapsos Fekvőtámaszs",
+    "searchTerms": "Tapsos Fekvőtámaszs Clap Push-Ups",
+    "image": "assets/img/repdb/clap-push-ups-peak.webp"
+  },
+  {
+    "name": "Felvétel",
+    "searchTerms": "Felvétel Clean",
+    "image": "assets/img/repdb/clean-peak.webp"
+  },
+  {
+    "name": "Felvétel és lökés",
+    "searchTerms": "Felvétel és lökés Clean and Jerk",
+    "image": "assets/img/repdb/clean-and-jerk-peak.webp"
+  },
+  {
+    "name": "Szűk fogásos Fekvenyomás",
+    "searchTerms": "Szűk fogásos Fekvenyomás Close-Grip Bench Press",
+    "image": "assets/img/repdb/close-grip-bench-press-peak.webp"
+  },
+  {
+    "name": "Szűk fogásos Kézisúlyzós Fekvenyomás",
+    "searchTerms": "Szűk fogásos Kézisúlyzós Fekvenyomás Close-Grip Dumbbell Bench Press",
+    "image": "assets/img/repdb/close-grip-db-bench-press-peak.webp"
+  },
+  {
+    "name": "Szűk fogásos EZ-rudas Fekvenyomás",
+    "searchTerms": "Szűk fogásos EZ-rudas Fekvenyomás Close-Grip EZ-Bar Bench Press",
+    "image": "assets/img/repdb/close-grip-ez-bar-bench-press-peak.webp"
+  },
+  {
+    "name": "Szűk fogásos Ferdepados Fekvenyomás",
+    "searchTerms": "Szűk fogásos Ferdepados Fekvenyomás Close-Grip Incline Bench Press",
+    "image": "assets/img/repdb/close-grip-incline-bench-peak.webp"
+  },
+  {
+    "name": "Szűk fogású Lehúzás",
+    "searchTerms": "Szűk fogású Lehúzás Close Grip Lat Pulldown",
+    "image": "assets/img/repdb/close-grip-lat-pulldown-peak.webp"
+  },
+  {
+    "name": "Szűk fogásos Húzódzkodáss",
+    "searchTerms": "Szűk fogásos Húzódzkodáss Close-Grip Pull-Ups",
+    "image": "assets/img/repdb/close-grip-pull-ups-peak.webp"
+  },
+  {
+    "name": "Szűk fogású Fekvőtámasz",
+    "searchTerms": "Szűk fogású Fekvőtámasz Close Grip Push Ups",
+    "image": "assets/img/repdb/close-grip-push-ups-peak.webp"
+  },
+  {
+    "name": "Koncentrált Hajlítás",
+    "searchTerms": "Koncentrált Hajlítás Concentration Curl",
+    "image": "assets/img/repdb/concentration-curl-peak.webp"
+  },
+  {
+    "name": "Cross Body Kalapács Hajlítás",
+    "searchTerms": "Cross Body Kalapács Hajlítás Cross Body Hammer Curl",
+    "image": "assets/img/repdb/cross-body-hammer-curl-peak.webp"
+  },
+  {
+    "name": "Hasprés",
+    "searchTerms": "Hasprés Crunches",
+    "image": "assets/img/repdb/crunches-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Fekvenyomás",
+    "searchTerms": "Kézisúlyzós Fekvenyomás Dumbbell Bench Press",
+    "image": "assets/img/repdb/db-bench-press-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Tárogatás",
+    "searchTerms": "Kézisúlyzós Tárogatás Dumbbell Fly",
+    "image": "assets/img/repdb/db-fly-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Kitörés",
+    "searchTerms": "Kézisúlyzós Kitörés Dumbbell Lunge",
+    "image": "assets/img/repdb/db-lunge-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Áthúzás",
+    "searchTerms": "Kézisúlyzós Áthúzás Dumbbell Pullover",
+    "image": "assets/img/repdb/db-pullover-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Fordított Hajlítás",
+    "searchTerms": "Kézisúlyzós Fordított Hajlítás Dumbbell Reverse Curl",
+    "image": "assets/img/repdb/db-reverse-curl-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Vállvonogatás",
+    "searchTerms": "Kézisúlyzós Vállvonogatás Dumbbell Shrug",
+    "image": "assets/img/repdb/db-shrug-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Francia nyomás",
+    "searchTerms": "Kézisúlyzós Francia nyomás Dumbbell Skull Crusher",
+    "image": "assets/img/repdb/db-skull-crusher-peak.webp"
+  },
+  {
+    "name": "Halott bogár",
+    "searchTerms": "Halott bogár Dead Bug",
+    "image": "assets/img/repdb/dead-bug-peak.webp"
+  },
+  {
+    "name": "Dead Függésből",
+    "searchTerms": "Dead Függésből Dead Hang",
+    "image": "assets/img/repdb/dead-hang-main.webp"
+  },
+  {
+    "name": "Rudas Felhúzás",
+    "searchTerms": "Rudas Felhúzás Barbell Deadlift",
+    "image": "assets/img/repdb/deadlift-peak.webp"
+  },
+  {
+    "name": "Negatív pados Fekvenyomás",
+    "searchTerms": "Negatív pados Fekvenyomás Decline Bench Press",
+    "image": "assets/img/repdb/decline-bench-press-peak.webp"
+  },
+  {
+    "name": "Negatív pados Rudas Fekvenyomás",
+    "searchTerms": "Negatív pados Rudas Fekvenyomás Decline Barbell Bench Press",
+    "image": "assets/img/repdb/decline-bench-press-barbell-peak.webp"
+  },
+  {
+    "name": "Negatív pados EZ-rudas Fekvenyomás",
+    "searchTerms": "Negatív pados EZ-rudas Fekvenyomás Decline EZ-Bar Bench Press",
+    "image": "assets/img/repdb/decline-bench-press-ez-bar-peak.webp"
+  },
+  {
+    "name": "Negatív pados Hasprés",
+    "searchTerms": "Negatív pados Hasprés Decline Crunch",
+    "image": "assets/img/repdb/decline-crunch-peak.webp"
+  },
+  {
+    "name": "Negatív pados Kézisúlyzós Tárogatás",
+    "searchTerms": "Negatív pados Kézisúlyzós Tárogatás Decline Dumbbell Fly",
+    "image": "assets/img/repdb/decline-db-fly-peak.webp"
+  },
+  {
+    "name": "Negatív pados Fekvőtámasz",
+    "searchTerms": "Negatív pados Fekvőtámasz Decline Push-Up",
+    "image": "assets/img/repdb/decline-push-up-peak.webp"
+  },
+  {
+    "name": "Deficites Felhúzás",
+    "searchTerms": "Deficites Felhúzás Deficit Deadlift",
+    "image": "assets/img/repdb/deficit-deadlift-peak.webp"
+  },
+  {
+    "name": "Deficites Fekvőtámasz",
+    "searchTerms": "Deficites Fekvőtámasz Deficit Push Ups",
+    "image": "assets/img/repdb/deficit-push-ups-peak.webp"
+  },
+  {
+    "name": "Gyémánt Fekvőtámasz",
+    "searchTerms": "Gyémánt Fekvőtámasz Diamond Push Ups",
+    "image": "assets/img/repdb/diamond-push-ups-peak.webp"
+  },
+  {
+    "name": "Mellkas Tolódzkodás",
+    "searchTerms": "Mellkas Tolódzkodás Chest Dips",
+    "image": "assets/img/repdb/dips-peak.webp"
+  },
+  {
+    "name": "Szamár Vádliemelés",
+    "searchTerms": "Szamár Vádliemelés Donkey Calf Raise",
+    "image": "assets/img/repdb/donkey-calf-raise-peak.webp"
+  },
+  {
+    "name": "Dupla Kettlebell Dead Felvétel",
+    "searchTerms": "Dupla Kettlebell Dead Felvétel Double Kettlebell Dead Clean",
+    "image": "assets/img/repdb/double-kettlebell-dead-clean-peak.webp"
+  },
+  {
+    "name": "Dupla Kettlebell Dead Split Szakítás",
+    "searchTerms": "Dupla Kettlebell Dead Split Szakítás Double Kettlebell Dead Split Snatch",
+    "image": "assets/img/repdb/double-kettlebell-dead-split-snatch-peak.webp"
+  },
+  {
+    "name": "Dupla Kettlebell Fej fölötti Nyomás",
+    "searchTerms": "Dupla Kettlebell Fej fölötti Nyomás Double Kettlebell Overhead Press",
+    "image": "assets/img/repdb/double-kettlebell-overhead-press-peak.webp"
+  },
+  {
+    "name": "Dupla Kettlebell Evezés",
+    "searchTerms": "Dupla Kettlebell Evezés Double Kettlebell Row",
+    "image": "assets/img/repdb/double-kettlebell-row-peak.webp"
+  },
+  {
+    "name": "Dupla Kettlebell Split Jerk",
+    "searchTerms": "Dupla Kettlebell Split Jerk Double Kettlebell Split Jerk",
+    "image": "assets/img/repdb/double-kettlebell-split-jerk-peak.webp"
+  },
+  {
+    "name": "Dupla Kettlebell Swing Szakítás",
+    "searchTerms": "Dupla Kettlebell Swing Szakítás Double Kettlebell Swing Snatch",
+    "image": "assets/img/repdb/double-kettlebell-swing-snatch-peak.webp"
+  },
+  {
+    "name": "Sárkányzászló",
+    "searchTerms": "Sárkányzászló Dragon Flag",
+    "image": "assets/img/repdb/dragon-flag-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Padon evezés",
+    "searchTerms": "Kézisúlyzós Padon evezés Dumbbell Bench Pull",
+    "image": "assets/img/repdb/dumbbell-bench-pull-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Vádliemelés",
+    "searchTerms": "Kézisúlyzós Vádliemelés Dumbbell Calf Raise",
+    "image": "assets/img/repdb/dumbbell-calf-raise-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Felhúzás",
+    "searchTerms": "Kézisúlyzós Felhúzás Dumbbell Deadlift",
+    "image": "assets/img/repdb/dumbbell-deadlift-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Archoz húzás",
+    "searchTerms": "Kézisúlyzós Archoz húzás Dumbbell Face Pull",
+    "image": "assets/img/repdb/dumbbell-face-pull-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Földön végzett Nyomás",
+    "searchTerms": "Kézisúlyzós Földön végzett Nyomás Dumbbell Floor Press",
+    "image": "assets/img/repdb/dumbbell-floor-press-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Elülső Emelés",
+    "searchTerms": "Kézisúlyzós Elülső Emelés Dumbbell Front Raise",
+    "image": "assets/img/repdb/dumbbell-front-raise-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Elülső Guggolás",
+    "searchTerms": "Kézisúlyzós Elülső Guggolás Dumbbell Front Squat",
+    "image": "assets/img/repdb/dumbbell-front-squat-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Push Nyomás",
+    "searchTerms": "Kézisúlyzós Push Nyomás Dumbbell Push Press",
+    "image": "assets/img/repdb/dumbbell-push-press-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Fordított Tárogatás",
+    "searchTerms": "Kézisúlyzós Fordított Tárogatás Dumbbell Reverse Fly",
+    "image": "assets/img/repdb/dumbbell-reverse-fly-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Román Felhúzás",
+    "searchTerms": "Kézisúlyzós Román Felhúzás Dumbbell Romanian Deadlift",
+    "image": "assets/img/repdb/dumbbell-romanian-deadlift-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Váll Nyomás",
+    "searchTerms": "Kézisúlyzós Váll Nyomás Dumbbell Shoulder Press",
+    "image": "assets/img/repdb/dumbbell-shoulder-press-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Oldalhajlítás",
+    "searchTerms": "Kézisúlyzós Oldalhajlítás Dumbbell Side Bend",
+    "image": "assets/img/repdb/dumbbell-side-bend-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Szakítás",
+    "searchTerms": "Kézisúlyzós Szakítás Dumbbell Snatch",
+    "image": "assets/img/repdb/dumbbell-snatch-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Split Guggolás",
+    "searchTerms": "Kézisúlyzós Split Guggolás Dumbbell Split Squat",
+    "image": "assets/img/repdb/dumbbell-split-squat-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Tricepsz Nyújtás",
+    "searchTerms": "Kézisúlyzós Tricepsz Nyújtás Dumbbell Tricep Extension",
+    "image": "assets/img/repdb/dumbbell-tricep-extension-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Álló evezés",
+    "searchTerms": "Kézisúlyzós Álló evezés Dumbbell Upright Row",
+    "image": "assets/img/repdb/dumbbell-upright-row-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Csukló Hajlítás",
+    "searchTerms": "Kézisúlyzós Csukló Hajlítás Dumbbell Wrist Curl",
+    "image": "assets/img/repdb/dumbbell-wrist-curl-peak.webp"
+  },
+  {
+    "name": "EZ-rudas Hajlítás",
+    "searchTerms": "EZ-rudas Hajlítás EZ-Bar Curl",
+    "image": "assets/img/repdb/ez-bar-curl-peak.webp"
+  },
+  {
+    "name": "EZ-rudas Fordított Hajlítás",
+    "searchTerms": "EZ-rudas Fordított Hajlítás EZ-Bar Reverse Curl",
+    "image": "assets/img/repdb/ez-bar-reverse-curl-peak.webp"
+  },
+  {
+    "name": "EZ-rudas Vállvonogatás",
+    "searchTerms": "EZ-rudas Vállvonogatás EZ-Bar Shrug",
+    "image": "assets/img/repdb/ez-bar-shrug-peak.webp"
+  },
+  {
+    "name": "EZ Bar Pók Hajlítás",
+    "searchTerms": "EZ Bar Pók Hajlítás EZ Bar Spider Curl",
+    "image": "assets/img/repdb/ez-bar-spider-curl-peak.webp"
+  },
+  {
+    "name": "EZ-rudas Álló evezés",
+    "searchTerms": "EZ-rudas Álló evezés EZ-Bar Upright Row",
+    "image": "assets/img/repdb/ez-bar-upright-row-peak.webp"
+  },
+  {
+    "name": "Csigás Archoz húzás",
+    "searchTerms": "Csigás Archoz húzás Cable Face Pull",
+    "image": "assets/img/repdb/face-pull-peak.webp"
+  },
+  {
+    "name": "Földön végzett EZ-rudas Nyomás",
+    "searchTerms": "Földön végzett EZ-rudas Nyomás Floor EZ-Bar Press",
+    "image": "assets/img/repdb/floor-ez-bar-press-peak.webp"
+  },
+  {
+    "name": "Földön végzett Nyomás",
+    "searchTerms": "Földön végzett Nyomás Floor Press",
+    "image": "assets/img/repdb/floor-press-peak.webp"
+  },
+  {
+    "name": "Ollózás",
+    "searchTerms": "Ollózás Flutter Kicks",
+    "image": "assets/img/repdb/flutter-kicks-peak.webp"
+  },
+  {
+    "name": "Elülső függés",
+    "searchTerms": "Elülső függés Front Lever",
+    "image": "assets/img/repdb/front-lever-main.webp"
+  },
+  {
+    "name": "Elülső Guggolás",
+    "searchTerms": "Elülső Guggolás Front Squat",
+    "image": "assets/img/repdb/front-squat-peak.webp"
+  },
+  {
+    "name": "Csípőemelés",
+    "searchTerms": "Csípőemelés Glute Bridge",
+    "image": "assets/img/repdb/glute-bridge-peak.webp"
+  },
+  {
+    "name": "Glute Hátrarúgás",
+    "searchTerms": "Glute Hátrarúgás Glute Kickback",
+    "image": "assets/img/repdb/glute-kickback-peak.webp"
+  },
+  {
+    "name": "Serleges Guggolás",
+    "searchTerms": "Serleges Guggolás Goblet Squat",
+    "image": "assets/img/repdb/goblet-squat-peak.webp"
+  },
+  {
+    "name": "Jó reggelt",
+    "searchTerms": "Jó reggelt Good Morning",
+    "image": "assets/img/repdb/good-morning-peak.webp"
+  },
+  {
+    "name": "Hack Guggolás",
+    "searchTerms": "Hack Guggolás Hack Squat",
+    "image": "assets/img/repdb/hack-squat-peak.webp"
+  },
+  {
+    "name": "Hack Guggolás Vádliemelés",
+    "searchTerms": "Hack Guggolás Vádliemelés Hack Squat Calf Raise",
+    "image": "assets/img/repdb/hack-squat-calf-raise-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Kalapács Hajlítás",
+    "searchTerms": "Kézisúlyzós Kalapács Hajlítás Dumbbell Hammer Curl",
+    "image": "assets/img/repdb/hammer-curl-peak.webp"
+  },
+  {
+    "name": "Kézállás Fekvőtámasz",
+    "searchTerms": "Kézállás Fekvőtámasz Handstand Push Ups",
+    "image": "assets/img/repdb/handstand-push-ups-peak.webp"
+  },
+  {
+    "name": "Függésből Felvétel",
+    "searchTerms": "Függésből Felvétel Hang Clean",
+    "image": "assets/img/repdb/hang-clean-peak.webp"
+  },
+  {
+    "name": "Függésből Erő Felvétel",
+    "searchTerms": "Függésből Erő Felvétel Hang Power Clean",
+    "image": "assets/img/repdb/hang-power-clean-peak.webp"
+  },
+  {
+    "name": "Függésben térdemelés",
+    "searchTerms": "Függésben térdemelés Hanging Knee Raise",
+    "image": "assets/img/repdb/hanging-knee-raise-peak.webp"
+  },
+  {
+    "name": "Függésben lábemelés",
+    "searchTerms": "Függésben lábemelés Hanging Leg Raise",
+    "image": "assets/img/repdb/hanging-leg-raise-peak.webp"
+  },
+  {
+    "name": "Sarokemelt Guggolás",
+    "searchTerms": "Sarokemelt Guggolás Heel-Elevated Squat",
+    "image": "assets/img/repdb/heel-elevated-squat-peak.webp"
+  },
+  {
+    "name": "Trap bar Felhúzás",
+    "searchTerms": "Trap bar Felhúzás Hex Bar Deadlift",
+    "image": "assets/img/repdb/hex-bar-deadlift-peak.webp"
+  },
+  {
+    "name": "Magas Plank",
+    "searchTerms": "Magas Plank High Plank",
+    "image": "assets/img/repdb/high-plank-main.webp"
+  },
+  {
+    "name": "Gépes Csípőtávolítás",
+    "searchTerms": "Gépes Csípőtávolítás Machine Hip Abduction",
+    "image": "assets/img/repdb/hip-abduction-peak.webp"
+  },
+  {
+    "name": "Csípőközelítés",
+    "searchTerms": "Csípőközelítés Hip Adduction",
+    "image": "assets/img/repdb/hip-adduction-peak.webp"
+  },
+  {
+    "name": "Rudas Csípőtolás",
+    "searchTerms": "Rudas Csípőtolás Barbell Hip Thrust",
+    "image": "assets/img/repdb/hip-thrust-peak.webp"
+  },
+  {
+    "name": "Vízszintes Lábtoló",
+    "searchTerms": "Vízszintes Lábtoló Horizontal Leg Press",
+    "image": "assets/img/repdb/horizontal-leg-press-peak.webp"
+  },
+  {
+    "name": "Ferdepados EZ-rudas Fekvenyomás",
+    "searchTerms": "Ferdepados EZ-rudas Fekvenyomás Incline EZ-Bar Bench Press",
+    "image": "assets/img/repdb/incline-bench-ez-bar-press-peak.webp"
+  },
+  {
+    "name": "Ferdepados Rudas Fekvenyomás",
+    "searchTerms": "Ferdepados Rudas Fekvenyomás Incline Barbell Bench Press",
+    "image": "assets/img/repdb/incline-bench-press-peak.webp"
+  },
+  {
+    "name": "Ferdepados Kézisúlyzós Hajlítás",
+    "searchTerms": "Ferdepados Kézisúlyzós Hajlítás Incline Dumbbell Curl",
+    "image": "assets/img/repdb/incline-db-curl-peak.webp"
+  },
+  {
+    "name": "Ferdepados Kézisúlyzós Nyomás",
+    "searchTerms": "Ferdepados Kézisúlyzós Nyomás Incline Dumbbell Press",
+    "image": "assets/img/repdb/incline-db-press-peak.webp"
+  },
+  {
+    "name": "Ferdepados Kézisúlyzós Tárogatás",
+    "searchTerms": "Ferdepados Kézisúlyzós Tárogatás Incline Dumbbell Fly",
+    "image": "assets/img/repdb/incline-dumbbell-fly-peak.webp"
+  },
+  {
+    "name": "Ferdepados Kalapács Hajlítás",
+    "searchTerms": "Ferdepados Kalapács Hajlítás Incline Hammer Curl",
+    "image": "assets/img/repdb/incline-hammer-curl-peak.webp"
+  },
+  {
+    "name": "Ferdepados Fekvőtámasz",
+    "searchTerms": "Ferdepados Fekvőtámasz Incline Push-Up",
+    "image": "assets/img/repdb/incline-push-ups-peak.webp"
+  },
+  {
+    "name": "Fordított Evezés",
+    "searchTerms": "Fordított Evezés Inverted Row",
+    "image": "assets/img/repdb/inverted-row-peak.webp"
+  },
+  {
+    "name": "Jump Guggolás",
+    "searchTerms": "Jump Guggolás Jump Squat",
+    "image": "assets/img/repdb/jump-squat-peak.webp"
+  },
+  {
+    "name": "Terpesz-zár",
+    "searchTerms": "Terpesz-zár Jumping Jacks",
+    "image": "assets/img/repdb/jumping-jacks-peak.webp"
+  },
+  {
+    "name": "Kettlebell Felhúzás",
+    "searchTerms": "Kettlebell Felhúzás Kettlebell Deadlift",
+    "image": "assets/img/repdb/kettlebell-deadlift-peak.webp"
+  },
+  {
+    "name": "Kettlebell Farmer séta",
+    "searchTerms": "Kettlebell Farmer séta Kettlebell Farmer's Walk",
+    "image": "assets/img/repdb/kettlebell-farmers-walk-main.webp"
+  },
+  {
+    "name": "Kettlebell Kitörés Nyomás",
+    "searchTerms": "Kettlebell Kitörés Nyomás Kettlebell Lunge Press",
+    "image": "assets/img/repdb/kettlebell-lunge-press-peak.webp"
+  },
+  {
+    "name": "Kettlebell Eltolt Fordított Kitörés and Nyomás",
+    "searchTerms": "Kettlebell Eltolt Fordított Kitörés and Nyomás Kettlebell Offset Reverse Lunge and Press",
+    "image": "assets/img/repdb/kettlebell-offset-reverse-lunge-and-press-peak.webp"
+  },
+  {
+    "name": "Kettlebell Pisztoly Guggolás",
+    "searchTerms": "Kettlebell Pisztoly Guggolás Kettlebell Pistol Squat",
+    "image": "assets/img/repdb/kettlebell-pistol-squat-peak.webp"
+  },
+  {
+    "name": "Kettlebell Forgásos Kitörés",
+    "searchTerms": "Kettlebell Forgásos Kitörés Kettlebell Rotational Lunge",
+    "image": "assets/img/repdb/kettlebell-rotational-lunge-peak.webp"
+  },
+  {
+    "name": "Kettlebell Orosz csavarás",
+    "searchTerms": "Kettlebell Orosz csavarás Kettlebell Russian Twist",
+    "image": "assets/img/repdb/kettlebell-russian-twist-peak.webp"
+  },
+  {
+    "name": "Kettlebell Single Leg Felhúzás",
+    "searchTerms": "Kettlebell Single Leg Felhúzás Kettlebell Single Leg Deadlift",
+    "image": "assets/img/repdb/kettlebell-single-leg-deadlift-peak.webp"
+  },
+  {
+    "name": "Kettlebell Swing",
+    "searchTerms": "Kettlebell Swing Kettlebell Swing",
+    "image": "assets/img/repdb/kettlebell-swing-peak.webp"
+  },
+  {
+    "name": "Kettlebell Török felállás",
+    "searchTerms": "Kettlebell Török felállás Kettlebell Turkish Get Ups",
+    "image": "assets/img/repdb/kettlebell-turkish-get-ups-peak.webp"
+  },
+  {
+    "name": "Kettlebell Szélmalom",
+    "searchTerms": "Kettlebell Szélmalom Kettlebell Windmills",
+    "image": "assets/img/repdb/kettlebell-windmills-peak.webp"
+  },
+  {
+    "name": "Térdelő Fekvőtámasz",
+    "searchTerms": "Térdelő Fekvőtámasz Knee Push Ups",
+    "image": "assets/img/repdb/knee-push-ups-peak.webp"
+  },
+  {
+    "name": "L-ülés",
+    "searchTerms": "L-ülés L Sit",
+    "image": "assets/img/repdb/l-sit-main.webp"
+  },
+  {
+    "name": "Landmine Nyomás",
+    "searchTerms": "Landmine Nyomás Landmine Press",
+    "image": "assets/img/repdb/landmine-press-peak.webp"
+  },
+  {
+    "name": "Lehúzás",
+    "searchTerms": "Lehúzás Lat Pulldown",
+    "image": "assets/img/repdb/lat-pulldown-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Oldalsó Emelés",
+    "searchTerms": "Kézisúlyzós Oldalsó Emelés Dumbbell Lateral Raise",
+    "image": "assets/img/repdb/lateral-raise-peak.webp"
+  },
+  {
+    "name": "Fekvő Lábhajlítás",
+    "searchTerms": "Fekvő Lábhajlítás Lying Leg Curl",
+    "image": "assets/img/repdb/leg-curl-peak.webp"
+  },
+  {
+    "name": "Lábnyújtás",
+    "searchTerms": "Lábnyújtás Leg Extension",
+    "image": "assets/img/repdb/leg-extension-peak.webp"
+  },
+  {
+    "name": "Lábtoló",
+    "searchTerms": "Lábtoló Leg Press",
+    "image": "assets/img/repdb/leg-press-peak.webp"
+  },
+  {
+    "name": "Kitörés",
+    "searchTerms": "Kitörés Lunge",
+    "image": "assets/img/repdb/lunge-peak.webp"
+  },
+  {
+    "name": "Fekvő lábemelés",
+    "searchTerms": "Fekvő lábemelés Lying Leg Raise",
+    "image": "assets/img/repdb/lying-leg-raise-peak.webp"
+  },
+  {
+    "name": "Fekvő Tricepsz Nyújtás",
+    "searchTerms": "Fekvő Tricepsz Nyújtás Lying Tricep Extension",
+    "image": "assets/img/repdb/lying-tricep-extension-peak.webp"
+  },
+  {
+    "name": "Gépes Hiperhajlítás",
+    "searchTerms": "Gépes Hiperhajlítás Machine Back Extension",
+    "image": "assets/img/repdb/machine-back-extension-peak.webp"
+  },
+  {
+    "name": "Gépes Bicepsz Hajlítás",
+    "searchTerms": "Gépes Bicepsz Hajlítás Machine Bicep Curl",
+    "image": "assets/img/repdb/machine-bicep-curl-peak.webp"
+  },
+  {
+    "name": "Gépes Vádliemelés",
+    "searchTerms": "Gépes Vádliemelés Machine Calf Raise",
+    "image": "assets/img/repdb/machine-calf-raise-peak.webp"
+  },
+  {
+    "name": "Gépes Mellkas Tárogatás",
+    "searchTerms": "Gépes Mellkas Tárogatás Machine Chest Fly",
+    "image": "assets/img/repdb/machine-chest-fly-peak.webp"
+  },
+  {
+    "name": "Gépes Ülő Hasprés",
+    "searchTerms": "Gépes Ülő Hasprés Machine Seated Crunch",
+    "image": "assets/img/repdb/machine-seated-crunch-peak.webp"
+  },
+  {
+    "name": "Gépes Váll Nyomás",
+    "searchTerms": "Gépes Váll Nyomás Machine Shoulder Press",
+    "image": "assets/img/repdb/machine-shoulder-press-peak.webp"
+  },
+  {
+    "name": "Gépes Tricepszs Nyújtás",
+    "searchTerms": "Gépes Tricepszs Nyújtás Machine Triceps Extension",
+    "image": "assets/img/repdb/machine-triceps-extension-peak.webp"
+  },
+  {
+    "name": "Hegymászó",
+    "searchTerms": "Hegymászó Mountain Climbers",
+    "image": "assets/img/repdb/mountain-climbers-peak.webp"
+  },
+  {
+    "name": "Muscle-up",
+    "searchTerms": "Muscle-up Muscle Ups",
+    "image": "assets/img/repdb/muscle-ups-peak.webp"
+  },
+  {
+    "name": "Negatív Húzódzkodás",
+    "searchTerms": "Negatív Húzódzkodás Negative Pull Ups",
+    "image": "assets/img/repdb/negative-pull-ups-peak.webp"
+  },
+  {
+    "name": "Semleges fogású Húzódzkodás",
+    "searchTerms": "Semleges fogású Húzódzkodás Neutral Grip Pull Ups",
+    "image": "assets/img/repdb/neutral-grip-pull-ups-peak.webp"
+  },
+  {
+    "name": "Nordic Combhajlító Hajlítás",
+    "searchTerms": "Nordic Combhajlító Hajlítás Nordic Hamstring Curl",
+    "image": "assets/img/repdb/nordic-hamstring-curl-peak.webp"
+  },
+  {
+    "name": "Rudas Fej fölötti Nyomás",
+    "searchTerms": "Rudas Fej fölötti Nyomás Barbell Overhead Press",
+    "image": "assets/img/repdb/ohp-peak.webp"
+  },
+  {
+    "name": "Egykezes Kettlebell Bicepsz Hajlítás",
+    "searchTerms": "Egykezes Kettlebell Bicepsz Hajlítás One Arm Kettlebell Bicep Curl",
+    "image": "assets/img/repdb/one-arm-kettlebell-bicep-curl-peak.webp"
+  },
+  {
+    "name": "Fej fölötti Tricepsz Nyújtás",
+    "searchTerms": "Fej fölötti Tricepsz Nyújtás Overhead Tricep Extension",
+    "image": "assets/img/repdb/overhead-tricep-extension-peak.webp"
+  },
+  {
+    "name": "Szünetes Felhúzás",
+    "searchTerms": "Szünetes Felhúzás Pause Deadlift",
+    "image": "assets/img/repdb/deadlift-peak.webp"
+  },
+  {
+    "name": "Planche",
+    "searchTerms": "Planche Planche",
+    "image": "assets/img/repdb/planche-main.webp"
+  },
+  {
+    "name": "Plank",
+    "searchTerms": "Plank Plank",
+    "image": "assets/img/repdb/plank-main.webp"
+  },
+  {
+    "name": "Scott-pados Hajlítás",
+    "searchTerms": "Scott-pados Hajlítás Preacher Curl",
+    "image": "assets/img/repdb/preacher-curl-peak.webp"
+  },
+  {
+    "name": "Húzódzkodás",
+    "searchTerms": "Húzódzkodás Pull-Up",
+    "image": "assets/img/repdb/pull-up-peak.webp"
+  },
+  {
+    "name": "Push Nyomás",
+    "searchTerms": "Push Nyomás Push Press",
+    "image": "assets/img/repdb/push-press-peak.webp"
+  },
+  {
+    "name": "Fekvőtámasz",
+    "searchTerms": "Fekvőtámasz Push-Up",
+    "image": "assets/img/repdb/push-up-peak.webp"
+  },
+  {
+    "name": "Hátsó váll Tárogatás",
+    "searchTerms": "Hátsó váll Tárogatás Rear Delt Fly",
+    "image": "assets/img/repdb/rear-delt-fly-peak.webp"
+  },
+  {
+    "name": "Fordított Hajlítás",
+    "searchTerms": "Fordított Hajlítás Reverse Curl",
+    "image": "assets/img/repdb/reverse-curl-peak.webp"
+  },
+  {
+    "name": "Fordított Kitörés",
+    "searchTerms": "Fordított Kitörés Reverse Lunge",
+    "image": "assets/img/repdb/reverse-lunge-peak.webp"
+  },
+  {
+    "name": "Gyűrűs Tolódzkodás",
+    "searchTerms": "Gyűrűs Tolódzkodás Ring Dips",
+    "image": "assets/img/repdb/ring-dips-peak.webp"
+  },
+  {
+    "name": "Gyűrűs Archoz húzás",
+    "searchTerms": "Gyűrűs Archoz húzás Ring Face Pull",
+    "image": "assets/img/repdb/ring-face-pull-peak.webp"
+  },
+  {
+    "name": "Román Felhúzás",
+    "searchTerms": "Román Felhúzás Romanian Deadlift",
+    "image": "assets/img/repdb/romanian-deadlift-peak.webp"
+  },
+  {
+    "name": "Orosz csavarás",
+    "searchTerms": "Orosz csavarás Russian Twist",
+    "image": "assets/img/repdb/russian-twist-peak.webp"
+  },
+  {
+    "name": "Ülő Vádliemelés",
+    "searchTerms": "Ülő Vádliemelés Seated Calf Raise",
+    "image": "assets/img/repdb/seated-calf-raise-peak.webp"
+  },
+  {
+    "name": "Ülő Kézisúlyzós Váll Nyomás",
+    "searchTerms": "Ülő Kézisúlyzós Váll Nyomás Seated Dumbbell Shoulder Press",
+    "image": "assets/img/repdb/seated-db-press-peak.webp"
+  },
+  {
+    "name": "Rudas Vállvonogatás",
+    "searchTerms": "Rudas Vállvonogatás Barbell Shrug",
+    "image": "assets/img/repdb/shrug-peak.webp"
+  },
+  {
+    "name": "Side-Fekvő Csípőtávolítás",
+    "searchTerms": "Side-Fekvő Csípőtávolítás Side-Lying Hip Abduction",
+    "image": "assets/img/repdb/side-lying-hip-abduction-peak.webp"
+  },
+  {
+    "name": "Oldalsó Plank",
+    "searchTerms": "Oldalsó Plank Side Plank",
+    "image": "assets/img/repdb/side-plank-main.webp"
+  },
+  {
+    "name": "Egykezes Kézisúlyzós Evezés",
+    "searchTerms": "Egykezes Kézisúlyzós Evezés Single-Arm Dumbbell Row",
+    "image": "assets/img/repdb/single-arm-db-row-peak.webp"
+  },
+  {
+    "name": "Felülés",
+    "searchTerms": "Felülés Sit-Ups",
+    "image": "assets/img/repdb/sit-ups-peak.webp"
+  },
+  {
+    "name": "Francia nyomás",
+    "searchTerms": "Francia nyomás Skull Crusher",
+    "image": "assets/img/repdb/skull-crusher-peak.webp"
+  },
+  {
+    "name": "Smith-gépes Bolgár osztott Guggolás",
+    "searchTerms": "Smith-gépes Bolgár osztott Guggolás Smith Machine Bulgarian Split Squat",
+    "image": "assets/img/repdb/smith-machine-bulgarian-split-peak.webp"
+  },
+  {
+    "name": "Rudas Back Guggolás",
+    "searchTerms": "Rudas Back Guggolás Barbell Back Squat",
+    "image": "assets/img/repdb/squat-peak.webp"
+  },
+  {
+    "name": "Álló Vádliemelés",
+    "searchTerms": "Álló Vádliemelés Standing Calf Raise",
+    "image": "assets/img/repdb/machine-calf-raise-peak.webp"
+  },
+  {
+    "name": "Nyújtott karos Pulldown",
+    "searchTerms": "Nyújtott karos Pulldown Straight-Arm Pulldown",
+    "image": "assets/img/repdb/straight-arm-pulldown-peak.webp"
+  },
+  {
+    "name": "Szumo Felhúzás",
+    "searchTerms": "Szumo Felhúzás Sumo Deadlift",
+    "image": "assets/img/repdb/sumo-deadlift-peak.webp"
+  },
+  {
+    "name": "Superman",
+    "searchTerms": "Superman Superman",
+    "image": "assets/img/repdb/superman-peak.webp"
+  },
+  {
+    "name": "Kézisúlyzós Tricepsz Hátrarúgás",
+    "searchTerms": "Kézisúlyzós Tricepsz Hátrarúgás Dumbbell Tricep Kickback",
+    "image": "assets/img/repdb/tricep-kickback-peak.webp"
+  },
+  {
+    "name": "Csigás Tricepsz Pushdown",
+    "searchTerms": "Csigás Tricepsz Pushdown Cable Tricep Pushdown",
+    "image": "assets/img/repdb/tricep-pushdown-peak.webp"
+  },
+  {
+    "name": "Rudas Álló evezés",
+    "searchTerms": "Rudas Álló evezés Barbell Upright Row",
+    "image": "assets/img/repdb/upright-row-peak.webp"
+  },
+  {
+    "name": "Fali ülés",
+    "searchTerms": "Fali ülés Wall Sit",
+    "image": "assets/img/repdb/wall-sit-main.webp"
+  },
+  {
+    "name": "Súlyozott Wall Hasprés",
+    "searchTerms": "Súlyozott Wall Hasprés Weighted Wall Crunch",
+    "image": "assets/img/repdb/weighted-wall-crunch-peak.webp"
+  },
+  {
+    "name": "Széles fogásos Fekvenyomás",
+    "searchTerms": "Széles fogásos Fekvenyomás Wide-Grip Bench Press",
+    "image": "assets/img/repdb/wide-grip-bench-press-peak.webp"
+  },
+  {
+    "name": "Széles fogású Ülő Csigás Evezés",
+    "searchTerms": "Széles fogású Ülő Csigás Evezés Wide Grip Seated Cable Row",
+    "image": "assets/img/repdb/wide-grip-seated-cable-row-peak.webp"
+  }
+]

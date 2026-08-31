@@ -1,0 +1,42 @@
+# Render blueprint: C# API + heti OFF import cron.
+# Supabase = adat + auth. Render = saját API és háttérmunkák.
+#
+# Telepítés: Render Dashboard → New → Blueprint → ezt a repót válaszd.
+# A titkos env változókat a backend/.env.local fájlból másold (setup_supabase.sh generálta).
+services:
+  - type: web
+    name: flexio-api
+    runtime: docker
+    plan: starter
+    region: frankfurt
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health/ready
+    envVars:
+      - key: SupabaseAuth__ProjectUrl
+        value: https://qbppiqfmhoaogyzaueix.supabase.co
+      - key: Postgres__ApiConnectionString
+        sync: false
+      - key: Postgres__JobsConnectionString
+        sync: false
+      - key: InternalJobs__SharedSecret
+        sync: false
+      - key: Gemini__ApiKey
+        sync: false
+
+  - type: cron
+    name: flexio-off-import
+    runtime: node
+    plan: starter
+    region: frankfurt
+    schedule: "0 3 * * 1"
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm run import:off
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: OFF_USER_AGENT
+        value: Flexio/1.0 (kapcsolat: hello@flexio.app)
+      - key: OFF_BATCH_SIZE
+        value: "500"

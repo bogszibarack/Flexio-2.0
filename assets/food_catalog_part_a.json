@@ -1,0 +1,3065 @@
+{
+  "part": "a",
+  "foods": [
+    {
+      "id": "csirkemell-file-nyers",
+      "name": "Csirkemell filé, nyers",
+      "aliases": ["csirkemell", "csirke mellfilé", "csirkemell file", "chicken breast"],
+      "category": "hus",
+      "kcal": 115,
+      "protein": 22.5,
+      "fat": 2.6,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 0.8,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 db (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "csirkemell-file-sutve",
+      "name": "Csirkemell filé, sütve",
+      "aliases": ["sult csirkemell", "sült csirkemell", "grillezett csirkemell", "grilled chicken breast"],
+      "category": "hus",
+      "kcal": 160,
+      "protein": 31,
+      "fat": 3.6,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 1.1,
+      "salt": 0.4,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 130 g)", "grams": 130},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "csirkemell-fott",
+      "name": "Csirkemell, főtt",
+      "aliases": ["fott csirkemell", "főtt csirkemell", "abalt csirkemell", "boiled chicken breast"],
+      "category": "hus",
+      "kcal": 145,
+      "protein": 29,
+      "fat": 3,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 0.9,
+      "salt": 0.3,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 130 g)", "grams": 130},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "csirke-felsoresz-bor-nelkul-nyers",
+      "name": "Csirke felsőrész, bőr nélkül, nyers",
+      "aliases": ["csirke felsoresz", "csirkefelsőrész", "csirkestegy", "chicken thigh"],
+      "category": "hus",
+      "kcal": 150,
+      "protein": 19,
+      "fat": 8,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 2.3,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 db (kb. 120 g)", "grams": 120},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "csirkeszarny-borrel-nyers",
+      "name": "Csirkeszárny, bőrrel, nyers",
+      "aliases": ["csirkeszarny", "csirke szárny", "csirkeszarnyak", "chicken wings"],
+      "category": "hus",
+      "kcal": 215,
+      "protein": 18,
+      "fat": 16,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 4.5,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 db (kb. 50 g)", "grams": 50},
+        {"label": "1 adag (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "csirkemaj-nyers",
+      "name": "Csirkemáj, nyers",
+      "aliases": ["csirkemaj", "csirke máj", "maj", "chicken liver"],
+      "category": "hus",
+      "kcal": 118,
+      "protein": 17,
+      "fat": 4.8,
+      "carbs": 1,
+      "sugar": 0,
+      "saturatedFat": 1.6,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 120 g)", "grams": 120},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "daralt-csirkehus",
+      "name": "Darált csirkehús",
+      "aliases": ["daralt csirkehus", "darált csirke", "csirke darálthús", "ground chicken"],
+      "category": "hus",
+      "kcal": 152,
+      "protein": 20,
+      "fat": 8,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 2.4,
+      "salt": 0.15,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 120 g)", "grams": 120},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "serteskaraj-nyers",
+      "name": "Sertéskaraj, nyers",
+      "aliases": ["serteskaraj", "sertés karaj", "karaj", "pork loin"],
+      "category": "hus",
+      "kcal": 140,
+      "protein": 21,
+      "fat": 6,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 2.2,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 szelet (kb. 120 g)", "grams": 120},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "serteskaraj-sutve",
+      "name": "Sertéskaraj, sütve",
+      "aliases": ["sult karaj", "sült sertéskaraj", "sertes karaj sutve", "roasted pork loin"],
+      "category": "hus",
+      "kcal": 190,
+      "protein": 27,
+      "fat": 9,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 3.3,
+      "salt": 0.5,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 szelet (kb. 110 g)", "grams": 110},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "sertescomb-nyers",
+      "name": "Sertéscomb, nyers",
+      "aliases": ["sertescomb", "sertés comb", "comb", "pork leg"],
+      "category": "hus",
+      "kcal": 130,
+      "protein": 21,
+      "fat": 5,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 1.8,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 szelet (kb. 120 g)", "grams": 120},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "daralt-serteshus",
+      "name": "Darált sertéshús",
+      "aliases": ["daralt serteshus", "darált sertés", "sertes darat hus", "ground pork"],
+      "category": "hus",
+      "kcal": 225,
+      "protein": 18,
+      "fat": 17,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 6.3,
+      "salt": 0.15,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 120 g)", "grams": 120},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "marhahus-hatszin-nyers",
+      "name": "Marhahús, hátszín, nyers",
+      "aliases": ["marhahus", "hatszin", "marha hátszín", "beef sirloin"],
+      "category": "hus",
+      "kcal": 140,
+      "protein": 21,
+      "fat": 6,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 2.5,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 szelet (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "marhalapocka-nyers",
+      "name": "Marhalapocka, nyers",
+      "aliases": ["marhalapocka", "marha lapocka", "lapocka", "beef shoulder"],
+      "category": "hus",
+      "kcal": 160,
+      "protein": 20,
+      "fat": 9,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 3.6,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "daralt-marhahus-15",
+      "name": "Darált marhahús, 15% zsír",
+      "aliases": ["daralt marhahus", "darált marha", "marha darat hus", "ground beef"],
+      "category": "hus",
+      "kcal": 205,
+      "protein": 18,
+      "fat": 15,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 6,
+      "salt": 0.15,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 120 g)", "grams": 120},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "pulykamell-file-nyers",
+      "name": "Pulykamell filé, nyers",
+      "aliases": ["pulykamell", "pulyka mellfilé", "pulykamell file", "turkey breast"],
+      "category": "hus",
+      "kcal": 108,
+      "protein": 23,
+      "fat": 1.5,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 0.5,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "pulykacomb-bor-nelkul-nyers",
+      "name": "Pulykacomb, bőr nélkül, nyers",
+      "aliases": ["pulykacomb", "pulyka comb", "pulyka felsocomb", "turkey thigh"],
+      "category": "hus",
+      "kcal": 118,
+      "protein": 20,
+      "fat": 4,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 1.3,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "kacsamell-borrel-nyers",
+      "name": "Kacsamell, bőrrel, nyers",
+      "aliases": ["kacsamell", "kacsa mell", "kacsahus", "duck breast"],
+      "category": "hus",
+      "kcal": 310,
+      "protein": 16,
+      "fat": 28,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 9.5,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 db (kb. 200 g)", "grams": 200},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "bacon-szalonna-nyers",
+      "name": "Bacon szalonna, nyers",
+      "aliases": ["bacon", "baconszalonna", "angolszalonna", "bacon strips"],
+      "category": "hus",
+      "kcal": 400,
+      "protein": 13,
+      "fat": 39,
+      "carbs": 0.5,
+      "sugar": 0,
+      "saturatedFat": 14,
+      "salt": 2,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 szelet (kb. 15 g)", "grams": 15},
+        {"label": "2 szelet (kb. 30 g)", "grams": 30}
+      ]
+    },
+    {
+      "id": "fustolt-szalonna",
+      "name": "Füstölt szalonna",
+      "aliases": ["fustolt szalonna", "szalonna", "hasaalja szalonna", "smoked bacon"],
+      "category": "hus",
+      "kcal": 620,
+      "protein": 9,
+      "fat": 65,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 24,
+      "salt": 2.5,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 szelet (kb. 20 g)", "grams": 20},
+        {"label": "1 adag (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "gepsonka",
+      "name": "Gépsonka",
+      "aliases": ["gepsonka", "sonka", "parizsi sonka", "cooked ham"],
+      "category": "hus",
+      "kcal": 115,
+      "protein": 18,
+      "fat": 4,
+      "carbs": 1.5,
+      "sugar": 1,
+      "saturatedFat": 1.5,
+      "salt": 2.2,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 szelet (kb. 20 g)", "grams": 20},
+        {"label": "3 szelet (kb. 60 g)", "grams": 60}
+      ]
+    },
+    {
+      "id": "virsli-sertes",
+      "name": "Virsli, sertés",
+      "aliases": ["virsli", "sertes virsli", "frankfurti virsli", "sausage"],
+      "category": "hus",
+      "kcal": 265,
+      "protein": 11,
+      "fat": 24,
+      "carbs": 2,
+      "sugar": 1,
+      "saturatedFat": 9,
+      "salt": 2.3,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 db (kb. 50 g)", "grams": 50},
+        {"label": "1 pár (kb. 100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "gyulai-kolbasz",
+      "name": "Gyulai kolbász",
+      "aliases": ["gyulai kolbasz", "kolbász", "fustolt kolbasz", "hungarian sausage"],
+      "category": "hus",
+      "kcal": 440,
+      "protein": 20,
+      "fat": 40,
+      "carbs": 1,
+      "sugar": 0.5,
+      "saturatedFat": 15,
+      "salt": 3.5,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 karika (kb. 20 g)", "grams": 20},
+        {"label": "1 adag (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "sertesmaj-nyers",
+      "name": "Sertésmáj, nyers",
+      "aliases": ["sertesmaj", "sertés máj", "disznomaj", "pork liver"],
+      "category": "hus",
+      "kcal": 128,
+      "protein": 20,
+      "fat": 4,
+      "carbs": 2.5,
+      "sugar": 0,
+      "saturatedFat": 1.3,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 120 g)", "grams": 120},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "lazac-file-nyers",
+      "name": "Lazac filé, nyers",
+      "aliases": ["lazac", "lazacfile", "lazac filé", "salmon"],
+      "category": "hal",
+      "kcal": 200,
+      "protein": 20,
+      "fat": 13,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 2.5,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "lazac-sutve",
+      "name": "Lazac, sütve",
+      "aliases": ["sult lazac", "sült lazac", "grillezett lazac", "baked salmon"],
+      "category": "hal",
+      "kcal": 225,
+      "protein": 25,
+      "fat": 14,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 2.8,
+      "salt": 0.4,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 130 g)", "grams": 130},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "fustolt-lazac",
+      "name": "Füstölt lazac",
+      "aliases": ["fustolt lazac", "füstölt lazac szeletek", "szeletelt lazac", "smoked salmon"],
+      "category": "hal",
+      "kcal": 155,
+      "protein": 18,
+      "fat": 9,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 1.8,
+      "salt": 3,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 szelet (kb. 25 g)", "grams": 25},
+        {"label": "1 adag (kb. 60 g)", "grams": 60}
+      ]
+    },
+    {
+      "id": "tonhal-konzerv-sajat-leveben",
+      "name": "Tonhal konzerv, saját levében",
+      "aliases": ["tonhal", "tonhalkonzerv", "tonhal sajat leveben", "tuna in water"],
+      "category": "hal",
+      "kcal": 108,
+      "protein": 24,
+      "fat": 1,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 0.3,
+      "salt": 1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 konzerv lecsepegtetve (kb. 110 g)", "grams": 110},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "tonhal-konzerv-olajban",
+      "name": "Tonhal konzerv, olajban",
+      "aliases": ["tonhal olajban", "olajos tonhal", "tonhalkonzerv olajban", "tuna in oil"],
+      "category": "hal",
+      "kcal": 165,
+      "protein": 23,
+      "fat": 8,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 1.5,
+      "salt": 1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 konzerv lecsepegtetve (kb. 110 g)", "grams": 110},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "pisztrang-nyers",
+      "name": "Pisztráng, nyers",
+      "aliases": ["pisztrang", "szivarvanyos pisztrang", "pisztráng filé", "trout"],
+      "category": "hal",
+      "kcal": 127,
+      "protein": 20,
+      "fat": 5,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 1.1,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 db (kb. 220 g)", "grams": 220},
+        {"label": "1 adag (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "hekk-nyers",
+      "name": "Hekk, nyers",
+      "aliases": ["hekk", "tengeri hekk", "szerecsenhekk", "hake"],
+      "category": "hal",
+      "kcal": 88,
+      "protein": 17,
+      "fat": 2,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 0.4,
+      "salt": 0.2,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 db (kb. 200 g)", "grams": 200},
+        {"label": "1 adag (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "harcsafile-nyers",
+      "name": "Harcsafilé, nyers",
+      "aliases": ["harcsa", "harcsafile", "harcsa filé", "catfish"],
+      "category": "hal",
+      "kcal": 115,
+      "protein": 17,
+      "fat": 5,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 1.2,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "garnelarak-nyers",
+      "name": "Garnélarák, nyers",
+      "aliases": ["garnela", "garnélarák", "rak", "shrimp"],
+      "category": "hal",
+      "kcal": 95,
+      "protein": 20,
+      "fat": 1,
+      "carbs": 0.5,
+      "sugar": 0,
+      "saturatedFat": 0.3,
+      "salt": 0.4,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 120 g)", "grams": 120},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "hering-fustolt",
+      "name": "Hering, füstölt",
+      "aliases": ["hering", "fustolt hering", "füstölt hering", "smoked herring"],
+      "category": "hal",
+      "kcal": 215,
+      "protein": 20,
+      "fat": 15,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 3.5,
+      "salt": 2,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 100 g)", "grams": 100},
+        {"label": "1 fél adag (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "tojas-nyers",
+      "name": "Tojás, nyers",
+      "aliases": ["tojas", "nyers tojás", "egesz tojas", "egg"],
+      "category": "tojas",
+      "kcal": 140,
+      "protein": 12.6,
+      "fat": 9.5,
+      "carbs": 0.7,
+      "sugar": 0.4,
+      "saturatedFat": 2.8,
+      "salt": 0.35,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 db M méret (kb. 55 g)", "grams": 55},
+        {"label": "1 db L méret (kb. 63 g)", "grams": 63}
+      ]
+    },
+    {
+      "id": "tojas-fott",
+      "name": "Tojás, főtt",
+      "aliases": ["fott tojas", "főtt tojás", "kemeny tojas", "boiled egg"],
+      "category": "tojas",
+      "kcal": 148,
+      "protein": 13,
+      "fat": 10,
+      "carbs": 1,
+      "sugar": 0.5,
+      "saturatedFat": 3,
+      "salt": 0.35,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 db (kb. 55 g)", "grams": 55},
+        {"label": "2 db (kb. 110 g)", "grams": 110}
+      ]
+    },
+    {
+      "id": "tukortojas",
+      "name": "Tükörtojás, olajon sütve",
+      "aliases": ["tukortojas", "tükörtojás", "sult tojas", "fried egg"],
+      "category": "tojas",
+      "kcal": 195,
+      "protein": 13.6,
+      "fat": 15,
+      "carbs": 0.8,
+      "sugar": 0.4,
+      "saturatedFat": 3.5,
+      "salt": 0.4,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 db (kb. 60 g)", "grams": 60},
+        {"label": "2 db (kb. 120 g)", "grams": 120}
+      ]
+    },
+    {
+      "id": "tojasfeherje",
+      "name": "Tojásfehérje",
+      "aliases": ["tojasfeherje", "tojás fehérje", "feherje", "egg white"],
+      "category": "tojas",
+      "kcal": 50,
+      "protein": 11,
+      "fat": 0.2,
+      "carbs": 0.7,
+      "sugar": 0.7,
+      "saturatedFat": 0,
+      "salt": 0.4,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 db tojás fehérje (kb. 33 g)", "grams": 33},
+        {"label": "3 db fehérje (kb. 100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "tojassargaja",
+      "name": "Tojássárgája",
+      "aliases": ["tojassargaja", "tojás sárgája", "sargaja", "egg yolk"],
+      "category": "tojas",
+      "kcal": 320,
+      "protein": 16,
+      "fat": 27,
+      "carbs": 3.6,
+      "sugar": 0.6,
+      "saturatedFat": 9.5,
+      "salt": 0.13,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 db tojás sárgája (kb. 18 g)", "grams": 18},
+        {"label": "2 db sárgája (kb. 36 g)", "grams": 36}
+      ]
+    },
+    {
+      "id": "tej-1-5",
+      "name": "Tej, 1,5%",
+      "aliases": ["tej", "felzsiros tej", "1,5% tej", "milk"],
+      "category": "tejtermek",
+      "kcal": 47,
+      "protein": 3.4,
+      "fat": 1.5,
+      "carbs": 4.8,
+      "sugar": 4.8,
+      "saturatedFat": 1,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 pohár (2 dl)", "grams": 200},
+        {"label": "1 dl", "grams": 100}
+      ]
+    },
+    {
+      "id": "tej-2-8",
+      "name": "Tej, 2,8%",
+      "aliases": ["tej 2,8", "zsiros tej", "2,8% tej", "milk"],
+      "category": "tejtermek",
+      "kcal": 58,
+      "protein": 3.3,
+      "fat": 2.8,
+      "carbs": 4.7,
+      "sugar": 4.7,
+      "saturatedFat": 1.8,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 pohár (2 dl)", "grams": 200},
+        {"label": "1 dl", "grams": 100}
+      ]
+    },
+    {
+      "id": "tej-3-5",
+      "name": "Tej, 3,5%",
+      "aliases": ["egesz tej", "teljes tej", "tej 3,5", "whole milk"],
+      "category": "tejtermek",
+      "kcal": 64,
+      "protein": 3.3,
+      "fat": 3.5,
+      "carbs": 4.7,
+      "sugar": 4.7,
+      "saturatedFat": 2.3,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 pohár (2 dl)", "grams": 200},
+        {"label": "1 dl", "grams": 100}
+      ]
+    },
+    {
+      "id": "kefir",
+      "name": "Kefir, 3,6%",
+      "aliases": ["kefir", "kefir 3,6", "aludttej", "kefir drink"],
+      "category": "tejtermek",
+      "kcal": 62,
+      "protein": 3.3,
+      "fat": 3.6,
+      "carbs": 4,
+      "sugar": 4,
+      "saturatedFat": 2.3,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 pohár (kb. 175 g)", "grams": 175},
+        {"label": "1 dl", "grams": 100}
+      ]
+    },
+    {
+      "id": "joghurt-natur",
+      "name": "Joghurt, natúr",
+      "aliases": ["joghurt", "natur joghurt", "natúr joghurt", "plain yogurt"],
+      "category": "tejtermek",
+      "kcal": 64,
+      "protein": 3.5,
+      "fat": 3.5,
+      "carbs": 4.5,
+      "sugar": 4.5,
+      "saturatedFat": 2.2,
+      "salt": 0.12,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 pohár (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "gorog-joghurt-10",
+      "name": "Görög joghurt, 10%",
+      "aliases": ["gorog joghurt", "görög joghurt", "gorogjoghurt", "greek yogurt"],
+      "category": "tejtermek",
+      "kcal": 118,
+      "protein": 4,
+      "fat": 10,
+      "carbs": 3,
+      "sugar": 3,
+      "saturatedFat": 6.5,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 pohár (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "gorog-joghurt-0",
+      "name": "Görög joghurt, 0%",
+      "aliases": ["gorog joghurt 0", "zsirmentes gorog joghurt", "sovany gorog joghurt", "fat free greek yogurt"],
+      "category": "tejtermek",
+      "kcal": 60,
+      "protein": 10,
+      "fat": 0.4,
+      "carbs": 4,
+      "sugar": 4,
+      "saturatedFat": 0.2,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 pohár (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "turo-felzsiros",
+      "name": "Túró, félzsíros",
+      "aliases": ["turo", "túró", "felzsiros turo", "quark"],
+      "category": "tejtermek",
+      "kcal": 110,
+      "protein": 13,
+      "fat": 5,
+      "carbs": 3,
+      "sugar": 3,
+      "saturatedFat": 3.2,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 csomag (250 g)", "grams": 250},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "turo-sovany",
+      "name": "Túró, sovány",
+      "aliases": ["sovany turo", "sovány túró", "zsirmentes turo", "lean quark"],
+      "category": "tejtermek",
+      "kcal": 88,
+      "protein": 17,
+      "fat": 0.5,
+      "carbs": 3.5,
+      "sugar": 3.5,
+      "saturatedFat": 0.3,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 csomag (250 g)", "grams": 250},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "turo-zsiros",
+      "name": "Túró, zsíros",
+      "aliases": ["zsiros turo", "zsíros túró", "teljes turo", "full fat quark"],
+      "category": "tejtermek",
+      "kcal": 140,
+      "protein": 12,
+      "fat": 9,
+      "carbs": 3,
+      "sugar": 3,
+      "saturatedFat": 5.8,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 csomag (250 g)", "grams": 250},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "tejfol-12",
+      "name": "Tejföl, 12%",
+      "aliases": ["tejfol", "tejföl", "tejfol 12", "sour cream"],
+      "category": "tejtermek",
+      "kcal": 135,
+      "protein": 3,
+      "fat": 12,
+      "carbs": 3.5,
+      "sugar": 3.5,
+      "saturatedFat": 7.8,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 evőkanál (kb. 20 g)", "grams": 20},
+        {"label": "1 adag (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "tejfol-20",
+      "name": "Tejföl, 20%",
+      "aliases": ["tejfol 20", "tejföl 20%", "zsiros tejfol", "sour cream 20"],
+      "category": "tejtermek",
+      "kcal": 200,
+      "protein": 2.6,
+      "fat": 20,
+      "carbs": 3,
+      "sugar": 3,
+      "saturatedFat": 13,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 evőkanál (kb. 20 g)", "grams": 20},
+        {"label": "1 adag (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "trappista-sajt",
+      "name": "Trappista sajt",
+      "aliases": ["trappista", "trappista sajt", "sajt", "trappista cheese"],
+      "category": "tejtermek",
+      "kcal": 340,
+      "protein": 25,
+      "fat": 26,
+      "carbs": 1,
+      "sugar": 0.5,
+      "saturatedFat": 16,
+      "salt": 1.7,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 szelet (kb. 25 g)", "grams": 25},
+        {"label": "1 adag (kb. 30 g)", "grams": 30}
+      ]
+    },
+    {
+      "id": "mozzarella",
+      "name": "Mozzarella",
+      "aliases": ["mozzarella", "mozarella", "mozzarella sajt", "mozzarella cheese"],
+      "category": "tejtermek",
+      "kcal": 230,
+      "protein": 18,
+      "fat": 17,
+      "carbs": 1.5,
+      "sugar": 1,
+      "saturatedFat": 11,
+      "salt": 0.6,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 golyó (kb. 125 g)", "grams": 125},
+        {"label": "1 adag (kb. 30 g)", "grams": 30}
+      ]
+    },
+    {
+      "id": "cottage-cheese",
+      "name": "Cottage cheese",
+      "aliases": ["cottage cheese", "kottedzs sajt", "szemcses friss sajt", "cottage"],
+      "category": "tejtermek",
+      "kcal": 98,
+      "protein": 12,
+      "fat": 4,
+      "carbs": 3,
+      "sugar": 3,
+      "saturatedFat": 2.5,
+      "salt": 0.6,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "mascarpone",
+      "name": "Mascarpone",
+      "aliases": ["mascarpone", "maszkarpone", "mascarpone krem", "mascarpone cheese"],
+      "category": "tejtermek",
+      "kcal": 410,
+      "protein": 4.5,
+      "fat": 42,
+      "carbs": 4,
+      "sugar": 3.5,
+      "saturatedFat": 28,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 evőkanál (kb. 20 g)", "grams": 20},
+        {"label": "1 adag (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "vaj-82",
+      "name": "Vaj, 82%",
+      "aliases": ["vaj", "teavaj", "vaj 82", "butter"],
+      "category": "tejtermek",
+      "kcal": 740,
+      "protein": 0.7,
+      "fat": 82,
+      "carbs": 0.6,
+      "sugar": 0.6,
+      "saturatedFat": 52,
+      "salt": 0.05,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 teáskanál (kb. 5 g)", "grams": 5},
+        {"label": "1 evőkanál (kb. 15 g)", "grams": 15}
+      ]
+    },
+    {
+      "id": "margarin-60",
+      "name": "Margarin, 60%",
+      "aliases": ["margarin", "margarin 60", "kenheto margarin", "margarine"],
+      "category": "tejtermek",
+      "kcal": 540,
+      "protein": 0.2,
+      "fat": 60,
+      "carbs": 0.5,
+      "sugar": 0.5,
+      "saturatedFat": 17,
+      "salt": 0.8,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 teáskanál (kb. 5 g)", "grams": 5},
+        {"label": "1 evőkanál (kb. 15 g)", "grams": 15}
+      ]
+    },
+    {
+      "id": "habtejszin-30",
+      "name": "Habtejszín, 30%",
+      "aliases": ["habtejszin", "tejszin", "tejszín 30%", "whipping cream"],
+      "category": "tejtermek",
+      "kcal": 290,
+      "protein": 2.3,
+      "fat": 30,
+      "carbs": 3,
+      "sugar": 3,
+      "saturatedFat": 19,
+      "salt": 0.1,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 evőkanál (kb. 15 g)", "grams": 15},
+        {"label": "1 dl", "grams": 100}
+      ]
+    },
+    {
+      "id": "sajtkrem-kenheto",
+      "name": "Kenhető sajtkrém",
+      "aliases": ["sajtkrem", "sajtkrém", "kenheto sajt", "cream cheese"],
+      "category": "tejtermek",
+      "kcal": 245,
+      "protein": 8,
+      "fat": 22,
+      "carbs": 4,
+      "sugar": 3.5,
+      "saturatedFat": 14,
+      "salt": 1.2,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 evőkanál (kb. 20 g)", "grams": 20},
+        {"label": "1 adag (kb. 30 g)", "grams": 30}
+      ]
+    },
+    {
+      "id": "parmezan",
+      "name": "Parmezán sajt",
+      "aliases": ["parmezan", "parmezán", "parmigiano", "parmesan"],
+      "category": "tejtermek",
+      "kcal": 390,
+      "protein": 33,
+      "fat": 28,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 18,
+      "salt": 1.6,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 evőkanál reszelve (kb. 10 g)", "grams": 10},
+        {"label": "1 adag (kb. 25 g)", "grams": 25}
+      ]
+    },
+    {
+      "id": "edami-sajt",
+      "name": "Edami sajt",
+      "aliases": ["edami", "edami sajt", "edam", "edam cheese"],
+      "category": "tejtermek",
+      "kcal": 335,
+      "protein": 26,
+      "fat": 25,
+      "carbs": 1,
+      "sugar": 0.5,
+      "saturatedFat": 16,
+      "salt": 1.8,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 szelet (kb. 25 g)", "grams": 25},
+        {"label": "1 adag (kb. 30 g)", "grams": 30}
+      ]
+    },
+    {
+      "id": "feta-sajt",
+      "name": "Feta sajt",
+      "aliases": ["feta", "feta sajt", "gorog sajt", "feta cheese"],
+      "category": "tejtermek",
+      "kcal": 250,
+      "protein": 14,
+      "fat": 21,
+      "carbs": 1.5,
+      "sugar": 1,
+      "saturatedFat": 14,
+      "salt": 3,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 adag (kb. 30 g)", "grams": 30},
+        {"label": "1 adag (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "feher-kenyer",
+      "name": "Fehér kenyér",
+      "aliases": ["feher kenyer", "kenyér", "kenyer", "white bread"],
+      "category": "pekaru",
+      "kcal": 240,
+      "protein": 8,
+      "fat": 1,
+      "carbs": 49,
+      "sugar": 2,
+      "saturatedFat": 0.2,
+      "salt": 1.2,
+      "fiber": 2.5,
+      "servings": [
+        {"label": "1 szelet (kb. 25 g)", "grams": 25},
+        {"label": "1 nagy szelet (kb. 40 g)", "grams": 40}
+      ]
+    },
+    {
+      "id": "felbarna-kenyer",
+      "name": "Félbarna kenyér",
+      "aliases": ["felbarna kenyer", "félbarna", "barna kenyer", "brown bread"],
+      "category": "pekaru",
+      "kcal": 232,
+      "protein": 8.5,
+      "fat": 1.2,
+      "carbs": 46,
+      "sugar": 2,
+      "saturatedFat": 0.3,
+      "salt": 1.2,
+      "fiber": 3.5,
+      "servings": [
+        {"label": "1 szelet (kb. 25 g)", "grams": 25},
+        {"label": "1 nagy szelet (kb. 40 g)", "grams": 40}
+      ]
+    },
+    {
+      "id": "rozskenyer",
+      "name": "Rozskenyér",
+      "aliases": ["rozskenyer", "rozs kenyér", "rozsos kenyer", "rye bread"],
+      "category": "pekaru",
+      "kcal": 228,
+      "protein": 8,
+      "fat": 1.5,
+      "carbs": 45,
+      "sugar": 2,
+      "saturatedFat": 0.3,
+      "salt": 1.2,
+      "fiber": 5.8,
+      "servings": [
+        {"label": "1 szelet (kb. 30 g)", "grams": 30},
+        {"label": "2 szelet (kb. 60 g)", "grams": 60}
+      ]
+    },
+    {
+      "id": "teljes-kiorlesu-kenyer",
+      "name": "Teljes kiőrlésű kenyér",
+      "aliases": ["teljes kiorlesu kenyer", "teljes kiőrlésű", "korpas kenyer", "whole grain bread"],
+      "category": "pekaru",
+      "kcal": 225,
+      "protein": 9,
+      "fat": 2.5,
+      "carbs": 41,
+      "sugar": 3,
+      "saturatedFat": 0.5,
+      "salt": 1.1,
+      "fiber": 7,
+      "servings": [
+        {"label": "1 szelet (kb. 30 g)", "grams": 30},
+        {"label": "2 szelet (kb. 60 g)", "grams": 60}
+      ]
+    },
+    {
+      "id": "grahamkenyer",
+      "name": "Grahamkenyér",
+      "aliases": ["grahamkenyer", "graham kenyér", "graham", "graham bread"],
+      "category": "pekaru",
+      "kcal": 233,
+      "protein": 9,
+      "fat": 2,
+      "carbs": 44,
+      "sugar": 2.5,
+      "saturatedFat": 0.4,
+      "salt": 1.1,
+      "fiber": 5,
+      "servings": [
+        {"label": "1 szelet (kb. 30 g)", "grams": 30},
+        {"label": "2 szelet (kb. 60 g)", "grams": 60}
+      ]
+    },
+    {
+      "id": "zsemle",
+      "name": "Zsemle",
+      "aliases": ["zsemle", "zsomle", "sos zsemle", "bread roll"],
+      "category": "pekaru",
+      "kcal": 270,
+      "protein": 9,
+      "fat": 2,
+      "carbs": 53,
+      "sugar": 2.5,
+      "saturatedFat": 0.4,
+      "salt": 1.3,
+      "fiber": 2.8,
+      "servings": [
+        {"label": "1 db (kb. 50 g)", "grams": 50},
+        {"label": "fél db (kb. 25 g)", "grams": 25}
+      ]
+    },
+    {
+      "id": "kifli",
+      "name": "Kifli",
+      "aliases": ["kifli", "sos kifli", "vizes kifli", "crescent roll"],
+      "category": "pekaru",
+      "kcal": 285,
+      "protein": 9,
+      "fat": 3,
+      "carbs": 54,
+      "sugar": 3,
+      "saturatedFat": 0.7,
+      "salt": 1.3,
+      "fiber": 2.5,
+      "servings": [
+        {"label": "1 db (kb. 45 g)", "grams": 45},
+        {"label": "2 db (kb. 90 g)", "grams": 90}
+      ]
+    },
+    {
+      "id": "bagett",
+      "name": "Bagett",
+      "aliases": ["bagett", "baguette", "francia kenyer", "french baguette"],
+      "category": "pekaru",
+      "kcal": 272,
+      "protein": 9,
+      "fat": 1.5,
+      "carbs": 55,
+      "sugar": 2,
+      "saturatedFat": 0.3,
+      "salt": 1.3,
+      "fiber": 2.7,
+      "servings": [
+        {"label": "1 szelet (kb. 40 g)", "grams": 40},
+        {"label": "fél bagett (kb. 125 g)", "grams": 125}
+      ]
+    },
+    {
+      "id": "toast-kenyer",
+      "name": "Toast kenyér",
+      "aliases": ["toast kenyer", "toast", "szendvicskenyer", "toast bread"],
+      "category": "pekaru",
+      "kcal": 258,
+      "protein": 8,
+      "fat": 3.5,
+      "carbs": 48,
+      "sugar": 4,
+      "saturatedFat": 0.8,
+      "salt": 1.1,
+      "fiber": 2.6,
+      "servings": [
+        {"label": "1 szelet (kb. 25 g)", "grams": 25},
+        {"label": "2 szelet (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "kalacs",
+      "name": "Kalács",
+      "aliases": ["kalacs", "foszlos kalacs", "fonott kalacs", "brioche"],
+      "category": "pekaru",
+      "kcal": 315,
+      "protein": 8,
+      "fat": 8,
+      "carbs": 52,
+      "sugar": 12,
+      "saturatedFat": 3,
+      "salt": 0.7,
+      "fiber": 2,
+      "servings": [
+        {"label": "1 szelet (kb. 40 g)", "grams": 40},
+        {"label": "2 szelet (kb. 80 g)", "grams": 80}
+      ]
+    },
+    {
+      "id": "croissant-natur",
+      "name": "Croissant, natúr",
+      "aliases": ["croissant", "kroaszan", "vajas croissant", "plain croissant"],
+      "category": "pekaru",
+      "kcal": 400,
+      "protein": 8,
+      "fat": 21,
+      "carbs": 45,
+      "sugar": 8,
+      "saturatedFat": 12,
+      "salt": 0.9,
+      "fiber": 2.2,
+      "servings": [
+        {"label": "1 db (kb. 60 g)", "grams": 60},
+        {"label": "1 kicsi db (kb. 40 g)", "grams": 40}
+      ]
+    },
+    {
+      "id": "pita-kenyer",
+      "name": "Pita kenyér",
+      "aliases": ["pita kenyer", "pita", "pitakenyer", "pita bread"],
+      "category": "pekaru",
+      "kcal": 270,
+      "protein": 9,
+      "fat": 1.2,
+      "carbs": 55,
+      "sugar": 1.5,
+      "saturatedFat": 0.2,
+      "salt": 1.2,
+      "fiber": 2.5,
+      "servings": [
+        {"label": "1 db (kb. 60 g)", "grams": 60},
+        {"label": "fél db (kb. 30 g)", "grams": 30}
+      ]
+    },
+    {
+      "id": "tortilla-lap-buza",
+      "name": "Tortilla lap, búza",
+      "aliases": ["tortilla lap", "tortilla", "buza tortilla", "wheat tortilla"],
+      "category": "pekaru",
+      "kcal": 310,
+      "protein": 8,
+      "fat": 7,
+      "carbs": 53,
+      "sugar": 2.5,
+      "saturatedFat": 3,
+      "salt": 1.2,
+      "fiber": 3,
+      "servings": [
+        {"label": "1 db (kb. 45 g)", "grams": 45},
+        {"label": "2 db (kb. 90 g)", "grams": 90}
+      ]
+    },
+    {
+      "id": "zsemlemorzsa",
+      "name": "Zsemlemorzsa",
+      "aliases": ["zsemlemorzsa", "morzsa", "panirmorzsa", "breadcrumbs"],
+      "category": "pekaru",
+      "kcal": 355,
+      "protein": 11,
+      "fat": 2,
+      "carbs": 72,
+      "sugar": 3,
+      "saturatedFat": 0.4,
+      "salt": 1.3,
+      "fiber": 4,
+      "servings": [
+        {"label": "1 evőkanál (kb. 10 g)", "grams": 10},
+        {"label": "1 adag panírozáshoz (kb. 30 g)", "grams": 30}
+      ]
+    },
+    {
+      "id": "rizs-nyers",
+      "name": "Rizs, nyers",
+      "aliases": ["rizs", "feher rizs", "hosszu szemu rizs", "white rice"],
+      "category": "gabona",
+      "kcal": 350,
+      "protein": 7,
+      "fat": 0.7,
+      "carbs": 78,
+      "sugar": 0.2,
+      "saturatedFat": 0.2,
+      "salt": 0,
+      "fiber": 1.3,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 70 g)", "grams": 70},
+        {"label": "1 dl (kb. 90 g)", "grams": 90}
+      ]
+    },
+    {
+      "id": "rizs-fott",
+      "name": "Rizs, főtt",
+      "aliases": ["fott rizs", "főtt rizs", "parolt rizs", "cooked rice"],
+      "category": "gabona",
+      "kcal": 128,
+      "protein": 2.6,
+      "fat": 0.3,
+      "carbs": 28,
+      "sugar": 0.1,
+      "saturatedFat": 0.1,
+      "salt": 0.3,
+      "fiber": 0.5,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 nagy adag (kb. 250 g)", "grams": 250}
+      ]
+    },
+    {
+      "id": "jazmin-rizs-nyers",
+      "name": "Jázmin rizs, nyers",
+      "aliases": ["jazmin rizs", "jázmin rizs", "illatos rizs", "jasmine rice"],
+      "category": "gabona",
+      "kcal": 355,
+      "protein": 7.5,
+      "fat": 0.6,
+      "carbs": 79,
+      "sugar": 0.2,
+      "saturatedFat": 0.2,
+      "salt": 0,
+      "fiber": 1.2,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 70 g)", "grams": 70},
+        {"label": "1 dl (kb. 90 g)", "grams": 90}
+      ]
+    },
+    {
+      "id": "barna-rizs-nyers",
+      "name": "Barna rizs, nyers",
+      "aliases": ["barna rizs", "hejas rizs", "teljes kiorlesu rizs", "brown rice"],
+      "category": "gabona",
+      "kcal": 348,
+      "protein": 7.5,
+      "fat": 2.8,
+      "carbs": 72,
+      "sugar": 0.7,
+      "saturatedFat": 0.6,
+      "salt": 0,
+      "fiber": 3.5,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 70 g)", "grams": 70},
+        {"label": "1 dl (kb. 90 g)", "grams": 90}
+      ]
+    },
+    {
+      "id": "barna-rizs-fott",
+      "name": "Barna rizs, főtt",
+      "aliases": ["fott barna rizs", "főtt barna rizs", "barna rizs kesz", "cooked brown rice"],
+      "category": "gabona",
+      "kcal": 122,
+      "protein": 2.7,
+      "fat": 1,
+      "carbs": 25,
+      "sugar": 0.3,
+      "saturatedFat": 0.2,
+      "salt": 0.3,
+      "fiber": 1.6,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 nagy adag (kb. 250 g)", "grams": 250}
+      ]
+    },
+    {
+      "id": "teszta-nyers-durum",
+      "name": "Tészta, nyers (durum)",
+      "aliases": ["teszta", "tészta", "durum teszta", "dry pasta"],
+      "category": "gabona",
+      "kcal": 350,
+      "protein": 12,
+      "fat": 1.5,
+      "carbs": 71,
+      "sugar": 3,
+      "saturatedFat": 0.3,
+      "salt": 0.02,
+      "fiber": 3,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 80 g)", "grams": 80},
+        {"label": "1 csomag (500 g)", "grams": 500}
+      ]
+    },
+    {
+      "id": "teszta-fott",
+      "name": "Tészta, főtt",
+      "aliases": ["fott teszta", "főtt tészta", "kesz teszta", "cooked pasta"],
+      "category": "gabona",
+      "kcal": 150,
+      "protein": 5,
+      "fat": 0.9,
+      "carbs": 30,
+      "sugar": 1,
+      "saturatedFat": 0.2,
+      "salt": 0.3,
+      "fiber": 1.5,
+      "servings": [
+        {"label": "1 adag (kb. 200 g)", "grams": 200},
+        {"label": "1 kis adag (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "teljes-kiorlesu-teszta-nyers",
+      "name": "Teljes kiőrlésű tészta, nyers",
+      "aliases": ["teljes kiorlesu teszta", "barna teszta", "korpas teszta", "whole wheat pasta"],
+      "category": "gabona",
+      "kcal": 335,
+      "protein": 13,
+      "fat": 2.5,
+      "carbs": 64,
+      "sugar": 3,
+      "saturatedFat": 0.5,
+      "salt": 0.02,
+      "fiber": 8,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 80 g)", "grams": 80},
+        {"label": "1 csomag (500 g)", "grams": 500}
+      ]
+    },
+    {
+      "id": "zabpehely",
+      "name": "Zabpehely",
+      "aliases": ["zabpehely", "zab", "zabkasa alap", "oats"],
+      "category": "gabona",
+      "kcal": 360,
+      "protein": 13,
+      "fat": 7,
+      "carbs": 60,
+      "sugar": 1,
+      "saturatedFat": 1.3,
+      "salt": 0.02,
+      "fiber": 10,
+      "servings": [
+        {"label": "1 adag (kb. 50 g)", "grams": 50},
+        {"label": "1 evőkanál (kb. 10 g)", "grams": 10}
+      ]
+    },
+    {
+      "id": "bulgur-nyers",
+      "name": "Bulgur, nyers",
+      "aliases": ["bulgur", "bulgar", "buzatore", "bulgur wheat"],
+      "category": "gabona",
+      "kcal": 340,
+      "protein": 12,
+      "fat": 1.3,
+      "carbs": 69,
+      "sugar": 0.8,
+      "saturatedFat": 0.2,
+      "salt": 0.02,
+      "fiber": 9,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 70 g)", "grams": 70},
+        {"label": "1 dl (kb. 80 g)", "grams": 80}
+      ]
+    },
+    {
+      "id": "kuszkusz-nyers",
+      "name": "Kuszkusz, nyers",
+      "aliases": ["kuszkusz", "couscous", "kusz kusz", "couscous dry"],
+      "category": "gabona",
+      "kcal": 355,
+      "protein": 13,
+      "fat": 1.5,
+      "carbs": 72,
+      "sugar": 0.5,
+      "saturatedFat": 0.3,
+      "salt": 0.02,
+      "fiber": 5,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 60 g)", "grams": 60},
+        {"label": "1 dl (kb. 80 g)", "grams": 80}
+      ]
+    },
+    {
+      "id": "quinoa-nyers",
+      "name": "Quinoa, nyers",
+      "aliases": ["quinoa", "kinoa", "quinoa mag", "quinoa dry"],
+      "category": "gabona",
+      "kcal": 348,
+      "protein": 14,
+      "fat": 6,
+      "carbs": 58,
+      "sugar": 2,
+      "saturatedFat": 0.7,
+      "salt": 0.02,
+      "fiber": 7,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 60 g)", "grams": 60},
+        {"label": "1 dl (kb. 85 g)", "grams": 85}
+      ]
+    },
+    {
+      "id": "hajdina-nyers",
+      "name": "Hajdina, nyers",
+      "aliases": ["hajdina", "pohanka", "tatarka", "buckwheat"],
+      "category": "gabona",
+      "kcal": 335,
+      "protein": 13,
+      "fat": 3.4,
+      "carbs": 62,
+      "sugar": 0,
+      "saturatedFat": 0.7,
+      "salt": 0.02,
+      "fiber": 10,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 60 g)", "grams": 60},
+        {"label": "1 dl (kb. 85 g)", "grams": 85}
+      ]
+    },
+    {
+      "id": "kukoricadara-nyers",
+      "name": "Kukoricadara, nyers",
+      "aliases": ["kukoricadara", "polenta", "kukorica dara", "polenta dry"],
+      "category": "gabona",
+      "kcal": 342,
+      "protein": 8,
+      "fat": 1.5,
+      "carbs": 73,
+      "sugar": 0.6,
+      "saturatedFat": 0.2,
+      "salt": 0.02,
+      "fiber": 3.5,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 60 g)", "grams": 60},
+        {"label": "1 evőkanál (kb. 15 g)", "grams": 15}
+      ]
+    },
+    {
+      "id": "buzaliszt-bl55",
+      "name": "Búzaliszt, fehér (BL55)",
+      "aliases": ["buzaliszt", "liszt", "feher liszt", "wheat flour"],
+      "category": "gabona",
+      "kcal": 348,
+      "protein": 11,
+      "fat": 1.2,
+      "carbs": 72,
+      "sugar": 0.8,
+      "saturatedFat": 0.2,
+      "salt": 0.01,
+      "fiber": 2.7,
+      "servings": [
+        {"label": "1 evőkanál (kb. 12 g)", "grams": 12},
+        {"label": "1 dl (kb. 60 g)", "grams": 60}
+      ]
+    },
+    {
+      "id": "teljes-kiorlesu-buzaliszt",
+      "name": "Teljes kiőrlésű búzaliszt",
+      "aliases": ["teljes kiorlesu liszt", "teljes kiőrlésű liszt", "korpas liszt", "whole wheat flour"],
+      "category": "gabona",
+      "kcal": 330,
+      "protein": 12,
+      "fat": 2.2,
+      "carbs": 64,
+      "sugar": 1,
+      "saturatedFat": 0.4,
+      "salt": 0.01,
+      "fiber": 10,
+      "servings": [
+        {"label": "1 evőkanál (kb. 12 g)", "grams": 12},
+        {"label": "1 dl (kb. 60 g)", "grams": 60}
+      ]
+    },
+    {
+      "id": "kukoricapehely-cukormentes",
+      "name": "Kukoricapehely, cukormentes",
+      "aliases": ["kukoricapehely", "cornflakes", "kukorica pehely", "corn flakes"],
+      "category": "gabona",
+      "kcal": 378,
+      "protein": 7,
+      "fat": 0.9,
+      "carbs": 84,
+      "sugar": 2,
+      "saturatedFat": 0.2,
+      "salt": 0.9,
+      "fiber": 3,
+      "servings": [
+        {"label": "1 adag (kb. 30 g)", "grams": 30},
+        {"label": "1 nagy adag (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "muzli-natur",
+      "name": "Müzli, natúr",
+      "aliases": ["muzli", "müzli", "natur muzli", "muesli"],
+      "category": "gabona",
+      "kcal": 345,
+      "protein": 10,
+      "fat": 6,
+      "carbs": 62,
+      "sugar": 6,
+      "saturatedFat": 1.2,
+      "salt": 0.05,
+      "fiber": 8,
+      "servings": [
+        {"label": "1 adag (kb. 50 g)", "grams": 50},
+        {"label": "1 nagy adag (kb. 80 g)", "grams": 80}
+      ]
+    },
+    {
+      "id": "puffasztott-rizs",
+      "name": "Puffasztott rizs, natúr",
+      "aliases": ["puffasztott rizs", "rizspuffancs", "puffasztott rizs szelet", "puffed rice"],
+      "category": "gabona",
+      "kcal": 385,
+      "protein": 8,
+      "fat": 2.8,
+      "carbs": 81,
+      "sugar": 0.5,
+      "saturatedFat": 0.6,
+      "salt": 0.05,
+      "fiber": 2.5,
+      "servings": [
+        {"label": "1 db korong (kb. 9 g)", "grams": 9},
+        {"label": "1 adag (kb. 30 g)", "grams": 30}
+      ]
+    },
+    {
+      "id": "lencse-nyers",
+      "name": "Lencse, nyers",
+      "aliases": ["lencse", "szaritott lencse", "barna lencse", "lentils"],
+      "category": "huvelyes",
+      "kcal": 320,
+      "protein": 25,
+      "fat": 1.1,
+      "carbs": 50,
+      "sugar": 2,
+      "saturatedFat": 0.2,
+      "salt": 0.02,
+      "fiber": 11,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 80 g)", "grams": 80},
+        {"label": "1 dl (kb. 85 g)", "grams": 85}
+      ]
+    },
+    {
+      "id": "lencse-fott",
+      "name": "Lencse, főtt",
+      "aliases": ["fott lencse", "főtt lencse", "lencse kesz", "cooked lentils"],
+      "category": "huvelyes",
+      "kcal": 112,
+      "protein": 9,
+      "fat": 0.4,
+      "carbs": 17,
+      "sugar": 0.6,
+      "saturatedFat": 0.1,
+      "salt": 0.3,
+      "fiber": 4,
+      "servings": [
+        {"label": "1 adag (kb. 200 g)", "grams": 200},
+        {"label": "1 kis adag (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "csicseriborso-nyers",
+      "name": "Csicseriborsó, nyers",
+      "aliases": ["csicseriborso", "csicseri", "szaritott csicseriborso", "chickpeas"],
+      "category": "huvelyes",
+      "kcal": 340,
+      "protein": 20,
+      "fat": 6,
+      "carbs": 50,
+      "sugar": 10,
+      "saturatedFat": 0.6,
+      "salt": 0.02,
+      "fiber": 12,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 80 g)", "grams": 80},
+        {"label": "1 dl (kb. 85 g)", "grams": 85}
+      ]
+    },
+    {
+      "id": "csicseriborso-fott",
+      "name": "Csicseriborsó, főtt",
+      "aliases": ["fott csicseriborso", "főtt csicseriborsó", "csicseri kesz", "cooked chickpeas"],
+      "category": "huvelyes",
+      "kcal": 150,
+      "protein": 8.9,
+      "fat": 2.6,
+      "carbs": 22,
+      "sugar": 4,
+      "saturatedFat": 0.3,
+      "salt": 0.3,
+      "fiber": 7.5,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "vorosbab-nyers",
+      "name": "Vörösbab, nyers",
+      "aliases": ["vorosbab", "vörösbab", "szaritott bab", "kidney beans"],
+      "category": "huvelyes",
+      "kcal": 310,
+      "protein": 22,
+      "fat": 1.5,
+      "carbs": 50,
+      "sugar": 2,
+      "saturatedFat": 0.2,
+      "salt": 0.02,
+      "fiber": 15,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 80 g)", "grams": 80},
+        {"label": "1 dl (kb. 85 g)", "grams": 85}
+      ]
+    },
+    {
+      "id": "vorosbab-konzerv",
+      "name": "Vörösbab, konzerv",
+      "aliases": ["vorosbab konzerv", "babkonzerv", "vörösbab konzerv", "canned kidney beans"],
+      "category": "huvelyes",
+      "kcal": 108,
+      "protein": 8,
+      "fat": 0.5,
+      "carbs": 17,
+      "sugar": 0.5,
+      "saturatedFat": 0.1,
+      "salt": 0.6,
+      "fiber": 6,
+      "servings": [
+        {"label": "1 konzerv lecsepegtetve (kb. 240 g)", "grams": 240},
+        {"label": "1 adag (kb. 120 g)", "grams": 120}
+      ]
+    },
+    {
+      "id": "fekete-bab-nyers",
+      "name": "Fekete bab, nyers",
+      "aliases": ["fekete bab", "feketebab", "szaritott fekete bab", "black beans"],
+      "category": "huvelyes",
+      "kcal": 310,
+      "protein": 21,
+      "fat": 1.4,
+      "carbs": 51,
+      "sugar": 2,
+      "saturatedFat": 0.2,
+      "salt": 0.02,
+      "fiber": 15,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 80 g)", "grams": 80},
+        {"label": "1 dl (kb. 85 g)", "grams": 85}
+      ]
+    },
+    {
+      "id": "sargaborso-nyers",
+      "name": "Sárgaborsó, nyers",
+      "aliases": ["sargaborso", "sárgaborsó", "felezett borso", "yellow split peas"],
+      "category": "huvelyes",
+      "kcal": 325,
+      "protein": 23,
+      "fat": 1.2,
+      "carbs": 53,
+      "sugar": 5,
+      "saturatedFat": 0.2,
+      "salt": 0.02,
+      "fiber": 12,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 80 g)", "grams": 80},
+        {"label": "1 dl (kb. 85 g)", "grams": 85}
+      ]
+    },
+    {
+      "id": "szojabab-nyers",
+      "name": "Szójabab, nyers",
+      "aliases": ["szojabab", "szójabab", "szoja", "soybeans"],
+      "category": "huvelyes",
+      "kcal": 415,
+      "protein": 36,
+      "fat": 20,
+      "carbs": 22,
+      "sugar": 7,
+      "saturatedFat": 2.9,
+      "salt": 0.01,
+      "fiber": 9,
+      "servings": [
+        {"label": "1 adag nyersen (kb. 70 g)", "grams": 70},
+        {"label": "1 dl (kb. 85 g)", "grams": 85}
+      ]
+    },
+    {
+      "id": "tofu-natur",
+      "name": "Tofu, natúr",
+      "aliases": ["tofu", "natur tofu", "szojasajt", "plain tofu"],
+      "category": "huvelyes",
+      "kcal": 122,
+      "protein": 12,
+      "fat": 7,
+      "carbs": 2,
+      "sugar": 0.6,
+      "saturatedFat": 1,
+      "salt": 0.02,
+      "fiber": 1,
+      "servings": [
+        {"label": "1 adag (kb. 100 g)", "grams": 100},
+        {"label": "1 csomag (kb. 200 g)", "grams": 200}
+      ]
+    },
+    {
+      "id": "tempeh",
+      "name": "Tempeh",
+      "aliases": ["tempeh", "tempe", "fermentalt szojabab", "fermented soy"],
+      "category": "huvelyes",
+      "kcal": 212,
+      "protein": 19,
+      "fat": 11,
+      "carbs": 9,
+      "sugar": 1,
+      "saturatedFat": 2.2,
+      "salt": 0.02,
+      "fiber": 5,
+      "servings": [
+        {"label": "1 adag (kb. 100 g)", "grams": 100},
+        {"label": "1 szelet (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "szojafeherje-granulatum",
+      "name": "Szójafehérje granulátum",
+      "aliases": ["szojafeherje", "szója granulátum", "szoja granulatum", "textured soy protein"],
+      "category": "huvelyes",
+      "kcal": 330,
+      "protein": 50,
+      "fat": 2,
+      "carbs": 27,
+      "sugar": 4,
+      "saturatedFat": 0.3,
+      "salt": 0.05,
+      "fiber": 18,
+      "servings": [
+        {"label": "1 adag szárazon (kb. 40 g)", "grams": 40},
+        {"label": "1 dl (kb. 35 g)", "grams": 35}
+      ]
+    },
+    {
+      "id": "burgonya-nyers",
+      "name": "Burgonya, nyers",
+      "aliases": ["burgonya", "krumpli", "nyers krumpli", "potato"],
+      "category": "zoldseg",
+      "kcal": 78,
+      "protein": 2,
+      "fat": 0.1,
+      "carbs": 17,
+      "sugar": 0.8,
+      "saturatedFat": 0,
+      "salt": 0.01,
+      "fiber": 2.1,
+      "servings": [
+        {"label": "1 db közepes (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (kb. 200 g)", "grams": 200}
+      ]
+    },
+    {
+      "id": "burgonya-fott",
+      "name": "Burgonya, főtt",
+      "aliases": ["fott burgonya", "főtt krumpli", "fott krumpli", "boiled potato"],
+      "category": "zoldseg",
+      "kcal": 75,
+      "protein": 2,
+      "fat": 0.1,
+      "carbs": 16,
+      "sugar": 0.8,
+      "saturatedFat": 0,
+      "salt": 0.3,
+      "fiber": 1.8,
+      "servings": [
+        {"label": "1 adag (kb. 200 g)", "grams": 200},
+        {"label": "1 db közepes (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "burgonyapure",
+      "name": "Burgonyapüré",
+      "aliases": ["burgonyapure", "krumplipure", "püré", "mashed potato"],
+      "category": "zoldseg",
+      "kcal": 100,
+      "protein": 2,
+      "fat": 4,
+      "carbs": 14,
+      "sugar": 1.2,
+      "saturatedFat": 2.2,
+      "salt": 0.5,
+      "fiber": 1.4,
+      "servings": [
+        {"label": "1 adag (kb. 200 g)", "grams": 200},
+        {"label": "1 kis adag (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "edesburgonya-nyers",
+      "name": "Édesburgonya, nyers",
+      "aliases": ["edesburgonya", "édes burgonya", "batata", "sweet potato"],
+      "category": "zoldseg",
+      "kcal": 88,
+      "protein": 1.6,
+      "fat": 0.1,
+      "carbs": 20,
+      "sugar": 4.2,
+      "saturatedFat": 0,
+      "salt": 0.05,
+      "fiber": 3,
+      "servings": [
+        {"label": "1 db közepes (kb. 200 g)", "grams": 200},
+        {"label": "1 adag (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "sargarepa-nyers",
+      "name": "Sárgarépa, nyers",
+      "aliases": ["sargarepa", "sárgarépa", "repa", "carrot"],
+      "category": "zoldseg",
+      "kcal": 36,
+      "protein": 0.9,
+      "fat": 0.2,
+      "carbs": 7,
+      "sugar": 4.7,
+      "saturatedFat": 0,
+      "salt": 0.07,
+      "fiber": 2.8,
+      "servings": [
+        {"label": "1 db közepes (kb. 80 g)", "grams": 80},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "voroshagyma",
+      "name": "Vöröshagyma, nyers",
+      "aliases": ["voroshagyma", "hagyma", "vörös hagyma", "onion"],
+      "category": "zoldseg",
+      "kcal": 39,
+      "protein": 1.1,
+      "fat": 0.1,
+      "carbs": 8,
+      "sugar": 4.5,
+      "saturatedFat": 0,
+      "salt": 0.01,
+      "fiber": 1.7,
+      "servings": [
+        {"label": "1 db közepes (kb. 100 g)", "grams": 100},
+        {"label": "fél db (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "paradicsom",
+      "name": "Paradicsom, nyers",
+      "aliases": ["paradicsom", "paradicsomok", "friss paradicsom", "tomato"],
+      "category": "zoldseg",
+      "kcal": 20,
+      "protein": 0.9,
+      "fat": 0.2,
+      "carbs": 3.5,
+      "sugar": 2.6,
+      "saturatedFat": 0,
+      "salt": 0.01,
+      "fiber": 1.2,
+      "servings": [
+        {"label": "1 db közepes (kb. 120 g)", "grams": 120},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "tv-paprika",
+      "name": "TV paprika, nyers",
+      "aliases": ["tv paprika", "paprika", "feher paprika", "white pepper vegetable"],
+      "category": "zoldseg",
+      "kcal": 23,
+      "protein": 1,
+      "fat": 0.2,
+      "carbs": 4,
+      "sugar": 2.8,
+      "saturatedFat": 0,
+      "salt": 0.01,
+      "fiber": 1.6,
+      "servings": [
+        {"label": "1 db közepes (kb. 110 g)", "grams": 110},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "kaliforniai-paprika-piros",
+      "name": "Kaliforniai paprika, piros",
+      "aliases": ["kaliforniai paprika", "piros paprika", "kaliforniai", "red bell pepper"],
+      "category": "zoldseg",
+      "kcal": 32,
+      "protein": 1,
+      "fat": 0.3,
+      "carbs": 6,
+      "sugar": 4.2,
+      "saturatedFat": 0,
+      "salt": 0.01,
+      "fiber": 2.1,
+      "servings": [
+        {"label": "1 db (kb. 150 g)", "grams": 150},
+        {"label": "fél db (kb. 75 g)", "grams": 75}
+      ]
+    },
+    {
+      "id": "uborka",
+      "name": "Uborka, nyers",
+      "aliases": ["uborka", "kigyouborka", "friss uborka", "cucumber"],
+      "category": "zoldseg",
+      "kcal": 13,
+      "protein": 0.7,
+      "fat": 0.1,
+      "carbs": 2.2,
+      "sugar": 1.7,
+      "saturatedFat": 0,
+      "salt": 0.01,
+      "fiber": 0.7,
+      "servings": [
+        {"label": "1 db kígyóuborka (kb. 300 g)", "grams": 300},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "cukkini",
+      "name": "Cukkini, nyers",
+      "aliases": ["cukkini", "cukini", "zold cukkini", "zucchini"],
+      "category": "zoldseg",
+      "kcal": 18,
+      "protein": 1.2,
+      "fat": 0.3,
+      "carbs": 2.5,
+      "sugar": 2.2,
+      "saturatedFat": 0.1,
+      "salt": 0.01,
+      "fiber": 1.1,
+      "servings": [
+        {"label": "1 db közepes (kb. 250 g)", "grams": 250},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "karfiol",
+      "name": "Karfiol, nyers",
+      "aliases": ["karfiol", "kelvirag", "karfiol rozsa", "cauliflower"],
+      "category": "zoldseg",
+      "kcal": 24,
+      "protein": 1.9,
+      "fat": 0.3,
+      "carbs": 3,
+      "sugar": 1.9,
+      "saturatedFat": 0.1,
+      "salt": 0.03,
+      "fiber": 2,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "brokkoli",
+      "name": "Brokkoli, nyers",
+      "aliases": ["brokkoli", "brokoli", "zold karfiol", "broccoli"],
+      "category": "zoldseg",
+      "kcal": 32,
+      "protein": 2.8,
+      "fat": 0.4,
+      "carbs": 4,
+      "sugar": 1.7,
+      "saturatedFat": 0.1,
+      "salt": 0.03,
+      "fiber": 2.6,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "fejes-kaposzta",
+      "name": "Fejes káposzta, nyers",
+      "aliases": ["fejes kaposzta", "kaposzta", "feher kaposzta", "cabbage"],
+      "category": "zoldseg",
+      "kcal": 25,
+      "protein": 1.3,
+      "fat": 0.1,
+      "carbs": 4.5,
+      "sugar": 3.2,
+      "saturatedFat": 0,
+      "salt": 0.02,
+      "fiber": 2.5,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "savanyu-kaposzta",
+      "name": "Savanyú káposzta",
+      "aliases": ["savanyu kaposzta", "savanyú káposzta", "kaposztasavanyusag", "sauerkraut"],
+      "category": "zoldseg",
+      "kcal": 18,
+      "protein": 1,
+      "fat": 0.1,
+      "carbs": 3,
+      "sugar": 1.5,
+      "saturatedFat": 0,
+      "salt": 1.5,
+      "fiber": 2.5,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "spenot",
+      "name": "Spenót, nyers",
+      "aliases": ["spenot", "spenót", "parajlevel", "spinach"],
+      "category": "zoldseg",
+      "kcal": 22,
+      "protein": 2.9,
+      "fat": 0.4,
+      "carbs": 1.5,
+      "sugar": 0.4,
+      "saturatedFat": 0.1,
+      "salt": 0.2,
+      "fiber": 2.2,
+      "servings": [
+        {"label": "1 adag (kb. 100 g)", "grams": 100},
+        {"label": "1 nagy adag (kb. 200 g)", "grams": 200}
+      ]
+    },
+    {
+      "id": "jegsalata",
+      "name": "Jégsaláta",
+      "aliases": ["jegsalata", "jégsaláta", "salata", "iceberg lettuce"],
+      "category": "zoldseg",
+      "kcal": 12,
+      "protein": 0.9,
+      "fat": 0.1,
+      "carbs": 1.8,
+      "sugar": 1.2,
+      "saturatedFat": 0,
+      "salt": 0.02,
+      "fiber": 1.2,
+      "servings": [
+        {"label": "1 adag (kb. 80 g)", "grams": 80},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "csiperkegomba",
+      "name": "Csiperkegomba, nyers",
+      "aliases": ["csiperkegomba", "gomba", "sampinyon", "mushroom"],
+      "category": "zoldseg",
+      "kcal": 20,
+      "protein": 3.1,
+      "fat": 0.3,
+      "carbs": 1,
+      "sugar": 0.8,
+      "saturatedFat": 0.1,
+      "salt": 0.01,
+      "fiber": 1.5,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "zoldborso-fagyasztott",
+      "name": "Zöldborsó, fagyasztott",
+      "aliases": ["zoldborso", "zöldborsó", "borso", "green peas"],
+      "category": "zoldseg",
+      "kcal": 72,
+      "protein": 5.4,
+      "fat": 0.4,
+      "carbs": 11,
+      "sugar": 3.5,
+      "saturatedFat": 0.1,
+      "salt": 0.05,
+      "fiber": 5,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "kukorica-konzerv",
+      "name": "Kukorica, konzerv",
+      "aliases": ["kukorica konzerv", "csemegekukorica", "kukorica", "canned sweet corn"],
+      "category": "zoldseg",
+      "kcal": 93,
+      "protein": 3,
+      "fat": 1.2,
+      "carbs": 17,
+      "sugar": 5,
+      "saturatedFat": 0.2,
+      "salt": 0.5,
+      "fiber": 2.5,
+      "servings": [
+        {"label": "1 konzerv lecsepegtetve (kb. 285 g)", "grams": 285},
+        {"label": "1 adag (kb. 100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "cekla",
+      "name": "Cékla, nyers",
+      "aliases": ["cekla", "cékla", "ceklagumo", "beetroot"],
+      "category": "zoldseg",
+      "kcal": 42,
+      "protein": 1.6,
+      "fat": 0.2,
+      "carbs": 8,
+      "sugar": 6.8,
+      "saturatedFat": 0,
+      "salt": 0.2,
+      "fiber": 2.8,
+      "servings": [
+        {"label": "1 db közepes (kb. 120 g)", "grams": 120},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "padlizsan",
+      "name": "Padlizsán, nyers",
+      "aliases": ["padlizsan", "padlizsán", "torokparadicsom", "eggplant"],
+      "category": "zoldseg",
+      "kcal": 19,
+      "protein": 1,
+      "fat": 0.2,
+      "carbs": 3,
+      "sugar": 2.4,
+      "saturatedFat": 0,
+      "salt": 0.01,
+      "fiber": 2.5,
+      "servings": [
+        {"label": "1 db közepes (kb. 250 g)", "grams": 250},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "sutotok",
+      "name": "Sütőtök, nyers",
+      "aliases": ["sutotok", "sütőtök", "tok", "pumpkin"],
+      "category": "zoldseg",
+      "kcal": 38,
+      "protein": 1,
+      "fat": 0.1,
+      "carbs": 8,
+      "sugar": 5.5,
+      "saturatedFat": 0,
+      "salt": 0.01,
+      "fiber": 2,
+      "servings": [
+        {"label": "1 adag (kb. 200 g)", "grams": 200},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "alma",
+      "name": "Alma",
+      "aliases": ["alma", "almak", "friss alma", "apple"],
+      "category": "gyumolcs",
+      "kcal": 52,
+      "protein": 0.3,
+      "fat": 0.2,
+      "carbs": 12,
+      "sugar": 10,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 2.4,
+      "servings": [
+        {"label": "1 db közepes (kb. 150 g)", "grams": 150},
+        {"label": "1 db nagy (kb. 200 g)", "grams": 200}
+      ]
+    },
+    {
+      "id": "banan",
+      "name": "Banán",
+      "aliases": ["banan", "banán", "banánok", "banana"],
+      "category": "gyumolcs",
+      "kcal": 89,
+      "protein": 1.1,
+      "fat": 0.3,
+      "carbs": 20,
+      "sugar": 12,
+      "saturatedFat": 0.1,
+      "salt": 0,
+      "fiber": 2.6,
+      "servings": [
+        {"label": "1 db közepes (kb. 120 g)", "grams": 120},
+        {"label": "1 db nagy (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "korte",
+      "name": "Körte",
+      "aliases": ["korte", "körte", "vilmos korte", "pear"],
+      "category": "gyumolcs",
+      "kcal": 56,
+      "protein": 0.4,
+      "fat": 0.1,
+      "carbs": 13,
+      "sugar": 9.8,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 3.1,
+      "servings": [
+        {"label": "1 db közepes (kb. 170 g)", "grams": 170},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "szolo",
+      "name": "Szőlő",
+      "aliases": ["szolo", "szőlő", "csemegeszolo", "grapes"],
+      "category": "gyumolcs",
+      "kcal": 70,
+      "protein": 0.7,
+      "fat": 0.2,
+      "carbs": 16,
+      "sugar": 15,
+      "saturatedFat": 0.1,
+      "salt": 0,
+      "fiber": 0.9,
+      "servings": [
+        {"label": "1 marék (kb. 80 g)", "grams": 80},
+        {"label": "1 adag (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "szilva",
+      "name": "Szilva",
+      "aliases": ["szilva", "szilvak", "besztercei szilva", "plum"],
+      "category": "gyumolcs",
+      "kcal": 47,
+      "protein": 0.7,
+      "fat": 0.3,
+      "carbs": 10,
+      "sugar": 9.5,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 1.4,
+      "servings": [
+        {"label": "1 db (kb. 60 g)", "grams": 60},
+        {"label": "1 adag (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "sargadinnye",
+      "name": "Sárgadinnye",
+      "aliases": ["sargadinnye", "sárgadinnye", "dinnye", "cantaloupe"],
+      "category": "gyumolcs",
+      "kcal": 38,
+      "protein": 0.8,
+      "fat": 0.2,
+      "carbs": 8,
+      "sugar": 7.8,
+      "saturatedFat": 0,
+      "salt": 0.02,
+      "fiber": 0.9,
+      "servings": [
+        {"label": "1 szelet (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "gorogdinnye",
+      "name": "Görögdinnye",
+      "aliases": ["gorogdinnye", "görögdinnye", "goro dinnye", "watermelon"],
+      "category": "gyumolcs",
+      "kcal": 35,
+      "protein": 0.6,
+      "fat": 0.2,
+      "carbs": 7.5,
+      "sugar": 7,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 0.4,
+      "servings": [
+        {"label": "1 szelet (kb. 200 g)", "grams": 200},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "eper",
+      "name": "Eper",
+      "aliases": ["eper", "foldieper", "szamoca", "strawberry"],
+      "category": "gyumolcs",
+      "kcal": 35,
+      "protein": 0.7,
+      "fat": 0.3,
+      "carbs": 7,
+      "sugar": 5,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 2,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "malna",
+      "name": "Málna",
+      "aliases": ["malna", "málna", "malnaszemek", "raspberry"],
+      "category": "gyumolcs",
+      "kcal": 35,
+      "protein": 1.2,
+      "fat": 0.7,
+      "carbs": 5.5,
+      "sugar": 4.4,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 6.5,
+      "servings": [
+        {"label": "1 adag (kb. 125 g)", "grams": 125},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "afonya",
+      "name": "Fekete áfonya",
+      "aliases": ["afonya", "áfonya", "fekete afonya", "blueberry"],
+      "category": "gyumolcs",
+      "kcal": 55,
+      "protein": 0.7,
+      "fat": 0.3,
+      "carbs": 12,
+      "sugar": 10,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 2.4,
+      "servings": [
+        {"label": "1 adag (kb. 125 g)", "grams": 125},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "meggy",
+      "name": "Meggy",
+      "aliases": ["meggy", "meggyszem", "savanyu meggy", "sour cherry"],
+      "category": "gyumolcs",
+      "kcal": 56,
+      "protein": 1,
+      "fat": 0.3,
+      "carbs": 12,
+      "sugar": 8.5,
+      "saturatedFat": 0.1,
+      "salt": 0,
+      "fiber": 1.6,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "cseresznye",
+      "name": "Cseresznye",
+      "aliases": ["cseresznye", "cseresznyeszem", "edes cseresznye", "cherry"],
+      "category": "gyumolcs",
+      "kcal": 64,
+      "protein": 1.1,
+      "fat": 0.2,
+      "carbs": 14,
+      "sugar": 12.8,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 2.1,
+      "servings": [
+        {"label": "1 adag (kb. 150 g)", "grams": 150},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "sargabarack",
+      "name": "Sárgabarack",
+      "aliases": ["sargabarack", "sárgabarack", "barack", "apricot"],
+      "category": "gyumolcs",
+      "kcal": 47,
+      "protein": 1.4,
+      "fat": 0.4,
+      "carbs": 9,
+      "sugar": 9,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 2,
+      "servings": [
+        {"label": "1 db (kb. 55 g)", "grams": 55},
+        {"label": "1 adag (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "narancs",
+      "name": "Narancs",
+      "aliases": ["narancs", "narancsok", "friss narancs", "orange"],
+      "category": "gyumolcs",
+      "kcal": 43,
+      "protein": 0.9,
+      "fat": 0.2,
+      "carbs": 9,
+      "sugar": 8.5,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 2.4,
+      "servings": [
+        {"label": "1 db közepes (kb. 180 g)", "grams": 180},
+        {"label": "1 adag (100 g)", "grams": 100}
+      ]
+    },
+    {
+      "id": "mandarin",
+      "name": "Mandarin",
+      "aliases": ["mandarin", "mandarinok", "klementin", "tangerine"],
+      "category": "gyumolcs",
+      "kcal": 51,
+      "protein": 0.8,
+      "fat": 0.3,
+      "carbs": 11,
+      "sugar": 10.5,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 1.8,
+      "servings": [
+        {"label": "1 db (kb. 90 g)", "grams": 90},
+        {"label": "2 db (kb. 180 g)", "grams": 180}
+      ]
+    },
+    {
+      "id": "citrom",
+      "name": "Citrom",
+      "aliases": ["citrom", "citromok", "citrom hus", "lemon"],
+      "category": "gyumolcs",
+      "kcal": 32,
+      "protein": 1.1,
+      "fat": 0.3,
+      "carbs": 6,
+      "sugar": 2.5,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 2.8,
+      "servings": [
+        {"label": "1 db (kb. 100 g)", "grams": 100},
+        {"label": "1 szelet (kb. 15 g)", "grams": 15}
+      ]
+    },
+    {
+      "id": "kivi",
+      "name": "Kivi",
+      "aliases": ["kivi", "kiwi", "kivik", "kiwi fruit"],
+      "category": "gyumolcs",
+      "kcal": 54,
+      "protein": 1.1,
+      "fat": 0.5,
+      "carbs": 11,
+      "sugar": 9,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 3,
+      "servings": [
+        {"label": "1 db (kb. 80 g)", "grams": 80},
+        {"label": "2 db (kb. 160 g)", "grams": 160}
+      ]
+    },
+    {
+      "id": "ananasz",
+      "name": "Ananász",
+      "aliases": ["ananasz", "ananász", "friss ananasz", "pineapple"],
+      "category": "gyumolcs",
+      "kcal": 52,
+      "protein": 0.5,
+      "fat": 0.1,
+      "carbs": 12,
+      "sugar": 10,
+      "saturatedFat": 0,
+      "salt": 0,
+      "fiber": 1.4,
+      "servings": [
+        {"label": "1 szelet (kb. 80 g)", "grams": 80},
+        {"label": "1 adag (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "mango",
+      "name": "Mangó",
+      "aliases": ["mango", "mangó", "friss mango", "mango fruit"],
+      "category": "gyumolcs",
+      "kcal": 64,
+      "protein": 0.8,
+      "fat": 0.4,
+      "carbs": 14,
+      "sugar": 13,
+      "saturatedFat": 0.1,
+      "salt": 0,
+      "fiber": 1.6,
+      "servings": [
+        {"label": "1 db közepes (kb. 200 g)", "grams": 200},
+        {"label": "1 adag (kb. 150 g)", "grams": 150}
+      ]
+    },
+    {
+      "id": "avokado",
+      "name": "Avokádó",
+      "aliases": ["avokado", "avokádó", "avocado", "avokado hus"],
+      "category": "gyumolcs",
+      "kcal": 160,
+      "protein": 2,
+      "fat": 15,
+      "carbs": 2,
+      "sugar": 0.7,
+      "saturatedFat": 2.1,
+      "salt": 0.01,
+      "fiber": 6.7,
+      "servings": [
+        {"label": "fél db (kb. 70 g)", "grams": 70},
+        {"label": "1 db (kb. 140 g)", "grams": 140}
+      ]
+    },
+    {
+      "id": "datolya-szaritott",
+      "name": "Datolya, szárított",
+      "aliases": ["datolya", "szaritott datolya", "medjool datolya", "dates"],
+      "category": "gyumolcs",
+      "kcal": 285,
+      "protein": 2.5,
+      "fat": 0.4,
+      "carbs": 66,
+      "sugar": 63,
+      "saturatedFat": 0,
+      "salt": 0.01,
+      "fiber": 8,
+      "servings": [
+        {"label": "1 db (kb. 8 g)", "grams": 8},
+        {"label": "3 db (kb. 24 g)", "grams": 24}
+      ]
+    },
+    {
+      "id": "mazsola",
+      "name": "Mazsola",
+      "aliases": ["mazsola", "szaritott szolo", "mazsolaszem", "raisins"],
+      "category": "gyumolcs",
+      "kcal": 305,
+      "protein": 3,
+      "fat": 0.5,
+      "carbs": 71,
+      "sugar": 62,
+      "saturatedFat": 0.1,
+      "salt": 0.02,
+      "fiber": 4,
+      "servings": [
+        {"label": "1 evőkanál (kb. 15 g)", "grams": 15},
+        {"label": "1 marék (kb. 30 g)", "grams": 30}
+      ]
+    },
+    {
+      "id": "napraforgo-olaj",
+      "name": "Napraforgó olaj",
+      "aliases": ["napraforgo olaj", "étolaj", "etolaj", "sunflower oil"],
+      "category": "olaj",
+      "kcal": 884,
+      "protein": 0,
+      "fat": 100,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 11,
+      "salt": 0,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 evőkanál (kb. 14 g)", "grams": 14},
+        {"label": "1 teáskanál (kb. 5 g)", "grams": 5}
+      ]
+    },
+    {
+      "id": "olivaolaj",
+      "name": "Olívaolaj, extra szűz",
+      "aliases": ["olivaolaj", "olívaolaj", "extra szuz olivaolaj", "olive oil"],
+      "category": "olaj",
+      "kcal": 884,
+      "protein": 0,
+      "fat": 100,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 14,
+      "salt": 0,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 evőkanál (kb. 14 g)", "grams": 14},
+        {"label": "1 teáskanál (kb. 5 g)", "grams": 5}
+      ]
+    },
+    {
+      "id": "kokuszolaj",
+      "name": "Kókuszolaj",
+      "aliases": ["kokuszolaj", "kókuszolaj", "kokuszzsir", "coconut oil"],
+      "category": "olaj",
+      "kcal": 890,
+      "protein": 0,
+      "fat": 100,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 87,
+      "salt": 0,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 evőkanál (kb. 14 g)", "grams": 14},
+        {"label": "1 teáskanál (kb. 5 g)", "grams": 5}
+      ]
+    },
+    {
+      "id": "serteszsir",
+      "name": "Sertészsír",
+      "aliases": ["serteszsir", "sertészsír", "zsir", "lard"],
+      "category": "olaj",
+      "kcal": 890,
+      "protein": 0,
+      "fat": 99.5,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 39,
+      "salt": 0,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 evőkanál (kb. 13 g)", "grams": 13},
+        {"label": "1 teáskanál (kb. 5 g)", "grams": 5}
+      ]
+    },
+    {
+      "id": "kacsazsir",
+      "name": "Kacsazsír",
+      "aliases": ["kacsazsir", "kacsazsír", "kacsa zsir", "duck fat"],
+      "category": "olaj",
+      "kcal": 895,
+      "protein": 0,
+      "fat": 99.8,
+      "carbs": 0,
+      "sugar": 0,
+      "saturatedFat": 33,
+      "salt": 0,
+      "fiber": 0,
+      "servings": [
+        {"label": "1 evőkanál (kb. 13 g)", "grams": 13},
+        {"label": "1 teáskanál (kb. 5 g)", "grams": 5}
+      ]
+    },
+    {
+      "id": "mandula",
+      "name": "Mandula",
+      "aliases": ["mandula", "mandulabel", "hejas mandula", "almonds"],
+      "category": "mag",
+      "kcal": 580,
+      "protein": 21,
+      "fat": 50,
+      "carbs": 9,
+      "sugar": 4.4,
+      "saturatedFat": 3.8,
+      "salt": 0.01,
+      "fiber": 12,
+      "servings": [
+        {"label": "1 marék (kb. 30 g)", "grams": 30},
+        {"label": "10 db (kb. 12 g)", "grams": 12}
+      ]
+    },
+    {
+      "id": "foldimogyoro",
+      "name": "Földimogyoró, sótlan",
+      "aliases": ["foldimogyoro", "földimogyoró", "mogyoro sotlan", "peanuts"],
+      "category": "mag",
+      "kcal": 585,
+      "protein": 26,
+      "fat": 49,
+      "carbs": 8,
+      "sugar": 4,
+      "saturatedFat": 7,
+      "salt": 0.02,
+      "fiber": 8.5,
+      "servings": [
+        {"label": "1 marék (kb. 30 g)", "grams": 30},
+        {"label": "1 adag (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "mogyoro",
+      "name": "Mogyoró",
+      "aliases": ["mogyoro", "mogyoró", "torokmogyoro", "hazelnuts"],
+      "category": "mag",
+      "kcal": 645,
+      "protein": 15,
+      "fat": 61,
+      "carbs": 7,
+      "sugar": 4.3,
+      "saturatedFat": 4.5,
+      "salt": 0,
+      "fiber": 9.7,
+      "servings": [
+        {"label": "1 marék (kb. 30 g)", "grams": 30},
+        {"label": "10 db (kb. 15 g)", "grams": 15}
+      ]
+    },
+    {
+      "id": "dio",
+      "name": "Dió",
+      "aliases": ["dio", "dió", "diobel", "walnuts"],
+      "category": "mag",
+      "kcal": 680,
+      "protein": 15,
+      "fat": 65,
+      "carbs": 7,
+      "sugar": 2.6,
+      "saturatedFat": 6.1,
+      "salt": 0,
+      "fiber": 6.7,
+      "servings": [
+        {"label": "1 marék (kb. 30 g)", "grams": 30},
+        {"label": "1 evőkanál darálva (kb. 10 g)", "grams": 10}
+      ]
+    },
+    {
+      "id": "kesudio",
+      "name": "Kesudió",
+      "aliases": ["kesudio", "kesudió", "kesu", "cashew"],
+      "category": "mag",
+      "kcal": 580,
+      "protein": 18,
+      "fat": 44,
+      "carbs": 27,
+      "sugar": 6,
+      "saturatedFat": 8,
+      "salt": 0.02,
+      "fiber": 3.3,
+      "servings": [
+        {"label": "1 marék (kb. 30 g)", "grams": 30},
+        {"label": "1 adag (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "pisztacia",
+      "name": "Pisztácia",
+      "aliases": ["pisztacia", "pisztácia", "pisztaciabel", "pistachio"],
+      "category": "mag",
+      "kcal": 560,
+      "protein": 20,
+      "fat": 45,
+      "carbs": 17,
+      "sugar": 7.7,
+      "saturatedFat": 5.5,
+      "salt": 0.02,
+      "fiber": 10,
+      "servings": [
+        {"label": "1 marék (kb. 30 g)", "grams": 30},
+        {"label": "1 adag (kb. 50 g)", "grams": 50}
+      ]
+    },
+    {
+      "id": "napraforgomag",
+      "name": "Napraforgómag, héj nélkül",
+      "aliases": ["napraforgomag", "napraforgó mag", "napraforgo bel", "sunflower seeds"],
+      "category": "mag",
+      "kcal": 590,
+      "protein": 21,
+      "fat": 51,
+      "carbs": 11,
+      "sugar": 2.6,
+      "saturatedFat": 4.5,
+      "salt": 0.01,
+      "fiber": 8.6,
+      "servings": [
+        {"label": "1 evőkanál (kb. 10 g)", "grams": 10},
+        {"label": "1 marék (kb. 30 g)", "grams": 30}
+      ]
+    },
+    {
+      "id": "tokmag",
+      "name": "Tökmag, héj nélkül",
+      "aliases": ["tokmag", "tökmag", "tok mag bel", "pumpkin seeds"],
+      "category": "mag",
+      "kcal": 585,
+      "protein": 30,
+      "fat": 49,
+      "carbs": 5,
+      "sugar": 1.4,
+      "saturatedFat": 8.7,
+      "salt": 0.02,
+      "fiber": 6,
+      "servings": [
+        {"label": "1 evőkanál (kb. 10 g)", "grams": 10},
+        {"label": "1 marék (kb. 30 g)", "grams": 30}
+      ]
+    },
+    {
+      "id": "chia-mag",
+      "name": "Chia mag",
+      "aliases": ["chia mag", "chia", "csia mag", "chia seeds"],
+      "category": "mag",
+      "kcal": 385,
+      "protein": 17,
+      "fat": 31,
+      "carbs": 8,
+      "sugar": 0,
+      "saturatedFat": 3.3,
+      "salt": 0.02,
+      "fiber": 34,
+      "servings": [
+        {"label": "1 evőkanál (kb. 12 g)", "grams": 12},
+        {"label": "1 adag (kb. 25 g)", "grams": 25}
+      ]
+    },
+    {
+      "id": "lenmag",
+      "name": "Lenmag",
+      "aliases": ["lenmag", "len mag", "orolt lenmag", "flax seeds"],
+      "category": "mag",
+      "kcal": 465,
+      "protein": 18,
+      "fat": 42,
+      "carbs": 2,
+      "sugar": 1.5,
+      "saturatedFat": 3.7,
+      "salt": 0.03,
+      "fiber": 27,
+      "servings": [
+        {"label": "1 evőkanál (kb. 10 g)", "grams": 10},
+        {"label": "1 adag (kb. 25 g)", "grams": 25}
+      ]
+    },
+    {
+      "id": "szezammag",
+      "name": "Szezámmag",
+      "aliases": ["szezammag", "szezámmag", "szezam", "sesame seeds"],
+      "category": "mag",
+      "kcal": 575,
+      "protein": 18,
+      "fat": 50,
+      "carbs": 12,
+      "sugar": 0.3,
+      "saturatedFat": 7,
+      "salt": 0.03,
+      "fiber": 11.8,
+      "servings": [
+        {"label": "1 evőkanál (kb. 9 g)", "grams": 9},
+        {"label": "1 adag (kb. 25 g)", "grams": 25}
+      ]
+    },
+    {
+      "id": "mogyorokrem-cukrozatlan",
+      "name": "Mogyorókrém, cukrozatlan",
+      "aliases": ["mogyorokrem", "mogyorókrém", "100% mogyorokrem", "hazelnut butter"],
+      "category": "mag",
+      "kcal": 650,
+      "protein": 15,
+      "fat": 62,
+      "carbs": 7,
+      "sugar": 4.3,
+      "saturatedFat": 4.6,
+      "salt": 0.02,
+      "fiber": 9,
+      "servings": [
+        {"label": "1 evőkanál (kb. 16 g)", "grams": 16},
+        {"label": "1 teáskanál (kb. 6 g)", "grams": 6}
+      ]
+    },
+    {
+      "id": "foldimogyoro-krem",
+      "name": "Földimogyoró krém, 100%",
+      "aliases": ["foldimogyoro krem", "mogyorovaj", "peanut butter", "amerikai mogyorokrem"],
+      "category": "mag",
+      "kcal": 600,
+      "protein": 25,
+      "fat": 50,
+      "carbs": 12,
+      "sugar": 5,
+      "saturatedFat": 8,
+      "salt": 0.05,
+      "fiber": 6,
+      "servings": [
+        {"label": "1 evőkanál (kb. 16 g)", "grams": 16},
+        {"label": "1 teáskanál (kb. 6 g)", "grams": 6}
+      ]
+    },
+    {
+      "id": "tahini",
+      "name": "Tahini",
+      "aliases": ["tahini", "szezamkrem", "szezámkrém", "sesame paste"],
+      "category": "mag",
+      "kcal": 600,
+      "protein": 17,
+      "fat": 54,
+      "carbs": 10,
+      "sugar": 0.5,
+      "saturatedFat": 7.6,
+      "salt": 0.1,
+      "fiber": 9,
+      "servings": [
+        {"label": "1 evőkanál (kb. 15 g)", "grams": 15},
+        {"label": "1 teáskanál (kb. 5 g)", "grams": 5}
+      ]
+    }
+  ]
+}
