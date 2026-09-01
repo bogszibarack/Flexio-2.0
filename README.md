@@ -8,13 +8,31 @@ Offline-first Flutter kliens, Supabase Auth + Postgres, saját .NET 10 API a Ren
 [![Supabase](https://img.shields.io/badge/Supabase-Auth%20%2B%20Postgres-3FCF8E?logo=supabase&logoColor=white)](https://supabase.com)
 [![Render](https://img.shields.io/badge/Render-Frankfurt-46E3B7)](https://render.com)
 
-**Élő API:** [flexio-api.onrender.com](https://flexio-api.onrender.com)  
-**Repo:** [github.com/bogszibarack/Flexio-2.0](https://github.com/bogszibarack/Flexio-2.0)
+**Repo:** [github.com/bogszibarack/Flexio-2.0](https://github.com/bogszibarack/Flexio-2.0)  
+**Backend állapot:** [health/live](https://flexio-api.onrender.com/health/live) *(csak technikai ellenőrzés, nem demo)*
+
+> A Flexio **mobilalkalmazás** (Flutter), nem weboldal. A böngészőben nem lehet regisztrálni vagy használni — ehhez az appot kell telepíteni (lásd [Próbáld ki](#próbáld-ki)).
+
+<p align="center">
+  <img src="docs/screenshots/home.jpg" alt="Főoldal — BMI, pulzus, lépések, víz, alvás" width="220" />
+  <img src="docs/screenshots/profile.png" alt="Profil — célok, Apple Health" width="220" />
+  <img src="docs/screenshots/meal-planner.jpg" alt="Étrend tervező — makrók és tippek" width="220" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/food-search.png" alt="Ételkeresés — magyar katalógus, vonalkód" width="220" />
+  <img src="docs/screenshots/workout-tracker.jpg" alt="Edzéskövető — heti grafikon, előzmények" width="220" />
+  <img src="docs/screenshots/workout-schedule.png" alt="Edzés ütemezése — naptár" width="220" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/progress-photos.jpg" alt="Haladási fotók — összehasonlítás" width="220" />
+</p>
 
 ---
 
 ## Tartalom
 
+- [Próbáld ki](#próbáld-ki)
+- [Képernyőképek](#képernyőképek)
 - [Mi ez?](#mi-ez)
 - [Funkciók](#funkciók)
 - [Architektúra](#architektúra)
@@ -27,8 +45,73 @@ Offline-first Flutter kliens, Supabase Auth + Postgres, saját .NET 10 API a Ren
 - [Backend (C# API)](#backend-c-api)
 - [Render deploy](#render-deploy)
 - [Telepítés telefonra](#telepítés-telefonra)
+- [TestFlight](#testflight)
 - [Tesztek](#tesztek)
 - [Eredeti UI forrás](#eredeti-ui-forrás)
+
+---
+
+## Próbáld ki
+
+A Flexio **natív iOS/Android app**. Nincs nyilvános webes demó, ahol bárki regisztrálhatna egy linkre kattintva — ez szándékos: a felület telefonra van tervezve, offline-first működéssel.
+
+| Ki vagy? | Hogyan éred el |
+|----------|----------------|
+| **Látogató / ismerős** | **TestFlight** (lásd alább) — vagy kérj egy release buildet. |
+| **Fejlesztő** | Klónozd a repót, állítsd be a Supabase kulcsokat, futtasd `flutter run`-nal — regisztráció az appban történik. Lépések: [Gyors indulás](#gyors-indulás). |
+| **Ops / monitoring** | Backend él-e: [flexio-api.onrender.com/health/live](https://flexio-api.onrender.com/health/live). Ez csak `Healthy` / `Unhealthy` választ ad, nem UI. |
+
+### TestFlight
+
+> **TestFlight link:** *Hamarosan* — az első feltöltés után ide kerül a nyilvános link (`https://testflight.apple.com/join/...`).
+
+Az app **iPhone-ra** telepíthető TestFlight-on keresztül (ingyenes letöltés a tesztelőknek, de a feltöltéshez **Apple Developer Program**, ~99 USD/év kell).
+
+**Feltöltés lépései:** részletes útmutató → [`docs/TESTFLIGHT.md`](docs/TESTFLIGHT.md)
+
+```bash
+export SUPABASE_URL="https://<ref>.supabase.co"
+export SUPABASE_PUBLISHABLE_KEY="sb_publishable_..."
+export API_BASE_URL="https://flexio-api.onrender.com"
+
+chmod +x scripts/ios_testflight.sh
+./scripts/ios_testflight.sh
+```
+
+Utána App Store Connect → TestFlight → **Public Link** → másold be a linket ide a README-be.
+
+### Miért nem működik a `flexio-api.onrender.com` a böngészőben?
+
+Az URL a **backend API** címe, nem a felhasználói felület. A gyökér (`/`) és az `/api/v1/*` végpontok **JWT tokent** várnak (Supabase bejelentkezés után), ezért böngészőből `401 Unauthorized` a normális válasz — nem hiba.
+
+```
+Böngésző  →  flexio-api.onrender.com/        →  401 (védett API)
+Böngésző  →  flexio-api.onrender.com/health/live  →  Healthy ✓
+Flutter app  →  flexio-api.onrender.com/api/v1/...  →  működik (tokennel)
+```
+
+**Jövőbeli nyilvános demo:** TestFlight link a fenti szekcióban, amint feltöltöd az első buildet.
+
+---
+
+## Képernyőképek
+
+| Főoldal | Profil | Étrend tervező |
+|:---:|:---:|:---:|
+| ![Főoldal](docs/screenshots/home.jpg) | ![Profil](docs/screenshots/profile.png) | ![Étrend](docs/screenshots/meal-planner.jpg) |
+| BMI, pulzus, lépések, víz, alvás, heti edzésgrafikon | Napi célok (Mifflin-St Jeor), Apple Health szinkron | Makró diagram, napi tippek, étkezésnapló |
+
+| Ételkeresés | Edzéskövető | Edzés ütemezése |
+|:---:|:---:|:---:|
+| ![Ételkeresés](docs/screenshots/food-search.png) | ![Edzés](docs/screenshots/workout-tracker.jpg) | ![Ütemezés](docs/screenshots/workout-schedule.png) |
+| Magyar katalógus, vonalkód, makrók | Heti kalória/perc grafikon, előzmények | Naptár, óránkénti idővonal |
+
+| Haladási fotók |
+|:---:|
+| ![Fotók](docs/screenshots/progress-photos.jpg) |
+| Havi fotók, összehasonlítás, galéria |
+
+Új képernyőképek generálása (opcionális, szimulátor): `bash scripts/capture_screenshots.sh`
 
 ---
 
@@ -337,7 +420,21 @@ Az APK: `build/app/outputs/flutter-apk/app-release.apk`
 
 ---
 
-## Tesztek
+## TestFlight
+
+Nyilvános béta iOS-re — ismerősök linkre kattintva letölthetik, regisztrálnak az appban, és kipróbálhatják.
+
+| Lépés | Teendő |
+|-------|--------|
+| 1 | Apple Developer Program (~99 USD/év) |
+| 2 | App Store Connect → új app (`com.kokaiadam.flexio`) |
+| 3 | `./scripts/ios_testflight.sh` → IPA feltöltés Transporterrel |
+| 4 | TestFlight → External Testing → Public Link |
+| 5 | A linket másold be a [Próbáld ki](#próbáld-ki) szekcióba |
+
+Részletes útmutató: [`docs/TESTFLIGHT.md`](docs/TESTFLIGHT.md)
+
+---
 
 ```bash
 # Flutter
