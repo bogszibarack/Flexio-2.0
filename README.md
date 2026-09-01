@@ -1,49 +1,368 @@
-# Fitness Workout Tracker, Meal Planner, Sleep Tracker App UI UX Design Convent Into Flutter Code
+# Flexio
 
-# codeforany @codeforany
+**Magyar fitness app** — edzés, étkezés, alvás, profil és AI coach egy helyen.  
+Offline-first Flutter kliens, Supabase Auth + Postgres, saját .NET 10 API a Renderen.
 
-- [Youtube Full Playlist: Fitness Workout Tracker, Meal Planner, Sleep Tracker App UI UX Design Convent Into Flutter Code](https://www.youtube.com/playlist?list=PLzcRC7PA0xWR1AY-uvplpAYoDFzRdUHgQ)
-- [Youtube Channel: @codeforany](https://www.youtube.com/channel/UCdQTp9wRK5vAOlEQZf9PHSg)
-- [Youtube Channel Subscribe: @codeforany](https://www.youtube.com/channel/UCdQTp9wRK5vAOlEQZf9PHSg?sub_confirmation=1)
+[![Flutter](https://img.shields.io/badge/Flutter-3.4+-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
+[![.NET](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com)
+[![Supabase](https://img.shields.io/badge/Supabase-Auth%20%2B%20Postgres-3FCF8E?logo=supabase&logoColor=white)](https://supabase.com)
+[![Render](https://img.shields.io/badge/Render-Frankfurt-46E3B7)](https://render.com)
 
-- [Youtube Video Part-1: App Induction](https://youtu.be/GZzMnrGNZEA)
-- [Youtube Video Part-2: Get Startup And Signup UI](https://youtu.be/pDoH7oheZRk)
-- [Youtube Video Part-3: Complete Profile UI, Goal UI, Login UI](https://youtu.be/GrINadeF1Ic)
-- [Youtube Video Part-4: Bottom Tab Bar UI With Floating Button](https://youtu.be/JYJbK7vTCJk)
-- [Youtube Video Part-5: Home Tab-1 TabView UI With Pie Chart](https://youtu.be/jd6C5qCQ0B4)
-- [Youtube Video Part-6: Home Tab-2 Line Chart Activity Status](https://youtu.be/VwikPX-9_rs)
-- [Youtube Video Part-7: Home Tab-3 Workout Progress Line Chart](https://youtu.be/UX0UuPx8aRg)
-- [Youtube Video Part-8: Activity Tracker UI And Notification UI](https://youtu.be/OjvOxsVVJSo)
-- [Youtube Video Part-9: Profile Tab UI And Finished Workout UI](https://youtu.be/cF-x4xq99fw)
-- [Youtube Video Part-10: Workout Tracker Tab UI](https://youtu.be/AUIR0RKRQwo)
-- [Youtube Video Part-11: Workout Details UI Screen](https://youtu.be/ftAi1kfXObk)
-- [Youtube Video Part-12: Exercises Step Details UI Screen](https://youtu.be/3Dfn54U340k)
-- [Youtube Video Part-13: Workout Schedule UI, Calendar Timeline UI ](https://youtu.be/vARI416CLUA)
-- [Youtube Video Part-14: Workout Schedule Timeline UI](https://youtu.be/G2jFJ3-HmkU)
-- [Youtube Video Part-15: Add Workout Schedule UI And Mark Done](https://youtu.be/LL52gqRlMs8)
-- [Youtube Video Part-16: Meals Planner UI With Line Chart UI](https://youtu.be/SqAwLgftzBI)
-- [Youtube Video Part-17: Meals Food Details UI Screen](https://youtu.be/ppzr1VOT51s)
-- [Youtube Video Part-18: Food Info Recipe Details UI Screen](https://youtu.be/isu4tYpcwcI)
-- [Youtube Video Part-19: Meal Schedule UI Screen](https://youtu.be/Gvhz0PZIrTs)
-- [Youtube Video Part-20: Sleep Tracker UI Screen](https://youtu.be/8QrKRt3Avkc)
-- [Youtube Video Part-21: Sleep Schedule And Add Alarm UI Screen](https://youtu.be/GacvUiYp0uU)
-- [Youtube Video Part-22: Progress Photos Tab UI Screen](https://youtu.be/0HC306fRSg0)
-- [Youtube Video Part-23: Comparison UI and Result UI Screen](https://youtu.be/puds7ztrQ-c)
+**Élő API:** [flexio-api.onrender.com](https://flexio-api.onrender.com)  
+**Repo:** [github.com/bogszibarack/Flexio-2.0](https://github.com/bogszibarack/Flexio-2.0)
 
+---
 
-UI UX App Design by: [Pixel True](https://www.pixeltrue.com/free-ui-kits/fitness-app-ui-kit)
+## Tartalom
 
-A new Flutter project.
+- [Mi ez?](#mi-ez)
+- [Funkciók](#funkciók)
+- [Architektúra](#architektúra)
+- [Technológiai stack](#technológiai-stack)
+- [Projekt struktúra](#projekt-struktúra)
+- [Előfeltételek](#előfeltételek)
+- [Gyors indulás](#gyors-indulás)
+- [Környezeti változók](#környezeti-változók)
+- [Supabase beállítás](#supabase-beállítás)
+- [Backend (C# API)](#backend-c-api)
+- [Render deploy](#render-deploy)
+- [Telepítés telefonra](#telepítés-telefonra)
+- [Tesztek](#tesztek)
+- [Eredeti UI forrás](#eredeti-ui-forrás)
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## Mi ez?
 
-A few resources to get you started if this is your first Flutter project:
+A Flexio egy teljes körű egészség- és fitneszalkalmazás, amely a [codeforany fitness UI kit](https://www.youtube.com/playlist?list=PLzcRC7PA0xWR1AY-uvplpAYoDFzRdUHgQ) alapján készült, de már **valódi adatréteggel, szinkronnal és backenddel**:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- A telefon **offline-first**: SQLite (Drift) tárol mindent helyben.
+- A **Supabase** kezeli a bejelentkezést és a Postgres adatbázist (RLS-sel).
+- A **saját C# API** (Render, Frankfurt) kezeli a szinkront, ételkeresést, AI coachot és a háttér-jobokat.
+- A felület **magyar nyelvű**.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## Funkciók
+
+| Modul | Mit tud |
+|--------|---------|
+| **Edzés** | Edzéstervező, ütemezés, gyakorlat-katalógus (magyar), edzés indítása/befejezése, kalória- és volumen-statisztika |
+| **Étkezés** | Magyar ételkatalógus (~500 tétel), keresés, vonalkód, naplózás, makró diagramok (napi/heti/havi) |
+| **Alvás** | Alvásnapló, ütemezés, célok |
+| **Profil** | Testsúly, magasság, életkor, BMI, napi célok (kcal, makrók, víz) |
+| **Főoldal** | BMI, víz, kalória, alvás összesítő — élő adatokból, nem mockból |
+| **AI Coach** | Magyar szöveges tippek (Gemini API-n keresztül, opcionális) |
+| **Apple Health** | Alvás, edzés, testsúly szinkron (iOS) |
+| **Értesítések** | Helyi push: edzés, alvás, emlékeztetők |
+| **Haladásfotók** | Fotó napló, összehasonlítás |
+| **Szinkron** | Több eszköz között: profil, napló, edzés, alvás (LWW konfliktuskezelés) |
+
+---
+
+## Architektúra
+
+```mermaid
+flowchart TB
+  subgraph client [Flutter app]
+    UI[UI – Riverpod]
+    Local[(SQLite / Drift)]
+    GW[FlexioApiGateway / SupabaseGateway]
+  end
+
+  subgraph cloud [Felhő]
+    Auth[Supabase Auth]
+    DB[(Postgres + RLS)]
+    API[C# Flexio API – Docker]
+    Cron[Render Cron – OFF import]
+  end
+
+  UI --> Local
+  UI --> GW
+  GW -->|JWT login| Auth
+  GW -->|sync, foods, coach| API
+  API --> DB
+  Cron -->|POST /internal/jobs/*| API
+  Auth --> DB
+```
+
+**Adatfolyam (offline-first):**
+
+1. Minden művelet először **helyi DB-be** íródik (`isDirty` jelöléssel).
+2. Belépés után a `SyncService` **push → pull** ciklussal szinkronizál.
+3. Konfliktusnál **last-write-wins** az `updated_at` alapján.
+4. A helyi profil és a szerver üres válasza **egyesítve** marad (nem írja felül a teljes profilt).
+
+---
+
+## Technológiai stack
+
+### Mobil (Flutter)
+
+| Eszköz | Csomag / technológia |
+|--------|----------------------|
+| Állapot | `flutter_riverpod` |
+| Helyi DB | `drift` + SQLite |
+| Auth | `supabase_flutter` + PKCE + secure storage |
+| HTTP | `dio` |
+| Grafikonok | `fl_chart` |
+| Vonalkód | `mobile_scanner` |
+| Health | `health` (HealthKit) |
+| Értesítések | `flutter_local_notifications` |
+
+### Backend (.NET 10)
+
+| Réteg | Technológia |
+|-------|-------------|
+| API | ASP.NET Core Minimal API |
+| Adat | Npgsql + Dapper |
+| Auth | JWT Bearer (Supabase JWKS) |
+| AI | Google Gemini (opcionális) |
+| Deploy | Docker → Render (Frankfurt) |
+| Tesztek | xUnit + Testcontainers |
+
+### Adatbázis (Supabase Postgres)
+
+- Row Level Security (RLS) minden user táblán
+- Külön DB role-ok: `flexio_api` (RLS alatt), `flexio_jobs` (batch import)
+- Magyar ételkatalógus + Open Food Facts import (Magyarország szűrés)
+- Full-text + trigram keresés (`search_foods` RPC)
+
+---
+
+## Projekt struktúra
+
+```
+Flexio/
+├── lib/                      # Flutter app
+│   ├── data/                 # Modellek, repo-k, sync, remote gateway
+│   ├── view/                 # Képernyők (edzés, étel, alvás, profil…)
+│   └── main.dart
+├── assets/
+│   ├── food_catalog_hu.json  # ~500 kurátorált magyar étel
+│   └── exercise_catalog_hu.json
+├── supabase/migrations/      # SQL séma, RLS, keresés, role-ok
+├── backend/                  # C# API (.NET 10)
+│   ├── src/Flexio.Api/
+│   ├── src/Flexio.Application/
+│   ├── src/Flexio.Domain/
+│   ├── src/Flexio.Infrastructure/
+│   └── tests/
+├── server/scripts/           # build_catalog.mjs (fejlesztői eszköz)
+├── scripts/setup_supabase.sh # Migráció + seed egy parancsból
+├── render.yaml               # Render blueprint (API + cron)
+└── .vscode/launch.json       # Flutter run konfigurációk
+```
+
+---
+
+## Előfeltételek
+
+| Eszköz | Verzió |
+|--------|--------|
+| Flutter SDK | ≥ 3.4 |
+| Dart | ≥ 3.4 |
+| Xcode | iOS buildhez (macOS) |
+| .NET SDK | 10.x (backendhez) |
+| Node.js | ≥ 20 (katalógus-buildhez) |
+| Supabase projekt | Auth + Postgres |
+| Render fiók | API hosting (opcionális) |
+
+---
+
+## Gyors indulás
+
+### 1. Klónozás és függőségek
+
+```bash
+git clone https://github.com/bogszibarack/Flexio-2.0.git
+cd Flexio-2.0
+
+flutter pub get
+cd backend && dotnet restore && cd ..
+```
+
+### 2. Helyi / offline mód (backend nélkül)
+
+```bash
+flutter run
+```
+
+Minden adat a készüléken marad, a beépített magyar étel- és gyakorlat-katalógus működik.
+
+### 3. Supabase mód
+
+```bash
+flutter run \
+  --dart-define=SUPABASE_URL=https://<project-ref>.supabase.co \
+  --dart-define=SUPABASE_PUBLISHABLE_KEY=<publishable-key>
+```
+
+### 4. Teljes mód (Supabase + saját API)
+
+```bash
+flutter run \
+  --dart-define=SUPABASE_URL=https://<project-ref>.supabase.co \
+  --dart-define=SUPABASE_PUBLISHABLE_KEY=<publishable-key> \
+  --dart-define=API_BASE_URL=https://flexio-api.onrender.com
+```
+
+VS Code-ban: **Run and Debug** → válaszd a `.vscode/launch.json` megfelelő konfigurációját.
+
+---
+
+## Környezeti változók
+
+### Flutter (`--dart-define`)
+
+| Változó | Kötelező | Leírás |
+|---------|----------|--------|
+| `SUPABASE_URL` | Supabase módhoz | Pl. `https://abcdef.supabase.co` |
+| `SUPABASE_PUBLISHABLE_KEY` | Supabase módhoz | Publishable key (nem service role!) |
+| `API_BASE_URL` | API módhoz | Pl. `https://flexio-api.onrender.com` |
+
+> A titkok **soha** ne kerüljenek a gitbe. A `.env.supabase`, `.env.render`, `backend/.env.local` fájlok gitignore-ban vannak.
+
+### C# API (Render / helyi)
+
+| Változó | Kötelező | Leírás |
+|---------|----------|--------|
+| `SupabaseAuth__ProjectUrl` | Igen | Supabase projekt URL |
+| `Postgres__ApiConnectionString` | Igen | `flexio_api` role connection string |
+| `Postgres__JobsConnectionString` | Jobokhoz | `flexio_jobs` role connection string |
+| `InternalJobs__SharedSecret` | Jobokhoz | Min. 16 karakter, cron hívásokhoz |
+| `Gemini__ApiKey` | Nem | AI coach; üresen fallback szöveg |
+
+Részletes leírás: [`backend/README.md`](backend/README.md)
+
+### Supabase Auth redirect
+
+Add hozzá a Supabase Dashboard → **Authentication → URL Configuration**:
+
+```
+com.kokaiadam.flexio://login-callback/
+```
+
+---
+
+## Supabase beállítás
+
+```bash
+cp .env.supabase.example .env.supabase
+# Töltsd ki: SUPABASE_DB_PASSWORD (Dashboard → Database password)
+
+./scripts/setup_supabase.sh
+```
+
+A script:
+
+1. Futtatja a `supabase/migrations/` SQL fájlokat
+2. Beállítja a `flexio_api` / `flexio_jobs` role jelszavakat
+3. Betölti a magyar ételkatalógust (~495 tétel)
+
+---
+
+## Backend (C# API)
+
+```bash
+cd backend
+
+# Helyi futtatás (env változókkal)
+SupabaseAuth__ProjectUrl=https://<ref>.supabase.co \
+Postgres__ApiConnectionString='Host=...;Username=flexio_api.<ref>;...' \
+dotnet run --project src/Flexio.Api
+```
+
+### Fő végpontok
+
+| Végpont | Leírás |
+|---------|--------|
+| `GET /health/live` | Liveness probe |
+| `GET /health/ready` | Readiness (DB + opcionális Gemini) |
+| `POST /api/v1/sync` | Push/pull: profil, napló, edzés, alvás |
+| `GET /api/v1/foods/search` | Magyar ételkeresés |
+| `GET /api/v1/foods/barcode/{code}` | Vonalkód |
+| `POST /api/v1/coach` | AI coach szöveg |
+| `POST /internal/jobs/import-off` | OFF import (cron, secret header) |
+| `POST /internal/jobs/seed-foods` | Katalógus seed (cron, secret header) |
+
+---
+
+## Render deploy
+
+A [`render.yaml`](render.yaml) két szolgáltatást definiál:
+
+1. **flexio-api** — Docker web service (Frankfurt, free tier)
+2. **flexio-off-import** — Heti cron (hétfő 03:00 UTC), curl-lal hívja az API-t
+
+Deploy után állítsd be a Render **Environment** fülön:
+
+- `Postgres__ApiConnectionString`
+- `Postgres__JobsConnectionString`
+- `InternalJobs__SharedSecret`
+- `INTERNAL_JOBS__SHAREDSECRET` (cron service-nél, ugyanaz az érték)
+
+---
+
+## Telepítés telefonra
+
+### iOS — fejlesztői telepítés (saját iPhone)
+
+```bash
+# Eszköz ID lekérdezése
+flutter devices
+
+# Release build + telepítés
+flutter build ios --release \
+  --dart-define=SUPABASE_URL=https://<ref>.supabase.co \
+  --dart-define=SUPABASE_PUBLISHABLE_KEY=<key> \
+  --dart-define=API_BASE_URL=https://flexio-api.onrender.com
+
+flutter install --release -d <device-id>
+```
+
+**Bundle ID:** `com.kokaiadam.flexio`  
+**Megjegyzés:** Ingyenes Apple ID-val az app ~7 nap után lejár; tartós telepítéshez TestFlight / App Store (fizetős Developer fiók).
+
+### Android
+
+```bash
+flutter build apk --release \
+  --dart-define=SUPABASE_URL=... \
+  --dart-define=SUPABASE_PUBLISHABLE_KEY=... \
+  --dart-define=API_BASE_URL=...
+```
+
+Az APK: `build/app/outputs/flutter-apk/app-release.apk`
+
+---
+
+## Tesztek
+
+```bash
+# Flutter
+flutter test
+
+# Backend
+cd backend && dotnet test
+```
+
+Integration tesztek: JWT auth, RLS, sync LWW, belső job végpontok (Testcontainers).
+
+---
+
+## Eredeti UI forrás
+
+Az alkalmazás UI-ja a **codeforany** fitness tutorial sorozatán és a [Pixel True Fitness UI Kit](https://www.pixeltrue.com/free-ui-kits/fitness-app-ui-kit) alapján készült, jelentős funkcionális és architekturális bővítéssel.
+
+---
+
+## Licenc és felelősség
+
+Ez a projekt privát / személyes használatra készült. Az egészségügyi és táplálkozási adatok tájékoztató jellegűek, nem minősülnek orvosi tanácsnak.
+
+---
+
+<p align="center">
+  <sub>Flexio · Magyar fitness app · Flutter + Supabase + .NET</sub>
+</p>
