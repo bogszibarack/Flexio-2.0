@@ -70,6 +70,25 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
       return;
     }
 
+    if (outcome.message != null &&
+        outcome.message!.contains("megerősítő e-mailt")) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(outcome.message!)),
+      );
+      if (!mounted) {
+        return;
+      }
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginView(
+            initialEmail: emailController.text.trim(),
+          ),
+        ),
+      );
+      return;
+    }
+
     if (outcome.message != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(outcome.message!)),
@@ -225,6 +244,30 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             color: Color(0xFFE53935), fontSize: 12),
+                      ),
+                    ),
+                  if (errorText != null &&
+                      errorText!.contains("már létezik fiók"))
+                    TextButton(
+                      onPressed: isBusy
+                          ? null
+                          : () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginView(
+                                    initialEmail: emailController.text.trim(),
+                                  ),
+                                ),
+                              );
+                            },
+                      child: Text(
+                        "Bejelentkezés ezzel az e-mail címmel",
+                        style: TextStyle(
+                          color: TColor.primaryColor1,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   SizedBox(

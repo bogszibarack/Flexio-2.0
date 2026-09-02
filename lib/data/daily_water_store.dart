@@ -1,37 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
-import 'local/app_database.dart';
+import 'repositories/water_repository.dart';
 
-class WaterSip {
-  const WaterSip({required this.at, required this.ml});
+export 'repositories/water_repository.dart' show WaterSip;
 
-  final DateTime at;
-  final int ml;
-
-  Map<String, dynamic> toJson() => {
-        "at": at.toIso8601String(),
-        "ml": ml,
-      };
-
-  factory WaterSip.fromJson(Map<String, dynamic> json) => WaterSip(
-        at: DateTime.tryParse("${json["at"]}") ?? DateTime.now(),
-        ml: (json["ml"] as num?)?.toInt() ?? 0,
-      );
-
-  String get clockLabel =>
-      "${at.hour.toString().padLeft(2, "0")}:${at.minute.toString().padLeft(2, "0")}";
-}
-
-/// A mai vízbevitel, helyi SyncMeta-ban. Nincs kitalált kezdőérték.
+/// A mai vízbevitel. Bejelentkezve a felhőbe is szinkronizálódik.
 class DailyWaterController extends ChangeNotifier {
   DailyWaterController({
-    required AppDatabase database,
+    required WaterRepository repository,
     required this.userId,
-  }) : _database = database;
+  }) : _repository = repository;
 
-  final AppDatabase _database;
+  final WaterRepository _repository;
   final String? userId;
 
   List<WaterSip> _sips = [];
@@ -41,52 +21,35 @@ class DailyWaterController extends ChangeNotifier {
   List<WaterSip> get sips => List.unmodifiable(_sips);
   int get totalMl => _sips.fold<int>(0, (sum, sip) => sum + sip.ml);
 
-  String get _key {
-    final now = DateTime.now();
-    final day =
-        "${now.year}-${now.month.toString().padLeft(2, "0")}-${now.day.toString().padLeft(2, "0")}";
-    return "water_${userId ?? "local"}_$day";
-  }
-
   Future<void> load() async {
-    final raw = await _database.metaValue(_key);
-    _sips = _decode(raw);
+    final id = userId;
+    if (id == null) {
+      _sips = [];
+      _loaded = true;
+      notifyListeners();
+      return;
+    }
+
+    _sips = await _repository.loadForDay(id, DateTime.now());
     _loaded = true;
     notifyListeners();
   }
+
+  Future<void> reload() => load();
 
   Future<void> add(int milliliters) async {
     if (milliliters <= 0) {
       return;
     }
-    _sips = [
-      ..._sips,
-      WaterSip(at: DateTime.now(), ml: milliliters),
-    ];
-    notifyListeners();
-    await _database.setMeta(
-      _key,
-      jsonEncode(_sips.map((sip) => sip.toJson()).toList()),
-    );
-  }
 
-  static List<WaterSip> _decode(String? raw) {
-    if (raw == null || raw.isEmpty) {
-      return [];
+    final id = userId;
+    if (id == null) {
+      return;
     }
-    try {
-      final decoded = jsonDecode(raw);
-      if (decoded is! List) {
-        return [];
-      }
-      return decoded
-          .whereType<Map>()
-          .map((item) => WaterSip.fromJson(Map<String, dynamic>.from(item)))
-          .where((sip) => sip.ml > 0)
-          .toList();
-    } catch (_) {
-      return [];
-    }
+
+    final sip = await _repository.addSip(id, milliliters);
+    _sips = [..._sips, sip];
+    notifyListeners();
   }
 }
 

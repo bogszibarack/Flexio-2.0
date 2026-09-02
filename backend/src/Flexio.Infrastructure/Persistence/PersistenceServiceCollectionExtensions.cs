@@ -1,6 +1,7 @@
 using Dapper;
 using Flexio.Application.Abstractions;
 using Flexio.Infrastructure.Configuration;
+using Flexio.Infrastructure.Jobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -47,6 +48,13 @@ internal static class PersistenceServiceCollectionExtensions
                         options.JobsConnectionString!,
                         options.CommandTimeoutSeconds);
                 });
+
+            services.AddHttpClient(
+                "OpenFoodFacts",
+                client => client.Timeout = TimeSpan.FromMinutes(45));
+
+            services.TryAddScoped<IFoodCatalogSeeder, FoodCatalogSeeder>();
+            services.TryAddScoped<IOpenFoodFactsImporter, OpenFoodFactsImporter>();
         }
 
         services.TryAddScoped<DbSession>();

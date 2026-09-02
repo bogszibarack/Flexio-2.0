@@ -423,10 +423,9 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
   void _showAddExerciseSheet() {
     String query = "";
     Map<String, String>? selectedExercise;
-    final repetitionsController = TextEditingController(text: "10");
+    int repetitions = 10;
     int rounds = 3;
-    final roundWeightControllers =
-        List.generate(rounds, (index) => TextEditingController(text: "0"));
+    var roundWeights = List<int>.filled(rounds, 0);
 
     showModalBottomSheet(
       context: context,
@@ -440,9 +439,14 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                       .toLowerCase()
                       .contains(query.toLowerCase()))
               .toList();
+          final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
 
-          return SafeArea(
-            child: Material(
+          return GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: bottomInset),
+              child: SafeArea(
+                child: Material(
               color: TColor.white,
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(25)),
@@ -472,11 +476,14 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                   const SizedBox(height: 12),
                   TextField(
                     autofocus: true,
+                    textInputAction: TextInputAction.search,
                     onChanged: (value) {
                       setModalState(() {
                         query = value;
                       });
                     },
+                    onSubmitted: (_) =>
+                        FocusManager.instance.primaryFocus?.unfocus(),
                     decoration: InputDecoration(
                       hintText: "Keress gyakorlatra, például: guggolás",
                       prefixIcon: const Icon(Icons.search),
@@ -491,6 +498,8 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                   const SizedBox(height: 10),
                   Expanded(
                     child: ListView.builder(
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
                       itemCount: filteredExercises.length,
                       itemBuilder: (context, index) {
                         final exercise = filteredExercises[index];
@@ -498,6 +507,7 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                         return SheetOption(
                             title: exercise["name"]!,
                             onTap: () {
+                              FocusManager.instance.primaryFocus?.unfocus();
                               setModalState(() {
                                 selectedExercise = exercise;
                               });
@@ -523,8 +533,13 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                     Row(
                       children: [
                         Expanded(
-                          child: _buildNumberField(
-                              "Ismétlés", repetitionsController),
+                          child: _buildNumberControl(
+                            "Ismétlés",
+                            repetitions,
+                            (value) =>
+                                setModalState(() => repetitions = value),
+                            minimum: 1,
+                          ),
                         ),
                         const SizedBox(width: 10),
                         Expanded(
@@ -533,13 +548,13 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                             () => setModalState(() {
                               if (rounds > 1) {
                                 rounds--;
-                                roundWeightControllers.removeLast().dispose();
+                                roundWeights =
+                                    roundWeights.sublist(0, rounds);
                               }
                             }),
                             () => setModalState(() {
                               rounds++;
-                              roundWeightControllers
-                                  .add(TextEditingController(text: "0"));
+                              roundWeights = [...roundWeights, 0];
                             }),
                           ),
                         ),
@@ -549,9 +564,11 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                     ...List.generate(rounds, (index) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8),
-                        child: _buildNumberField(
+                        child: _buildNumberControl(
                           "${index + 1}. kör súlya (kg)",
-                          roundWeightControllers[index],
+                          roundWeights[index],
+                          (value) =>
+                              setModalState(() => roundWeights[index] = value),
                         ),
                       );
                     }),
@@ -567,14 +584,10 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                             exercises.add({
                               "name": selectedExercise!["name"]!,
                               "image": selectedExercise!["image"]!,
-                              "repetitions": int.tryParse(
-                                      repetitionsController.text.trim()) ??
-                                  0,
+                              "repetitions": repetitions,
+                              "weight": roundWeights.first,
                               "rounds": rounds,
-                              "roundWeights": roundWeightControllers
-                                  .map((controller) =>
-                                      int.tryParse(controller.text.trim()) ?? 0)
-                                  .toList(),
+                              "roundWeights": List<int>.from(roundWeights),
                             });
                           });
                           Navigator.pop(context);
@@ -587,26 +600,39 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                 ),
               ),
             ),
+              ),
+            ),
           );
         },
       ),
     );
   }
 
-  Widget _buildNumberField(String label, TextEditingController controller) {
-    return TextField(
-      controller: controller,
-      keyboardType: TextInputType.number,
-      textAlign: TextAlign.center,
-      decoration: InputDecoration(
-        labelText: label,
-        filled: true,
-        fillColor: TColor.lightGray,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
+  Widget _buildNumberControl(
+    String label,
+    int value,
+    ValueChanged<int> onChanged, {
+    int minimum = 0,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: TextStyle(color: TColor.gray, fontSize: 11)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              onPressed: value > minimum ? () => onChanged(value - 1) : null,
+              icon: const Icon(Icons.remove_circle_outline, size: 20),
+            ),
+            Text("$value", style: TextStyle(color: TColor.black)),
+            IconButton(
+              onPressed: () => onChanged(value + 1),
+              icon: const Icon(Icons.add_circle_outline, size: 20),
+            ),
+          ],
         ),
-      ),
+      ],
     );
   }
 

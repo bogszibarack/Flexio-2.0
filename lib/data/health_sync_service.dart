@@ -537,7 +537,7 @@ class HealthSyncService extends ChangeNotifier {
 
   bool _isOwnSource(HealthDataPoint point) {
     final source = "${point.sourceId} ${point.sourceName}".toLowerCase();
-    return source.contains("com.codeforany.fitness");
+    return source.contains("com.kokaiadam.flexio");
   }
 
   static String _workoutTitle(HealthWorkoutActivityType type) {

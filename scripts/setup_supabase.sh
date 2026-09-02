@@ -70,6 +70,7 @@ MIGRATIONS=(
   supabase/migrations/20260830194500_lww_updated_at.sql
   supabase/migrations/20260830195000_search_user_seam.sql
   supabase/migrations/20260831100000_backfill_auth_users.sql
+  supabase/migrations/20260902120000_media_and_water_sync.sql
 )
 
 for file in "${MIGRATIONS[@]}"; do
@@ -115,8 +116,8 @@ BACKEND_ENV="$ROOT/backend/.env.local"
 cat >"$BACKEND_ENV" <<EOF
 # Render / helyi C# API – ne commitold.
 SupabaseAuth__ProjectUrl=https://${PROJECT_REF}.supabase.co
-Postgres__ApiConnectionString=Host=${DB_HOST};Port=${DB_POOLER_PORT};Username=flexio_api.${PROJECT_REF};Password=${FLEXIO_API_PASSWORD};Database=postgres;SSL Mode=Require;Trust Server Certificate=true
-Postgres__JobsConnectionString=Host=${DB_HOST};Port=${DB_POOLER_PORT};Username=flexio_jobs.${PROJECT_REF};Password=${FLEXIO_JOBS_PASSWORD};Database=postgres;SSL Mode=Require;Trust Server Certificate=true
+Postgres__ApiConnectionString=Host=${DB_HOST};Port=${DB_POOLER_PORT};Username=flexio_api.${PROJECT_REF};Password=${FLEXIO_API_PASSWORD};Database=postgres;SSL Mode=Require
+Postgres__JobsConnectionString=Host=${DB_HOST};Port=${DB_POOLER_PORT};Username=flexio_jobs.${PROJECT_REF};Password=${FLEXIO_JOBS_PASSWORD};Database=postgres;SSL Mode=Require
 InternalJobs__SharedSecret=${INTERNAL_JOBS_SHARED_SECRET}
 EOF
 chmod 600 "$BACKEND_ENV"

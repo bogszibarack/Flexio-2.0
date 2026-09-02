@@ -14,11 +14,14 @@ import 'local/app_database.dart';
 import 'models/diary_entry.dart';
 import 'models/user_profile.dart';
 import 'remote/flexio_api_gateway.dart';
+import 'remote/storage_gateway.dart';
 import 'remote/supabase_gateway.dart';
 import 'repositories/diary_repository.dart';
 import 'repositories/food_repository.dart';
 import 'repositories/profile_repository.dart';
+import 'repositories/progress_photo_repository.dart';
 import 'repositories/sleep_repository.dart';
+import 'repositories/water_repository.dart';
 import 'repositories/workout_repository.dart';
 import 'session_service.dart';
 import 'sync_service.dart';
@@ -35,6 +38,10 @@ final supabaseGatewayProvider = Provider<SupabaseGateway>((ref) {
     return const FlexioApiGateway();
   }
   return const SupabaseGateway();
+});
+
+final storageGatewayProvider = Provider<StorageGateway>((ref) {
+  return const StorageGateway();
 });
 
 final sessionServiceProvider = ChangeNotifierProvider<SessionService>((ref) {
@@ -62,6 +69,22 @@ final profileRepositoryProvider = Provider<ProfileRepository>((ref) {
   return ProfileRepository(
     database: ref.watch(appDatabaseProvider),
     gateway: ref.watch(supabaseGatewayProvider),
+    storage: ref.watch(storageGatewayProvider),
+  );
+});
+
+final waterRepositoryProvider = Provider<WaterRepository>((ref) {
+  return WaterRepository(
+    database: ref.watch(appDatabaseProvider),
+    gateway: ref.watch(supabaseGatewayProvider),
+  );
+});
+
+final progressPhotoRepositoryProvider = Provider<ProgressPhotoRepository>((ref) {
+  return ProgressPhotoRepository(
+    database: ref.watch(appDatabaseProvider),
+    gateway: ref.watch(supabaseGatewayProvider),
+    storage: ref.watch(storageGatewayProvider),
   );
 });
 
@@ -88,6 +111,8 @@ final syncServiceProvider = Provider<SyncService>((ref) {
     profiles: ref.watch(profileRepositoryProvider),
     workouts: ref.watch(workoutRepositoryProvider),
     sleep: ref.watch(sleepRepositoryProvider),
+    water: ref.watch(waterRepositoryProvider),
+    progressPhotos: ref.watch(progressPhotoRepositoryProvider),
   );
 });
 
@@ -153,11 +178,13 @@ class ProfileController extends ChangeNotifier {
     _loading = false;
     _emit();
 
-    final remote = await _repository.pull(id);
-    if (!_alive || remote == null) {
+    // A pull a repóban egyesíti a távoli és helyi adatot; itt csak a DB-ből
+    // frissítünk, hogy ne írja felül a fenti emit-et egy üres szerver-válasz.
+    await _repository.pull(id);
+    if (!_alive) {
       return;
     }
-    _profile = remote;
+    _profile = await _repository.load(id);
     _applyToWorkoutStore();
     _emit();
   }
@@ -289,7 +316,7 @@ final coachServiceProvider = Provider<CoachService>((ref) {
 /// A mai vízbevitel. Nincs mock kezdőérték, üres nappal indul.
 final dailyWaterProvider = ChangeNotifierProvider<DailyWaterController>((ref) {
   final controller = DailyWaterController(
-    database: ref.watch(appDatabaseProvider),
+    repository: ref.watch(waterRepositoryProvider),
     userId: ref.watch(sessionServiceProvider).userId,
   );
   controller.load();
@@ -307,19 +334,25 @@ class UserScope {
   UserScope({
     required WorkoutRepository workouts,
     required SleepRepository sleep,
+    required ProgressPhotoRepository progressPhotos,
     required SyncService sync,
   })  : _workouts = workouts,
         _sleep = sleep,
+        _progressPhotos = progressPhotos,
         _sync = sync;
 
   final WorkoutRepository _workouts;
   final SleepRepository _sleep;
+  final ProgressPhotoRepository _progressPhotos;
   final SyncService _sync;
 
   Future<void> attach(String userId) async {
     await WorkoutStore.bind(repository: _workouts, userId: userId);
     await SleepStore.bind(repository: _sleep, userId: userId);
-    await PhotoProgressStore.bind(userId);
+    await PhotoProgressStore.bind(
+      repository: _progressPhotos,
+      userId: userId,
+    );
   }
 
   void detach() {
@@ -329,11 +362,17 @@ class UserScope {
   }
 
   /// Belépés után: helyi adat azonnal, majd szinkron, végül újratöltés, hogy a
-  /// másik eszközön rögzített edzés és alvás is megjelenjen.
-  Future<void> attachAndSync(String userId) async {
+  /// másik eszközön rögzített adatok is megjelenjenek.
+  Future<void> attachAndSync(
+    String userId, {
+    Future<void> Function()? onAfterSync,
+  }) async {
     await attach(userId);
     await _sync.syncAll(userId);
     await attach(userId);
+    if (onAfterSync != null) {
+      await onAfterSync();
+    }
   }
 }
 
@@ -341,6 +380,7 @@ final userScopeProvider = Provider<UserScope>((ref) {
   return UserScope(
     workouts: ref.watch(workoutRepositoryProvider),
     sleep: ref.watch(sleepRepositoryProvider),
+    progressPhotos: ref.watch(progressPhotoRepositoryProvider),
     sync: ref.watch(syncServiceProvider),
   );
 });

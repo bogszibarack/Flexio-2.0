@@ -103,8 +103,8 @@ végpontlista sem szivárog ki. Érvényes tokennel a nem létező útvonal `404
 | `GET /api/v1/foods/search?q=` | Rétegzett ételkeresés (Postgres `search_foods` RPC). |
 | `GET /api/v1/foods/barcode/{code}` | Étel vonalkód alapján. |
 | `POST /api/v1/foods/search-miss` | Találat nélküli keresés napló. |
-| `POST /internal/jobs/import-off` | OFF import (cron, `X-Flexio-Job-Secret`). |
-| `POST /internal/jobs/seed-foods` | Katalógus seed (cron, `X-Flexio-Job-Secret`). |
+| `POST /internal/jobs/import-off` | OFF import (cron, `X-Flexio-Job-Secret`). Háttérben fut, 202 Accepted. |
+| `POST /internal/jobs/seed-foods` | Katalógus seed (cron, `X-Flexio-Job-Secret`). Szinkron, 200 + statisztika. |
 
 A coach kérés törzse legfeljebb 8 KiB. A válasz soha nem tartalmaz orvosi
 tanácsot vagy kitalált számot - a számokat a telefon számolja.

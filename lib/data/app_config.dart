@@ -52,5 +52,5 @@ class AppConfig {
   /// Ugyanezt add hozzá a Supabase Dashboard → Auth → URL Configuration
   /// → Redirect URLs listához is.
   static const String authRedirectUrl =
-      "com.codeforany.fitness://login-callback/";
+      "com.kokaiadam.flexio://login-callback/";
 }

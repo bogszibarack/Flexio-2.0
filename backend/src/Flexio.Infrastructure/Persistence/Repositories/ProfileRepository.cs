@@ -27,10 +27,10 @@ internal sealed class ProfileRepository : IProfileRepository
                 """
                 insert into public.profiles (
                   user_id, first_name, gender, birth_date, height_cm, weight_kg,
-                  activity_level, goal, updated_at)
+                  activity_level, goal, avatar_url, avatar_updated_at, updated_at)
                 values (
                   @UserId, @FirstName, @Gender, @BirthDate, @HeightCm, @WeightKg,
-                  @ActivityLevel, @Goal, @UpdatedAt)
+                  @ActivityLevel, @Goal, @AvatarUrl, @AvatarUpdatedAt, @UpdatedAt)
                 on conflict (user_id) do update set
                   first_name = excluded.first_name,
                   gender = excluded.gender,
@@ -39,6 +39,8 @@ internal sealed class ProfileRepository : IProfileRepository
                   weight_kg = excluded.weight_kg,
                   activity_level = excluded.activity_level,
                   goal = excluded.goal,
+                  avatar_url = excluded.avatar_url,
+                  avatar_updated_at = excluded.avatar_updated_at,
                   updated_at = excluded.updated_at
                 where public.profiles.updated_at < excluded.updated_at
                 """,
@@ -90,6 +92,8 @@ internal sealed class ProfileRepository : IProfileRepository
                   weight_kg as WeightKg,
                   activity_level as ActivityLevel,
                   goal as Goal,
+                  avatar_url as AvatarUrl,
+                  avatar_updated_at as AvatarUpdatedAt,
                   updated_at as UpdatedAt
                 from public.profiles
                 where user_id = @UserId

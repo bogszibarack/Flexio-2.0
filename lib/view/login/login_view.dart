@@ -1,13 +1,18 @@
+import 'dart:async';
+
 import 'package:fitness/common/colo_extension.dart';
 import 'package:fitness/common_widget/round_button.dart';
 import 'package:fitness/common_widget/round_textfield.dart';
 import 'package:fitness/data/providers.dart';
+import 'package:fitness/data/session_service.dart';
 import 'package:fitness/view/on_boarding/on_boarding_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginView extends ConsumerStatefulWidget {
-  const LoginView({super.key});
+  const LoginView({super.key, this.initialEmail});
+
+  final String? initialEmail;
 
   @override
   ConsumerState<LoginView> createState() => _LoginViewState();
@@ -15,12 +20,18 @@ class LoginView extends ConsumerStatefulWidget {
 
 class _LoginViewState extends ConsumerState<LoginView> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
+  late final TextEditingController emailController;
   final TextEditingController passwordController = TextEditingController();
 
   bool isShowPassword = false;
   bool isBusy = false;
   String? errorText;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController(text: widget.initialEmail ?? "");
+  }
 
   @override
   void dispose() {
@@ -34,6 +45,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
       return;
     }
 
+    FocusManager.instance.primaryFocus?.unfocus();
+
     setState(() {
       isBusy = true;
       errorText = null;
@@ -41,36 +54,60 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
     final session = ref.read(sessionServiceProvider);
     final userScope = ref.read(userScopeProvider);
-    final outcome = await session.signIn(
-      email: emailController.text,
-      password: passwordController.text,
-    );
 
-    if (!mounted) {
-      return;
-    }
+    try {
+      final outcome = await session
+          .signIn(
+            email: emailController.text,
+            password: passwordController.text,
+          )
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () => const AuthOutcome.error(
+              "A bejelentkezés túl sokáig tartott. Ellenőrizd az internetet, és próbáld újra.",
+            ),
+          );
 
-    if (!outcome.success) {
-      setState(() {
-        isBusy = false;
-        errorText = outcome.message;
-      });
-      return;
-    }
+      if (!mounted) {
+        return;
+      }
 
-    // A session-csere lecseréli ezt a képernyőt, ezért a providereket
-    // előre kiolvassuk, és a profil új példánya magától betölt.
-    await session.completeOnboarding();
-    if (!mounted) {
+      if (!outcome.success) {
+        setState(() {
+          isBusy = false;
+          errorText = outcome.message;
+        });
+        return;
+      }
+
+      await session.completeOnboarding();
+
       final userId = session.userId;
       if (userId != null) {
-        userScope.attachAndSync(userId);
+        unawaited(
+          userScope.attachAndSync(
+            userId,
+            onAfterSync: () async {
+              await ref.read(dailyWaterProvider).reload();
+              await ref.read(profileControllerProvider).load();
+            },
+          ),
+        );
       }
-      return;
-    }
-    final userId = session.userId;
-    if (userId != null) {
-      userScope.attachAndSync(userId);
+
+      if (!mounted) {
+        return;
+      }
+
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } on Object {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        isBusy = false;
+        errorText = "Nem sikerült a belépés. Ellenőrizd az internetkapcsolatot.";
+      });
     }
   }
 

@@ -1,3 +1,4 @@
+using Flexio.Infrastructure.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,6 +29,15 @@ internal static class JobsServiceCollectionExtensions
                 options => string.IsNullOrEmpty(options.SharedSecret) || options.SharedSecret.Length >= 16,
                 "Az InternalJobs:SharedSecret legalább 16 karakter, vagy üres (ekkor a job végpontok zárva maradnak).")
             .ValidateOnStart();
+
+        services.AddValidatedOptions<OpenFoodFactsOptions>(
+            configuration,
+            OpenFoodFactsOptions.SectionName);
+        services.AddValidatedOptions<FoodCatalogOptions>(
+            configuration,
+            FoodCatalogOptions.SectionName);
+
+        services.AddSingleton<OpenFoodFactsImportCoordinator>();
 
         return services;
     }

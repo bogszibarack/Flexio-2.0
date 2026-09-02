@@ -76,7 +76,7 @@ class SleepRepository {
       isDirty: true,
     ));
 
-    pushPending(userId);
+    await pushPending(userId);
     return entry;
   }
 
@@ -94,7 +94,7 @@ class SleepRepository {
       isDirty: true,
     ));
 
-    pushPending(userId);
+    await pushPending(userId);
   }
 
   Future<void> pushPending(String userId) async {

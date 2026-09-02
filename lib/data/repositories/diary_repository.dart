@@ -59,7 +59,7 @@ class DiaryRepository {
     if (entry.deletedAt == null) {
       onLogged?.call(entry);
     }
-    _syncInBackground(entry);
+    await _syncEntry(entry);
   }
 
   Future<void> delete(String userId, DiaryEntry entry) async {
@@ -68,7 +68,7 @@ class DiaryRepository {
       updatedAt: DateTime.now(),
     );
     await _database.saveDiaryRow(_toRow(userId, removed, dirty: true));
-    _syncInBackground(removed);
+    await _syncEntry(removed);
   }
 
   Future<void> restore(String userId, DiaryEntry entry) async {
@@ -88,15 +88,14 @@ class DiaryRepository {
     await save(userId, restored);
   }
 
-  void _syncInBackground(DiaryEntry entry) {
+  Future<void> _syncEntry(DiaryEntry entry) async {
     if (!_gateway.isSignedIn) {
       return;
     }
-    _gateway.pushDiaryEntries([entry]).then((pushed) {
-      if (pushed) {
-        _database.markDiarySynced(entry.id);
-      }
-    });
+    final pushed = await _gateway.pushDiaryEntries([entry]);
+    if (pushed) {
+      await _database.markDiarySynced(entry.id);
+    }
   }
 
   static DiaryEntry _fromRow(DiaryRow row) => DiaryEntry(

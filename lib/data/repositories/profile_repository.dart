@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import '../local/app_database.dart';
 import '../models/user_profile.dart';
+import '../remote/storage_gateway.dart';
 import '../remote/supabase_gateway.dart';
 
 /// Profil és célértékek. A helyi példány az igazság a felületen, a szerver
@@ -10,11 +11,14 @@ class ProfileRepository {
   ProfileRepository({
     required AppDatabase database,
     required SupabaseGateway gateway,
+    required StorageGateway storage,
   })  : _database = database,
-        _gateway = gateway;
+        _gateway = gateway,
+        _storage = storage;
 
   final AppDatabase _database;
   final SupabaseGateway _gateway;
+  final StorageGateway _storage;
 
   static String _avatarKey(String userId) => "avatar_$userId";
   static const String _onboardingProfileKey = "onboarding_profile_pending";
@@ -104,17 +108,33 @@ class ProfileRepository {
   }
 
   Future<UserProfile> save(String userId, UserProfile profile) async {
-    await _database.setMeta(_avatarKey(userId), profile.avatarPath ?? "");
-    await _database.saveProfileRow(_toRow(userId, profile, dirty: true));
+    var toSave = profile;
 
     if (_gateway.isSignedIn) {
-      final pushed = await _gateway.pushProfile(profile);
+      if (profile.avatarPath != null && profile.avatarPath!.isNotEmpty) {
+        final uploaded = await _storage.uploadAvatar(profile.avatarPath!);
+        if (uploaded != null) {
+          toSave = profile.copyWith(
+            avatarUrl: uploaded,
+            avatarUpdatedAt: DateTime.now(),
+          );
+        }
+      } else if (profile.avatarPath == null || profile.avatarPath!.isEmpty) {
+        toSave = profile.copyWith(clearAvatarRemote: true);
+      }
+    }
+
+    await _database.setMeta(_avatarKey(userId), toSave.avatarPath ?? "");
+    await _database.saveProfileRow(_toRow(userId, toSave, dirty: true));
+
+    if (_gateway.isSignedIn) {
+      final pushed = await _gateway.pushProfile(toSave);
       if (pushed) {
         await _database.markProfileSynced(userId);
       }
     }
 
-    return profile;
+    return toSave;
   }
 
   Future<UserProfile?> pull(String userId) async {
@@ -127,16 +147,103 @@ class ProfileRepository {
       return null;
     }
 
-    final local = await _database.profileForUser(userId);
-    // A helyi, még nem feltöltött módosítás előnyt kap.
-    if (local != null && local.isDirty && local.updatedAt.isAfter(remote.updatedAt)) {
-      return _fromRow(local);
+    final localRow = await _database.profileForUser(userId);
+    final localProfile = localRow == null ? null : _fromRow(localRow);
+    final localAvatarPath = await _avatarFor(userId);
+
+    if (localRow != null &&
+        localRow.isDirty &&
+        localProfile!.updatedAt.isAfter(remote.updatedAt)) {
+      return localProfile.copyWith(avatarPath: localAvatarPath);
     }
 
-    final avatar = await _avatarFor(userId);
-    final merged = remote.copyWith(avatarPath: avatar);
-    await _database.saveProfileRow(_toRow(userId, merged, dirty: false));
+    var merged = localProfile == null
+        ? remote
+        : remote.mergeFrom(localProfile);
+    merged = await _syncAvatarFromRemote(
+      userId: userId,
+      merged: merged,
+      remote: remote,
+      local: localProfile,
+      localAvatarPath: localAvatarPath,
+    );
+
+    final needsPush = (localRow?.isDirty ?? false) ||
+        (localProfile != null &&
+            _localHasFieldsMissingOnRemote(localProfile, remote));
+
+    await _database.saveProfileRow(_toRow(userId, merged, dirty: needsPush));
+
+    if (needsPush && _gateway.isSignedIn) {
+      final pushed = await _gateway.pushProfile(merged);
+      if (pushed) {
+        await _database.markProfileSynced(userId);
+      }
+    }
+
     return merged;
+  }
+
+  Future<UserProfile> _syncAvatarFromRemote({
+    required String userId,
+    required UserProfile merged,
+    required UserProfile remote,
+    required UserProfile? local,
+    required String? localAvatarPath,
+  }) async {
+    final remoteAvatarAt = remote.avatarUpdatedAt;
+    final localAvatarAt = local?.avatarUpdatedAt;
+
+    if (remote.avatarUrl == null || remote.avatarUrl!.isEmpty) {
+      return merged.copyWith(avatarPath: localAvatarPath);
+    }
+
+    final remoteIsNewer = remoteAvatarAt != null &&
+        (localAvatarAt == null || remoteAvatarAt.isAfter(localAvatarAt));
+
+    if (!remoteIsNewer && localAvatarPath != null) {
+      return merged.copyWith(avatarPath: localAvatarPath);
+    }
+
+    final downloaded = await _storage.downloadAvatar(userId);
+    if (downloaded != null) {
+      await _database.setMeta(_avatarKey(userId), downloaded);
+      return merged.copyWith(
+        avatarPath: downloaded,
+        avatarUrl: remote.avatarUrl,
+        avatarUpdatedAt: remoteAvatarAt,
+      );
+    }
+
+    return merged.copyWith(avatarPath: localAvatarPath);
+  }
+
+  static bool _localHasFieldsMissingOnRemote(
+    UserProfile local,
+    UserProfile remote,
+  ) {
+    if (local.heightCm != null && remote.heightCm == null) {
+      return true;
+    }
+    if (local.weightKg != null && remote.weightKg == null) {
+      return true;
+    }
+    if (local.birthDate != null && remote.birthDate == null) {
+      return true;
+    }
+    if (local.gender != null && remote.gender == null) {
+      return true;
+    }
+    if (local.goal != null && remote.goal == null) {
+      return true;
+    }
+    if (local.manualGoals != null && remote.manualGoals == null) {
+      return true;
+    }
+    if (local.avatarUrl != null && remote.avatarUrl == null) {
+      return true;
+    }
+    return false;
   }
 
   Future<void> pushPending(String userId) async {
@@ -145,7 +252,24 @@ class ProfileRepository {
       return;
     }
 
-    final pushed = await _gateway.pushProfile(_fromRow(row));
+    var profile = _fromRow(row);
+    final avatarPath = await _avatarFor(userId);
+    profile = profile.copyWith(avatarPath: avatarPath);
+
+    if (avatarPath != null &&
+        avatarPath.isNotEmpty &&
+        (profile.avatarUrl == null || profile.avatarUrl!.isEmpty)) {
+      final uploaded = await _storage.uploadAvatar(avatarPath);
+      if (uploaded != null) {
+        profile = profile.copyWith(
+          avatarUrl: uploaded,
+          avatarUpdatedAt: DateTime.now(),
+        );
+        await _database.saveProfileRow(_toRow(userId, profile, dirty: true));
+      }
+    }
+
+    final pushed = await _gateway.pushProfile(profile);
     if (pushed) {
       await _database.markProfileSynced(userId);
     }
@@ -169,6 +293,8 @@ class ProfileRepository {
                 waterMl: row.waterGoalMl ?? 2500,
                 isManual: row.manualGoals,
               ),
+        avatarUrl: row.avatarUrl,
+        avatarUpdatedAt: row.avatarUpdatedAt,
         updatedAt: row.updatedAt,
       );
 
@@ -190,6 +316,8 @@ class ProfileRepository {
       carbsGoal: goals?.carbs,
       waterGoalMl: goals?.waterMl,
       manualGoals: goals?.isManual ?? false,
+      avatarUrl: profile.avatarUrl,
+      avatarUpdatedAt: profile.avatarUpdatedAt,
       updatedAt: profile.updatedAt,
       isDirty: dirty,
     );

@@ -1,4 +1,5 @@
 import 'package:fitness/common/colo_extension.dart';
+import 'package:fitness/common_widget/flexio_logo.dart';
 import 'package:fitness/view/on_boarding/on_boarding_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -39,14 +40,8 @@ class _StartedViewState extends State<StartedView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Spacer(),
-                Text(
-                  "Flexio",
-                  style: TextStyle(
-                    color: TColor.black,
-                    fontSize: 36,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const FlexioLogo(width: 220),
+                const SizedBox(height: 12),
                 Text(
                   "Neked is sikerülhet",
                   style: TextStyle(

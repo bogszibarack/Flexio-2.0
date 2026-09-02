@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:uuid/uuid.dart';
@@ -103,7 +105,9 @@ class WorkoutStore {
     if (repository == null || userId == null) {
       return;
     }
-    repository.save(userId: userId, kind: kind, item: _persistable(item));
+    unawaited(
+      repository.save(userId: userId, kind: kind, item: _persistable(item)),
+    );
   }
 
   static void _forget(Map<String, dynamic> item) {

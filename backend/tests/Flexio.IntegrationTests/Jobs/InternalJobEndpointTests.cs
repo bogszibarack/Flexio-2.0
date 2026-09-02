@@ -22,19 +22,24 @@ public sealed class InternalJobEndpointTests
     }
 
     [Fact]
-    public async Task Valid_secret_accepts_seed_job()
+    public async Task Valid_secret_without_jobs_db_returns_service_unavailable_for_seed()
     {
         using var client = _factory.CreateClient();
         using var request = new HttpRequestMessage(HttpMethod.Post, "/internal/jobs/seed-foods");
         request.Headers.Add(Flexio.Api.Endpoints.InternalJobEndpoints.SecretHeaderName, "testing-only-job-secret-32b");
 
         using var response = await client.SendAsync(request);
-        Assert.Equal(HttpStatusCode.Accepted, response.StatusCode);
-
-        var body = await response.Content.ReadFromJsonAsync<JobAccepted>();
-        Assert.NotNull(body);
-        Assert.Equal("accepted", body.Status);
+        Assert.Equal(HttpStatusCode.ServiceUnavailable, response.StatusCode);
     }
 
-    private sealed record JobAccepted(string Status, string Detail);
+    [Fact]
+    public async Task Valid_secret_accepts_off_import_when_jobs_db_missing_returns_unavailable()
+    {
+        using var client = _factory.CreateClient();
+        using var request = new HttpRequestMessage(HttpMethod.Post, "/internal/jobs/import-off");
+        request.Headers.Add(Flexio.Api.Endpoints.InternalJobEndpoints.SecretHeaderName, "testing-only-job-secret-32b");
+
+        using var response = await client.SendAsync(request);
+        Assert.Equal(HttpStatusCode.ServiceUnavailable, response.StatusCode);
+    }
 }

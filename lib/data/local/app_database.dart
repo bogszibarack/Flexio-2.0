@@ -126,11 +126,44 @@ class ProfileRows extends Table {
   RealColumn get carbsGoal => real().nullable()();
   IntColumn get waterGoalMl => integer().nullable()();
   BoolColumn get manualGoals => boolean().withDefault(const Constant(false))();
+  TextColumn get avatarUrl => text().nullable()();
+  DateTimeColumn get avatarUpdatedAt => dateTime().nullable()();
   DateTimeColumn get updatedAt => dateTime()();
   BoolColumn get isDirty => boolean().withDefault(const Constant(true))();
 
   @override
   Set<Column> get primaryKey => {userId};
+}
+
+@DataClassName("WaterRow")
+class WaterRows extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get loggedAt => dateTime()();
+  TextColumn get localDate => text()();
+  IntColumn get ml => integer()();
+  DateTimeColumn get updatedAt => dateTime()();
+  DateTimeColumn get deletedAt => dateTime().nullable()();
+  BoolColumn get isDirty => boolean().withDefault(const Constant(true))();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@DataClassName("ProgressPhotoRow")
+class ProgressPhotoRows extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get takenAt => dateTime()();
+  TextColumn get pose => text()();
+  TextColumn get storagePath => text()();
+  TextColumn get localPath => text().nullable()();
+  DateTimeColumn get updatedAt => dateTime()();
+  DateTimeColumn get deletedAt => dateTime().nullable()();
+  BoolColumn get isDirty => boolean().withDefault(const Constant(true))();
+
+  @override
+  Set<Column> get primaryKey => {id};
 }
 
 /// Kulcs-érték tábla: helyi felhasználó azonosító, utolsó szinkron időpontok.
@@ -144,7 +177,16 @@ class SyncMeta extends Table {
 }
 
 @DriftDatabase(
-  tables: [CachedFoods, DiaryRows, WorkoutRows, SleepRows, ProfileRows, SyncMeta],
+  tables: [
+    CachedFoods,
+    DiaryRows,
+    WorkoutRows,
+    SleepRows,
+    ProfileRows,
+    WaterRows,
+    ProgressPhotoRows,
+    SyncMeta,
+  ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
@@ -152,7 +194,19 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.executor);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+        onUpgrade: (migrator, from, to) async {
+          if (from < 2) {
+            await migrator.addColumn(profileRows, profileRows.avatarUrl);
+            await migrator.addColumn(profileRows, profileRows.avatarUpdatedAt);
+            await migrator.createTable(waterRows);
+            await migrator.createTable(progressPhotoRows);
+          }
+        },
+      );
 
   // --- Meta ---------------------------------------------------------------
 
@@ -292,11 +346,53 @@ class AppDatabase extends _$AppDatabase {
         ..where((t) => t.userId.equals(userId)))
       .write(const ProfileRowsCompanion(isDirty: Value(false)));
 
+  Future<List<WaterRow>> waterForDay(String userId, String localDate) =>
+      (select(waterRows)
+            ..where((t) =>
+                t.userId.equals(userId) &
+                t.localDate.equals(localDate) &
+                t.deletedAt.isNull())
+            ..orderBy([(t) => OrderingTerm.asc(t.loggedAt)]))
+          .get();
+
+  Future<void> saveWaterRow(WaterRow row) =>
+      into(waterRows).insertOnConflictUpdate(row);
+
+  Future<List<WaterRow>> dirtyWater(String userId) => (select(waterRows)
+        ..where((t) => t.userId.equals(userId) & t.isDirty.equals(true)))
+      .get();
+
+  Future<void> markWaterSynced(String id) => (update(waterRows)
+        ..where((t) => t.id.equals(id)))
+      .write(const WaterRowsCompanion(isDirty: Value(false)));
+
+  Future<List<ProgressPhotoRow>> progressPhotosForUser(String userId) =>
+      (select(progressPhotoRows)
+            ..where((t) => t.userId.equals(userId) & t.deletedAt.isNull())
+            ..orderBy([(t) => OrderingTerm.asc(t.takenAt)]))
+          .get();
+
+  Future<void> saveProgressPhotoRow(ProgressPhotoRow row) =>
+      into(progressPhotoRows).insertOnConflictUpdate(row);
+
+  Future<List<ProgressPhotoRow>> dirtyProgressPhotos(String userId) =>
+      (select(progressPhotoRows)
+            ..where((t) => t.userId.equals(userId) & t.isDirty.equals(true)))
+          .get();
+
+  Future<void> markProgressPhotoSynced(String id) =>
+      (update(progressPhotoRows)..where((t) => t.id.equals(id))).write(
+        const ProgressPhotoRowsCompanion(isDirty: Value(false)),
+      );
+
   /// Kilépésnél és fióktörlésnél a helyi adat is törlődik.
   Future<void> wipeUserData(String userId) async {
     await (delete(diaryRows)..where((t) => t.userId.equals(userId))).go();
     await (delete(workoutRows)..where((t) => t.userId.equals(userId))).go();
     await (delete(sleepRows)..where((t) => t.userId.equals(userId))).go();
+    await (delete(waterRows)..where((t) => t.userId.equals(userId))).go();
+    await (delete(progressPhotoRows)..where((t) => t.userId.equals(userId)))
+        .go();
     await (delete(profileRows)..where((t) => t.userId.equals(userId))).go();
     await (delete(cachedFoods)..where((t) => t.source.equals("user"))).go();
   }

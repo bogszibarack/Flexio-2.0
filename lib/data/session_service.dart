@@ -10,9 +10,13 @@ import 'remote/supabase_gateway.dart';
 class AuthOutcome {
   final bool success;
   final String? message;
+  final bool duplicateEmail;
 
-  const AuthOutcome.ok([this.message]) : success = true;
-  const AuthOutcome.error(this.message) : success = false;
+  const AuthOutcome.ok([this.message])
+      : success = true,
+        duplicateEmail = false;
+  const AuthOutcome.error(this.message, {this.duplicateEmail = false})
+      : success = false;
 }
 
 /// A Supabase session titkosított tárolása. A hozzáférési token nem kerül a
@@ -171,6 +175,16 @@ class SessionService extends ChangeNotifier {
         emailRedirectTo: AppConfig.authRedirectUrl,
       );
 
+      final user = response.user;
+      if (user != null &&
+          user.identities != null &&
+          user.identities!.isEmpty) {
+        return const AuthOutcome.error(
+          "Ezzel az e-mail címmel már létezik fiók.",
+          duplicateEmail: true,
+        );
+      }
+
       if (response.session == null) {
         return const AuthOutcome.ok(
           "Elküldtünk egy megerősítő e-mailt. Kattints a linkre, majd jelentkezz be.",
@@ -179,7 +193,10 @@ class SessionService extends ChangeNotifier {
       _applySession(response.session);
       return const AuthOutcome.ok();
     } on AuthException catch (error) {
-      return AuthOutcome.error(_translate(error));
+      return AuthOutcome.error(
+        _translate(error),
+        duplicateEmail: _isDuplicateEmailError(error),
+      );
     } on Object {
       return const AuthOutcome.error(
           "Nem sikerült a regisztráció. Ellenőrizd az internetkapcsolatot.");
@@ -298,8 +315,7 @@ class SessionService extends ChangeNotifier {
     if (message.contains("invalid login credentials")) {
       return "Hibás e-mail cím vagy jelszó.";
     }
-    if (message.contains("already registered") ||
-        message.contains("already been registered")) {
+    if (_isDuplicateEmailMessage(message)) {
       return "Ezzel az e-mail címmel már létezik fiók.";
     }
     if (message.contains("password should be at least")) {
@@ -316,4 +332,14 @@ class SessionService extends ChangeNotifier {
     }
     return "Sikertelen művelet: ${error.message}";
   }
+
+  bool _isDuplicateEmailError(AuthException error) =>
+      _isDuplicateEmailMessage(error.message.toLowerCase());
+
+  static bool _isDuplicateEmailMessage(String message) =>
+      message.contains("already registered") ||
+      message.contains("already been registered") ||
+      message.contains("user already registered") ||
+      message.contains("email address is already registered") ||
+      message.contains("user already exists");
 }

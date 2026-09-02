@@ -3241,6 +3241,18 @@ class $ProfileRowsTable extends ProfileRows
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'CHECK ("manual_goals" IN (0, 1))'),
       defaultValue: const Constant(false));
+  static const VerificationMeta _avatarUrlMeta =
+      const VerificationMeta('avatarUrl');
+  @override
+  late final GeneratedColumn<String> avatarUrl = GeneratedColumn<String>(
+      'avatar_url', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _avatarUpdatedAtMeta =
+      const VerificationMeta('avatarUpdatedAt');
+  @override
+  late final GeneratedColumn<DateTime> avatarUpdatedAt =
+      GeneratedColumn<DateTime>('avatar_updated_at', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
   static const VerificationMeta _updatedAtMeta =
       const VerificationMeta('updatedAt');
   @override
@@ -3273,6 +3285,8 @@ class $ProfileRowsTable extends ProfileRows
         carbsGoal,
         waterGoalMl,
         manualGoals,
+        avatarUrl,
+        avatarUpdatedAt,
         updatedAt,
         isDirty
       ];
@@ -3354,6 +3368,16 @@ class $ProfileRowsTable extends ProfileRows
           manualGoals.isAcceptableOrUnknown(
               data['manual_goals']!, _manualGoalsMeta));
     }
+    if (data.containsKey('avatar_url')) {
+      context.handle(_avatarUrlMeta,
+          avatarUrl.isAcceptableOrUnknown(data['avatar_url']!, _avatarUrlMeta));
+    }
+    if (data.containsKey('avatar_updated_at')) {
+      context.handle(
+          _avatarUpdatedAtMeta,
+          avatarUpdatedAt.isAcceptableOrUnknown(
+              data['avatar_updated_at']!, _avatarUpdatedAtMeta));
+    }
     if (data.containsKey('updated_at')) {
       context.handle(_updatedAtMeta,
           updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
@@ -3401,6 +3425,10 @@ class $ProfileRowsTable extends ProfileRows
           .read(DriftSqlType.int, data['${effectivePrefix}water_goal_ml']),
       manualGoals: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}manual_goals'])!,
+      avatarUrl: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}avatar_url']),
+      avatarUpdatedAt: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}avatar_updated_at']),
       updatedAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
       isDirty: attachedDatabase.typeMapping
@@ -3429,6 +3457,8 @@ class ProfileRow extends DataClass implements Insertable<ProfileRow> {
   final double? carbsGoal;
   final int? waterGoalMl;
   final bool manualGoals;
+  final String? avatarUrl;
+  final DateTime? avatarUpdatedAt;
   final DateTime updatedAt;
   final bool isDirty;
   const ProfileRow(
@@ -3446,6 +3476,8 @@ class ProfileRow extends DataClass implements Insertable<ProfileRow> {
       this.carbsGoal,
       this.waterGoalMl,
       required this.manualGoals,
+      this.avatarUrl,
+      this.avatarUpdatedAt,
       required this.updatedAt,
       required this.isDirty});
   @override
@@ -3487,6 +3519,12 @@ class ProfileRow extends DataClass implements Insertable<ProfileRow> {
       map['water_goal_ml'] = Variable<int>(waterGoalMl);
     }
     map['manual_goals'] = Variable<bool>(manualGoals);
+    if (!nullToAbsent || avatarUrl != null) {
+      map['avatar_url'] = Variable<String>(avatarUrl);
+    }
+    if (!nullToAbsent || avatarUpdatedAt != null) {
+      map['avatar_updated_at'] = Variable<DateTime>(avatarUpdatedAt);
+    }
     map['updated_at'] = Variable<DateTime>(updatedAt);
     map['is_dirty'] = Variable<bool>(isDirty);
     return map;
@@ -3527,6 +3565,12 @@ class ProfileRow extends DataClass implements Insertable<ProfileRow> {
           ? const Value.absent()
           : Value(waterGoalMl),
       manualGoals: Value(manualGoals),
+      avatarUrl: avatarUrl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(avatarUrl),
+      avatarUpdatedAt: avatarUpdatedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(avatarUpdatedAt),
       updatedAt: Value(updatedAt),
       isDirty: Value(isDirty),
     );
@@ -3550,6 +3594,8 @@ class ProfileRow extends DataClass implements Insertable<ProfileRow> {
       carbsGoal: serializer.fromJson<double?>(json['carbsGoal']),
       waterGoalMl: serializer.fromJson<int?>(json['waterGoalMl']),
       manualGoals: serializer.fromJson<bool>(json['manualGoals']),
+      avatarUrl: serializer.fromJson<String?>(json['avatarUrl']),
+      avatarUpdatedAt: serializer.fromJson<DateTime?>(json['avatarUpdatedAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
       isDirty: serializer.fromJson<bool>(json['isDirty']),
     );
@@ -3572,6 +3618,8 @@ class ProfileRow extends DataClass implements Insertable<ProfileRow> {
       'carbsGoal': serializer.toJson<double?>(carbsGoal),
       'waterGoalMl': serializer.toJson<int?>(waterGoalMl),
       'manualGoals': serializer.toJson<bool>(manualGoals),
+      'avatarUrl': serializer.toJson<String?>(avatarUrl),
+      'avatarUpdatedAt': serializer.toJson<DateTime?>(avatarUpdatedAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
       'isDirty': serializer.toJson<bool>(isDirty),
     };
@@ -3592,6 +3640,8 @@ class ProfileRow extends DataClass implements Insertable<ProfileRow> {
           Value<double?> carbsGoal = const Value.absent(),
           Value<int?> waterGoalMl = const Value.absent(),
           bool? manualGoals,
+          Value<String?> avatarUrl = const Value.absent(),
+          Value<DateTime?> avatarUpdatedAt = const Value.absent(),
           DateTime? updatedAt,
           bool? isDirty}) =>
       ProfileRow(
@@ -3609,6 +3659,10 @@ class ProfileRow extends DataClass implements Insertable<ProfileRow> {
         carbsGoal: carbsGoal.present ? carbsGoal.value : this.carbsGoal,
         waterGoalMl: waterGoalMl.present ? waterGoalMl.value : this.waterGoalMl,
         manualGoals: manualGoals ?? this.manualGoals,
+        avatarUrl: avatarUrl.present ? avatarUrl.value : this.avatarUrl,
+        avatarUpdatedAt: avatarUpdatedAt.present
+            ? avatarUpdatedAt.value
+            : this.avatarUpdatedAt,
         updatedAt: updatedAt ?? this.updatedAt,
         isDirty: isDirty ?? this.isDirty,
       );
@@ -3634,6 +3688,10 @@ class ProfileRow extends DataClass implements Insertable<ProfileRow> {
           data.waterGoalMl.present ? data.waterGoalMl.value : this.waterGoalMl,
       manualGoals:
           data.manualGoals.present ? data.manualGoals.value : this.manualGoals,
+      avatarUrl: data.avatarUrl.present ? data.avatarUrl.value : this.avatarUrl,
+      avatarUpdatedAt: data.avatarUpdatedAt.present
+          ? data.avatarUpdatedAt.value
+          : this.avatarUpdatedAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       isDirty: data.isDirty.present ? data.isDirty.value : this.isDirty,
     );
@@ -3656,6 +3714,8 @@ class ProfileRow extends DataClass implements Insertable<ProfileRow> {
           ..write('carbsGoal: $carbsGoal, ')
           ..write('waterGoalMl: $waterGoalMl, ')
           ..write('manualGoals: $manualGoals, ')
+          ..write('avatarUrl: $avatarUrl, ')
+          ..write('avatarUpdatedAt: $avatarUpdatedAt, ')
           ..write('updatedAt: $updatedAt, ')
           ..write('isDirty: $isDirty')
           ..write(')'))
@@ -3678,6 +3738,8 @@ class ProfileRow extends DataClass implements Insertable<ProfileRow> {
       carbsGoal,
       waterGoalMl,
       manualGoals,
+      avatarUrl,
+      avatarUpdatedAt,
       updatedAt,
       isDirty);
   @override
@@ -3698,6 +3760,8 @@ class ProfileRow extends DataClass implements Insertable<ProfileRow> {
           other.carbsGoal == this.carbsGoal &&
           other.waterGoalMl == this.waterGoalMl &&
           other.manualGoals == this.manualGoals &&
+          other.avatarUrl == this.avatarUrl &&
+          other.avatarUpdatedAt == this.avatarUpdatedAt &&
           other.updatedAt == this.updatedAt &&
           other.isDirty == this.isDirty);
 }
@@ -3717,6 +3781,8 @@ class ProfileRowsCompanion extends UpdateCompanion<ProfileRow> {
   final Value<double?> carbsGoal;
   final Value<int?> waterGoalMl;
   final Value<bool> manualGoals;
+  final Value<String?> avatarUrl;
+  final Value<DateTime?> avatarUpdatedAt;
   final Value<DateTime> updatedAt;
   final Value<bool> isDirty;
   final Value<int> rowid;
@@ -3735,6 +3801,8 @@ class ProfileRowsCompanion extends UpdateCompanion<ProfileRow> {
     this.carbsGoal = const Value.absent(),
     this.waterGoalMl = const Value.absent(),
     this.manualGoals = const Value.absent(),
+    this.avatarUrl = const Value.absent(),
+    this.avatarUpdatedAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
     this.isDirty = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -3754,6 +3822,8 @@ class ProfileRowsCompanion extends UpdateCompanion<ProfileRow> {
     this.carbsGoal = const Value.absent(),
     this.waterGoalMl = const Value.absent(),
     this.manualGoals = const Value.absent(),
+    this.avatarUrl = const Value.absent(),
+    this.avatarUpdatedAt = const Value.absent(),
     required DateTime updatedAt,
     this.isDirty = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -3774,6 +3844,8 @@ class ProfileRowsCompanion extends UpdateCompanion<ProfileRow> {
     Expression<double>? carbsGoal,
     Expression<int>? waterGoalMl,
     Expression<bool>? manualGoals,
+    Expression<String>? avatarUrl,
+    Expression<DateTime>? avatarUpdatedAt,
     Expression<DateTime>? updatedAt,
     Expression<bool>? isDirty,
     Expression<int>? rowid,
@@ -3793,6 +3865,8 @@ class ProfileRowsCompanion extends UpdateCompanion<ProfileRow> {
       if (carbsGoal != null) 'carbs_goal': carbsGoal,
       if (waterGoalMl != null) 'water_goal_ml': waterGoalMl,
       if (manualGoals != null) 'manual_goals': manualGoals,
+      if (avatarUrl != null) 'avatar_url': avatarUrl,
+      if (avatarUpdatedAt != null) 'avatar_updated_at': avatarUpdatedAt,
       if (updatedAt != null) 'updated_at': updatedAt,
       if (isDirty != null) 'is_dirty': isDirty,
       if (rowid != null) 'rowid': rowid,
@@ -3814,6 +3888,8 @@ class ProfileRowsCompanion extends UpdateCompanion<ProfileRow> {
       Value<double?>? carbsGoal,
       Value<int?>? waterGoalMl,
       Value<bool>? manualGoals,
+      Value<String?>? avatarUrl,
+      Value<DateTime?>? avatarUpdatedAt,
       Value<DateTime>? updatedAt,
       Value<bool>? isDirty,
       Value<int>? rowid}) {
@@ -3832,6 +3908,8 @@ class ProfileRowsCompanion extends UpdateCompanion<ProfileRow> {
       carbsGoal: carbsGoal ?? this.carbsGoal,
       waterGoalMl: waterGoalMl ?? this.waterGoalMl,
       manualGoals: manualGoals ?? this.manualGoals,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
+      avatarUpdatedAt: avatarUpdatedAt ?? this.avatarUpdatedAt,
       updatedAt: updatedAt ?? this.updatedAt,
       isDirty: isDirty ?? this.isDirty,
       rowid: rowid ?? this.rowid,
@@ -3883,6 +3961,12 @@ class ProfileRowsCompanion extends UpdateCompanion<ProfileRow> {
     if (manualGoals.present) {
       map['manual_goals'] = Variable<bool>(manualGoals.value);
     }
+    if (avatarUrl.present) {
+      map['avatar_url'] = Variable<String>(avatarUrl.value);
+    }
+    if (avatarUpdatedAt.present) {
+      map['avatar_updated_at'] = Variable<DateTime>(avatarUpdatedAt.value);
+    }
     if (updatedAt.present) {
       map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
@@ -3912,7 +3996,901 @@ class ProfileRowsCompanion extends UpdateCompanion<ProfileRow> {
           ..write('carbsGoal: $carbsGoal, ')
           ..write('waterGoalMl: $waterGoalMl, ')
           ..write('manualGoals: $manualGoals, ')
+          ..write('avatarUrl: $avatarUrl, ')
+          ..write('avatarUpdatedAt: $avatarUpdatedAt, ')
           ..write('updatedAt: $updatedAt, ')
+          ..write('isDirty: $isDirty, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $WaterRowsTable extends WaterRows
+    with TableInfo<$WaterRowsTable, WaterRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $WaterRowsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _loggedAtMeta =
+      const VerificationMeta('loggedAt');
+  @override
+  late final GeneratedColumn<DateTime> loggedAt = GeneratedColumn<DateTime>(
+      'logged_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _localDateMeta =
+      const VerificationMeta('localDate');
+  @override
+  late final GeneratedColumn<String> localDate = GeneratedColumn<String>(
+      'local_date', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _mlMeta = const VerificationMeta('ml');
+  @override
+  late final GeneratedColumn<int> ml = GeneratedColumn<int>(
+      'ml', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _deletedAtMeta =
+      const VerificationMeta('deletedAt');
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+      'deleted_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _isDirtyMeta =
+      const VerificationMeta('isDirty');
+  @override
+  late final GeneratedColumn<bool> isDirty = GeneratedColumn<bool>(
+      'is_dirty', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_dirty" IN (0, 1))'),
+      defaultValue: const Constant(true));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, userId, loggedAt, localDate, ml, updatedAt, deletedAt, isDirty];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'water_rows';
+  @override
+  VerificationContext validateIntegrity(Insertable<WaterRow> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('logged_at')) {
+      context.handle(_loggedAtMeta,
+          loggedAt.isAcceptableOrUnknown(data['logged_at']!, _loggedAtMeta));
+    } else if (isInserting) {
+      context.missing(_loggedAtMeta);
+    }
+    if (data.containsKey('local_date')) {
+      context.handle(_localDateMeta,
+          localDate.isAcceptableOrUnknown(data['local_date']!, _localDateMeta));
+    } else if (isInserting) {
+      context.missing(_localDateMeta);
+    }
+    if (data.containsKey('ml')) {
+      context.handle(_mlMeta, ml.isAcceptableOrUnknown(data['ml']!, _mlMeta));
+    } else if (isInserting) {
+      context.missing(_mlMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(_deletedAtMeta,
+          deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta));
+    }
+    if (data.containsKey('is_dirty')) {
+      context.handle(_isDirtyMeta,
+          isDirty.isAcceptableOrUnknown(data['is_dirty']!, _isDirtyMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  WaterRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return WaterRow(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      loggedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}logged_at'])!,
+      localDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}local_date'])!,
+      ml: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}ml'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+      deletedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}deleted_at']),
+      isDirty: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_dirty'])!,
+    );
+  }
+
+  @override
+  $WaterRowsTable createAlias(String alias) {
+    return $WaterRowsTable(attachedDatabase, alias);
+  }
+}
+
+class WaterRow extends DataClass implements Insertable<WaterRow> {
+  final String id;
+  final String userId;
+  final DateTime loggedAt;
+  final String localDate;
+  final int ml;
+  final DateTime updatedAt;
+  final DateTime? deletedAt;
+  final bool isDirty;
+  const WaterRow(
+      {required this.id,
+      required this.userId,
+      required this.loggedAt,
+      required this.localDate,
+      required this.ml,
+      required this.updatedAt,
+      this.deletedAt,
+      required this.isDirty});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['logged_at'] = Variable<DateTime>(loggedAt);
+    map['local_date'] = Variable<String>(localDate);
+    map['ml'] = Variable<int>(ml);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
+    map['is_dirty'] = Variable<bool>(isDirty);
+    return map;
+  }
+
+  WaterRowsCompanion toCompanion(bool nullToAbsent) {
+    return WaterRowsCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      loggedAt: Value(loggedAt),
+      localDate: Value(localDate),
+      ml: Value(ml),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      isDirty: Value(isDirty),
+    );
+  }
+
+  factory WaterRow.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return WaterRow(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      loggedAt: serializer.fromJson<DateTime>(json['loggedAt']),
+      localDate: serializer.fromJson<String>(json['localDate']),
+      ml: serializer.fromJson<int>(json['ml']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+      isDirty: serializer.fromJson<bool>(json['isDirty']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'loggedAt': serializer.toJson<DateTime>(loggedAt),
+      'localDate': serializer.toJson<String>(localDate),
+      'ml': serializer.toJson<int>(ml),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+      'isDirty': serializer.toJson<bool>(isDirty),
+    };
+  }
+
+  WaterRow copyWith(
+          {String? id,
+          String? userId,
+          DateTime? loggedAt,
+          String? localDate,
+          int? ml,
+          DateTime? updatedAt,
+          Value<DateTime?> deletedAt = const Value.absent(),
+          bool? isDirty}) =>
+      WaterRow(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        loggedAt: loggedAt ?? this.loggedAt,
+        localDate: localDate ?? this.localDate,
+        ml: ml ?? this.ml,
+        updatedAt: updatedAt ?? this.updatedAt,
+        deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+        isDirty: isDirty ?? this.isDirty,
+      );
+  WaterRow copyWithCompanion(WaterRowsCompanion data) {
+    return WaterRow(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      loggedAt: data.loggedAt.present ? data.loggedAt.value : this.loggedAt,
+      localDate: data.localDate.present ? data.localDate.value : this.localDate,
+      ml: data.ml.present ? data.ml.value : this.ml,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      isDirty: data.isDirty.present ? data.isDirty.value : this.isDirty,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('WaterRow(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('loggedAt: $loggedAt, ')
+          ..write('localDate: $localDate, ')
+          ..write('ml: $ml, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('isDirty: $isDirty')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id, userId, loggedAt, localDate, ml, updatedAt, deletedAt, isDirty);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is WaterRow &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.loggedAt == this.loggedAt &&
+          other.localDate == this.localDate &&
+          other.ml == this.ml &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt &&
+          other.isDirty == this.isDirty);
+}
+
+class WaterRowsCompanion extends UpdateCompanion<WaterRow> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> loggedAt;
+  final Value<String> localDate;
+  final Value<int> ml;
+  final Value<DateTime> updatedAt;
+  final Value<DateTime?> deletedAt;
+  final Value<bool> isDirty;
+  final Value<int> rowid;
+  const WaterRowsCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.loggedAt = const Value.absent(),
+    this.localDate = const Value.absent(),
+    this.ml = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.isDirty = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  WaterRowsCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime loggedAt,
+    required String localDate,
+    required int ml,
+    required DateTime updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.isDirty = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        loggedAt = Value(loggedAt),
+        localDate = Value(localDate),
+        ml = Value(ml),
+        updatedAt = Value(updatedAt);
+  static Insertable<WaterRow> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? loggedAt,
+    Expression<String>? localDate,
+    Expression<int>? ml,
+    Expression<DateTime>? updatedAt,
+    Expression<DateTime>? deletedAt,
+    Expression<bool>? isDirty,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (loggedAt != null) 'logged_at': loggedAt,
+      if (localDate != null) 'local_date': localDate,
+      if (ml != null) 'ml': ml,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (isDirty != null) 'is_dirty': isDirty,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  WaterRowsCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? loggedAt,
+      Value<String>? localDate,
+      Value<int>? ml,
+      Value<DateTime>? updatedAt,
+      Value<DateTime?>? deletedAt,
+      Value<bool>? isDirty,
+      Value<int>? rowid}) {
+    return WaterRowsCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      loggedAt: loggedAt ?? this.loggedAt,
+      localDate: localDate ?? this.localDate,
+      ml: ml ?? this.ml,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      isDirty: isDirty ?? this.isDirty,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (loggedAt.present) {
+      map['logged_at'] = Variable<DateTime>(loggedAt.value);
+    }
+    if (localDate.present) {
+      map['local_date'] = Variable<String>(localDate.value);
+    }
+    if (ml.present) {
+      map['ml'] = Variable<int>(ml.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
+    if (isDirty.present) {
+      map['is_dirty'] = Variable<bool>(isDirty.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('WaterRowsCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('loggedAt: $loggedAt, ')
+          ..write('localDate: $localDate, ')
+          ..write('ml: $ml, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('isDirty: $isDirty, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ProgressPhotoRowsTable extends ProgressPhotoRows
+    with TableInfo<$ProgressPhotoRowsTable, ProgressPhotoRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ProgressPhotoRowsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _takenAtMeta =
+      const VerificationMeta('takenAt');
+  @override
+  late final GeneratedColumn<DateTime> takenAt = GeneratedColumn<DateTime>(
+      'taken_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _poseMeta = const VerificationMeta('pose');
+  @override
+  late final GeneratedColumn<String> pose = GeneratedColumn<String>(
+      'pose', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _storagePathMeta =
+      const VerificationMeta('storagePath');
+  @override
+  late final GeneratedColumn<String> storagePath = GeneratedColumn<String>(
+      'storage_path', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _localPathMeta =
+      const VerificationMeta('localPath');
+  @override
+  late final GeneratedColumn<String> localPath = GeneratedColumn<String>(
+      'local_path', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _deletedAtMeta =
+      const VerificationMeta('deletedAt');
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+      'deleted_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _isDirtyMeta =
+      const VerificationMeta('isDirty');
+  @override
+  late final GeneratedColumn<bool> isDirty = GeneratedColumn<bool>(
+      'is_dirty', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_dirty" IN (0, 1))'),
+      defaultValue: const Constant(true));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        takenAt,
+        pose,
+        storagePath,
+        localPath,
+        updatedAt,
+        deletedAt,
+        isDirty
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'progress_photo_rows';
+  @override
+  VerificationContext validateIntegrity(Insertable<ProgressPhotoRow> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('taken_at')) {
+      context.handle(_takenAtMeta,
+          takenAt.isAcceptableOrUnknown(data['taken_at']!, _takenAtMeta));
+    } else if (isInserting) {
+      context.missing(_takenAtMeta);
+    }
+    if (data.containsKey('pose')) {
+      context.handle(
+          _poseMeta, pose.isAcceptableOrUnknown(data['pose']!, _poseMeta));
+    } else if (isInserting) {
+      context.missing(_poseMeta);
+    }
+    if (data.containsKey('storage_path')) {
+      context.handle(
+          _storagePathMeta,
+          storagePath.isAcceptableOrUnknown(
+              data['storage_path']!, _storagePathMeta));
+    } else if (isInserting) {
+      context.missing(_storagePathMeta);
+    }
+    if (data.containsKey('local_path')) {
+      context.handle(_localPathMeta,
+          localPath.isAcceptableOrUnknown(data['local_path']!, _localPathMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(_deletedAtMeta,
+          deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta));
+    }
+    if (data.containsKey('is_dirty')) {
+      context.handle(_isDirtyMeta,
+          isDirty.isAcceptableOrUnknown(data['is_dirty']!, _isDirtyMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ProgressPhotoRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ProgressPhotoRow(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      takenAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}taken_at'])!,
+      pose: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}pose'])!,
+      storagePath: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}storage_path'])!,
+      localPath: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}local_path']),
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+      deletedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}deleted_at']),
+      isDirty: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_dirty'])!,
+    );
+  }
+
+  @override
+  $ProgressPhotoRowsTable createAlias(String alias) {
+    return $ProgressPhotoRowsTable(attachedDatabase, alias);
+  }
+}
+
+class ProgressPhotoRow extends DataClass
+    implements Insertable<ProgressPhotoRow> {
+  final String id;
+  final String userId;
+  final DateTime takenAt;
+  final String pose;
+  final String storagePath;
+  final String? localPath;
+  final DateTime updatedAt;
+  final DateTime? deletedAt;
+  final bool isDirty;
+  const ProgressPhotoRow(
+      {required this.id,
+      required this.userId,
+      required this.takenAt,
+      required this.pose,
+      required this.storagePath,
+      this.localPath,
+      required this.updatedAt,
+      this.deletedAt,
+      required this.isDirty});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['taken_at'] = Variable<DateTime>(takenAt);
+    map['pose'] = Variable<String>(pose);
+    map['storage_path'] = Variable<String>(storagePath);
+    if (!nullToAbsent || localPath != null) {
+      map['local_path'] = Variable<String>(localPath);
+    }
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
+    map['is_dirty'] = Variable<bool>(isDirty);
+    return map;
+  }
+
+  ProgressPhotoRowsCompanion toCompanion(bool nullToAbsent) {
+    return ProgressPhotoRowsCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      takenAt: Value(takenAt),
+      pose: Value(pose),
+      storagePath: Value(storagePath),
+      localPath: localPath == null && nullToAbsent
+          ? const Value.absent()
+          : Value(localPath),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      isDirty: Value(isDirty),
+    );
+  }
+
+  factory ProgressPhotoRow.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ProgressPhotoRow(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      takenAt: serializer.fromJson<DateTime>(json['takenAt']),
+      pose: serializer.fromJson<String>(json['pose']),
+      storagePath: serializer.fromJson<String>(json['storagePath']),
+      localPath: serializer.fromJson<String?>(json['localPath']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+      isDirty: serializer.fromJson<bool>(json['isDirty']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'takenAt': serializer.toJson<DateTime>(takenAt),
+      'pose': serializer.toJson<String>(pose),
+      'storagePath': serializer.toJson<String>(storagePath),
+      'localPath': serializer.toJson<String?>(localPath),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+      'isDirty': serializer.toJson<bool>(isDirty),
+    };
+  }
+
+  ProgressPhotoRow copyWith(
+          {String? id,
+          String? userId,
+          DateTime? takenAt,
+          String? pose,
+          String? storagePath,
+          Value<String?> localPath = const Value.absent(),
+          DateTime? updatedAt,
+          Value<DateTime?> deletedAt = const Value.absent(),
+          bool? isDirty}) =>
+      ProgressPhotoRow(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        takenAt: takenAt ?? this.takenAt,
+        pose: pose ?? this.pose,
+        storagePath: storagePath ?? this.storagePath,
+        localPath: localPath.present ? localPath.value : this.localPath,
+        updatedAt: updatedAt ?? this.updatedAt,
+        deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+        isDirty: isDirty ?? this.isDirty,
+      );
+  ProgressPhotoRow copyWithCompanion(ProgressPhotoRowsCompanion data) {
+    return ProgressPhotoRow(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      takenAt: data.takenAt.present ? data.takenAt.value : this.takenAt,
+      pose: data.pose.present ? data.pose.value : this.pose,
+      storagePath:
+          data.storagePath.present ? data.storagePath.value : this.storagePath,
+      localPath: data.localPath.present ? data.localPath.value : this.localPath,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      isDirty: data.isDirty.present ? data.isDirty.value : this.isDirty,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProgressPhotoRow(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('takenAt: $takenAt, ')
+          ..write('pose: $pose, ')
+          ..write('storagePath: $storagePath, ')
+          ..write('localPath: $localPath, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('isDirty: $isDirty')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, userId, takenAt, pose, storagePath,
+      localPath, updatedAt, deletedAt, isDirty);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ProgressPhotoRow &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.takenAt == this.takenAt &&
+          other.pose == this.pose &&
+          other.storagePath == this.storagePath &&
+          other.localPath == this.localPath &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt &&
+          other.isDirty == this.isDirty);
+}
+
+class ProgressPhotoRowsCompanion extends UpdateCompanion<ProgressPhotoRow> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> takenAt;
+  final Value<String> pose;
+  final Value<String> storagePath;
+  final Value<String?> localPath;
+  final Value<DateTime> updatedAt;
+  final Value<DateTime?> deletedAt;
+  final Value<bool> isDirty;
+  final Value<int> rowid;
+  const ProgressPhotoRowsCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.takenAt = const Value.absent(),
+    this.pose = const Value.absent(),
+    this.storagePath = const Value.absent(),
+    this.localPath = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.isDirty = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ProgressPhotoRowsCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime takenAt,
+    required String pose,
+    required String storagePath,
+    this.localPath = const Value.absent(),
+    required DateTime updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.isDirty = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        takenAt = Value(takenAt),
+        pose = Value(pose),
+        storagePath = Value(storagePath),
+        updatedAt = Value(updatedAt);
+  static Insertable<ProgressPhotoRow> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? takenAt,
+    Expression<String>? pose,
+    Expression<String>? storagePath,
+    Expression<String>? localPath,
+    Expression<DateTime>? updatedAt,
+    Expression<DateTime>? deletedAt,
+    Expression<bool>? isDirty,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (takenAt != null) 'taken_at': takenAt,
+      if (pose != null) 'pose': pose,
+      if (storagePath != null) 'storage_path': storagePath,
+      if (localPath != null) 'local_path': localPath,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (isDirty != null) 'is_dirty': isDirty,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ProgressPhotoRowsCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? takenAt,
+      Value<String>? pose,
+      Value<String>? storagePath,
+      Value<String?>? localPath,
+      Value<DateTime>? updatedAt,
+      Value<DateTime?>? deletedAt,
+      Value<bool>? isDirty,
+      Value<int>? rowid}) {
+    return ProgressPhotoRowsCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      takenAt: takenAt ?? this.takenAt,
+      pose: pose ?? this.pose,
+      storagePath: storagePath ?? this.storagePath,
+      localPath: localPath ?? this.localPath,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      isDirty: isDirty ?? this.isDirty,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (takenAt.present) {
+      map['taken_at'] = Variable<DateTime>(takenAt.value);
+    }
+    if (pose.present) {
+      map['pose'] = Variable<String>(pose.value);
+    }
+    if (storagePath.present) {
+      map['storage_path'] = Variable<String>(storagePath.value);
+    }
+    if (localPath.present) {
+      map['local_path'] = Variable<String>(localPath.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
+    if (isDirty.present) {
+      map['is_dirty'] = Variable<bool>(isDirty.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProgressPhotoRowsCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('takenAt: $takenAt, ')
+          ..write('pose: $pose, ')
+          ..write('storagePath: $storagePath, ')
+          ..write('localPath: $localPath, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
           ..write('isDirty: $isDirty, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -4115,13 +5093,24 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $WorkoutRowsTable workoutRows = $WorkoutRowsTable(this);
   late final $SleepRowsTable sleepRows = $SleepRowsTable(this);
   late final $ProfileRowsTable profileRows = $ProfileRowsTable(this);
+  late final $WaterRowsTable waterRows = $WaterRowsTable(this);
+  late final $ProgressPhotoRowsTable progressPhotoRows =
+      $ProgressPhotoRowsTable(this);
   late final $SyncMetaTable syncMeta = $SyncMetaTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [cachedFoods, diaryRows, workoutRows, sleepRows, profileRows, syncMeta];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+        cachedFoods,
+        diaryRows,
+        workoutRows,
+        sleepRows,
+        profileRows,
+        waterRows,
+        progressPhotoRows,
+        syncMeta
+      ];
 }
 
 typedef $$CachedFoodsTableCreateCompanionBuilder = CachedFoodsCompanion
@@ -5524,6 +6513,8 @@ typedef $$ProfileRowsTableCreateCompanionBuilder = ProfileRowsCompanion
   Value<double?> carbsGoal,
   Value<int?> waterGoalMl,
   Value<bool> manualGoals,
+  Value<String?> avatarUrl,
+  Value<DateTime?> avatarUpdatedAt,
   required DateTime updatedAt,
   Value<bool> isDirty,
   Value<int> rowid,
@@ -5544,6 +6535,8 @@ typedef $$ProfileRowsTableUpdateCompanionBuilder = ProfileRowsCompanion
   Value<double?> carbsGoal,
   Value<int?> waterGoalMl,
   Value<bool> manualGoals,
+  Value<String?> avatarUrl,
+  Value<DateTime?> avatarUpdatedAt,
   Value<DateTime> updatedAt,
   Value<bool> isDirty,
   Value<int> rowid,
@@ -5599,6 +6592,13 @@ class $$ProfileRowsTableFilterComposer
 
   ColumnFilters<bool> get manualGoals => $composableBuilder(
       column: $table.manualGoals, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get avatarUrl => $composableBuilder(
+      column: $table.avatarUrl, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get avatarUpdatedAt => $composableBuilder(
+      column: $table.avatarUpdatedAt,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get updatedAt => $composableBuilder(
       column: $table.updatedAt, builder: (column) => ColumnFilters(column));
@@ -5659,6 +6659,13 @@ class $$ProfileRowsTableOrderingComposer
   ColumnOrderings<bool> get manualGoals => $composableBuilder(
       column: $table.manualGoals, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get avatarUrl => $composableBuilder(
+      column: $table.avatarUrl, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get avatarUpdatedAt => $composableBuilder(
+      column: $table.avatarUpdatedAt,
+      builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
       column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 
@@ -5717,6 +6724,12 @@ class $$ProfileRowsTableAnnotationComposer
   GeneratedColumn<bool> get manualGoals => $composableBuilder(
       column: $table.manualGoals, builder: (column) => column);
 
+  GeneratedColumn<String> get avatarUrl =>
+      $composableBuilder(column: $table.avatarUrl, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get avatarUpdatedAt => $composableBuilder(
+      column: $table.avatarUpdatedAt, builder: (column) => column);
+
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
@@ -5761,6 +6774,8 @@ class $$ProfileRowsTableTableManager extends RootTableManager<
             Value<double?> carbsGoal = const Value.absent(),
             Value<int?> waterGoalMl = const Value.absent(),
             Value<bool> manualGoals = const Value.absent(),
+            Value<String?> avatarUrl = const Value.absent(),
+            Value<DateTime?> avatarUpdatedAt = const Value.absent(),
             Value<DateTime> updatedAt = const Value.absent(),
             Value<bool> isDirty = const Value.absent(),
             Value<int> rowid = const Value.absent(),
@@ -5780,6 +6795,8 @@ class $$ProfileRowsTableTableManager extends RootTableManager<
             carbsGoal: carbsGoal,
             waterGoalMl: waterGoalMl,
             manualGoals: manualGoals,
+            avatarUrl: avatarUrl,
+            avatarUpdatedAt: avatarUpdatedAt,
             updatedAt: updatedAt,
             isDirty: isDirty,
             rowid: rowid,
@@ -5799,6 +6816,8 @@ class $$ProfileRowsTableTableManager extends RootTableManager<
             Value<double?> carbsGoal = const Value.absent(),
             Value<int?> waterGoalMl = const Value.absent(),
             Value<bool> manualGoals = const Value.absent(),
+            Value<String?> avatarUrl = const Value.absent(),
+            Value<DateTime?> avatarUpdatedAt = const Value.absent(),
             required DateTime updatedAt,
             Value<bool> isDirty = const Value.absent(),
             Value<int> rowid = const Value.absent(),
@@ -5818,6 +6837,8 @@ class $$ProfileRowsTableTableManager extends RootTableManager<
             carbsGoal: carbsGoal,
             waterGoalMl: waterGoalMl,
             manualGoals: manualGoals,
+            avatarUrl: avatarUrl,
+            avatarUpdatedAt: avatarUpdatedAt,
             updatedAt: updatedAt,
             isDirty: isDirty,
             rowid: rowid,
@@ -5840,6 +6861,451 @@ typedef $$ProfileRowsTableProcessedTableManager = ProcessedTableManager<
     $$ProfileRowsTableUpdateCompanionBuilder,
     (ProfileRow, BaseReferences<_$AppDatabase, $ProfileRowsTable, ProfileRow>),
     ProfileRow,
+    PrefetchHooks Function()>;
+typedef $$WaterRowsTableCreateCompanionBuilder = WaterRowsCompanion Function({
+  required String id,
+  required String userId,
+  required DateTime loggedAt,
+  required String localDate,
+  required int ml,
+  required DateTime updatedAt,
+  Value<DateTime?> deletedAt,
+  Value<bool> isDirty,
+  Value<int> rowid,
+});
+typedef $$WaterRowsTableUpdateCompanionBuilder = WaterRowsCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> loggedAt,
+  Value<String> localDate,
+  Value<int> ml,
+  Value<DateTime> updatedAt,
+  Value<DateTime?> deletedAt,
+  Value<bool> isDirty,
+  Value<int> rowid,
+});
+
+class $$WaterRowsTableFilterComposer
+    extends Composer<_$AppDatabase, $WaterRowsTable> {
+  $$WaterRowsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get loggedAt => $composableBuilder(
+      column: $table.loggedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get localDate => $composableBuilder(
+      column: $table.localDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get ml => $composableBuilder(
+      column: $table.ml, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+      column: $table.deletedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isDirty => $composableBuilder(
+      column: $table.isDirty, builder: (column) => ColumnFilters(column));
+}
+
+class $$WaterRowsTableOrderingComposer
+    extends Composer<_$AppDatabase, $WaterRowsTable> {
+  $$WaterRowsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get loggedAt => $composableBuilder(
+      column: $table.loggedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get localDate => $composableBuilder(
+      column: $table.localDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get ml => $composableBuilder(
+      column: $table.ml, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+      column: $table.deletedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isDirty => $composableBuilder(
+      column: $table.isDirty, builder: (column) => ColumnOrderings(column));
+}
+
+class $$WaterRowsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $WaterRowsTable> {
+  $$WaterRowsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get loggedAt =>
+      $composableBuilder(column: $table.loggedAt, builder: (column) => column);
+
+  GeneratedColumn<String> get localDate =>
+      $composableBuilder(column: $table.localDate, builder: (column) => column);
+
+  GeneratedColumn<int> get ml =>
+      $composableBuilder(column: $table.ml, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<bool> get isDirty =>
+      $composableBuilder(column: $table.isDirty, builder: (column) => column);
+}
+
+class $$WaterRowsTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $WaterRowsTable,
+    WaterRow,
+    $$WaterRowsTableFilterComposer,
+    $$WaterRowsTableOrderingComposer,
+    $$WaterRowsTableAnnotationComposer,
+    $$WaterRowsTableCreateCompanionBuilder,
+    $$WaterRowsTableUpdateCompanionBuilder,
+    (WaterRow, BaseReferences<_$AppDatabase, $WaterRowsTable, WaterRow>),
+    WaterRow,
+    PrefetchHooks Function()> {
+  $$WaterRowsTableTableManager(_$AppDatabase db, $WaterRowsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$WaterRowsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$WaterRowsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$WaterRowsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> loggedAt = const Value.absent(),
+            Value<String> localDate = const Value.absent(),
+            Value<int> ml = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<DateTime?> deletedAt = const Value.absent(),
+            Value<bool> isDirty = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              WaterRowsCompanion(
+            id: id,
+            userId: userId,
+            loggedAt: loggedAt,
+            localDate: localDate,
+            ml: ml,
+            updatedAt: updatedAt,
+            deletedAt: deletedAt,
+            isDirty: isDirty,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime loggedAt,
+            required String localDate,
+            required int ml,
+            required DateTime updatedAt,
+            Value<DateTime?> deletedAt = const Value.absent(),
+            Value<bool> isDirty = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              WaterRowsCompanion.insert(
+            id: id,
+            userId: userId,
+            loggedAt: loggedAt,
+            localDate: localDate,
+            ml: ml,
+            updatedAt: updatedAt,
+            deletedAt: deletedAt,
+            isDirty: isDirty,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$WaterRowsTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $WaterRowsTable,
+    WaterRow,
+    $$WaterRowsTableFilterComposer,
+    $$WaterRowsTableOrderingComposer,
+    $$WaterRowsTableAnnotationComposer,
+    $$WaterRowsTableCreateCompanionBuilder,
+    $$WaterRowsTableUpdateCompanionBuilder,
+    (WaterRow, BaseReferences<_$AppDatabase, $WaterRowsTable, WaterRow>),
+    WaterRow,
+    PrefetchHooks Function()>;
+typedef $$ProgressPhotoRowsTableCreateCompanionBuilder
+    = ProgressPhotoRowsCompanion Function({
+  required String id,
+  required String userId,
+  required DateTime takenAt,
+  required String pose,
+  required String storagePath,
+  Value<String?> localPath,
+  required DateTime updatedAt,
+  Value<DateTime?> deletedAt,
+  Value<bool> isDirty,
+  Value<int> rowid,
+});
+typedef $$ProgressPhotoRowsTableUpdateCompanionBuilder
+    = ProgressPhotoRowsCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> takenAt,
+  Value<String> pose,
+  Value<String> storagePath,
+  Value<String?> localPath,
+  Value<DateTime> updatedAt,
+  Value<DateTime?> deletedAt,
+  Value<bool> isDirty,
+  Value<int> rowid,
+});
+
+class $$ProgressPhotoRowsTableFilterComposer
+    extends Composer<_$AppDatabase, $ProgressPhotoRowsTable> {
+  $$ProgressPhotoRowsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get takenAt => $composableBuilder(
+      column: $table.takenAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get pose => $composableBuilder(
+      column: $table.pose, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get storagePath => $composableBuilder(
+      column: $table.storagePath, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get localPath => $composableBuilder(
+      column: $table.localPath, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get deletedAt => $composableBuilder(
+      column: $table.deletedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isDirty => $composableBuilder(
+      column: $table.isDirty, builder: (column) => ColumnFilters(column));
+}
+
+class $$ProgressPhotoRowsTableOrderingComposer
+    extends Composer<_$AppDatabase, $ProgressPhotoRowsTable> {
+  $$ProgressPhotoRowsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get takenAt => $composableBuilder(
+      column: $table.takenAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get pose => $composableBuilder(
+      column: $table.pose, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get storagePath => $composableBuilder(
+      column: $table.storagePath, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get localPath => $composableBuilder(
+      column: $table.localPath, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get deletedAt => $composableBuilder(
+      column: $table.deletedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isDirty => $composableBuilder(
+      column: $table.isDirty, builder: (column) => ColumnOrderings(column));
+}
+
+class $$ProgressPhotoRowsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ProgressPhotoRowsTable> {
+  $$ProgressPhotoRowsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get takenAt =>
+      $composableBuilder(column: $table.takenAt, builder: (column) => column);
+
+  GeneratedColumn<String> get pose =>
+      $composableBuilder(column: $table.pose, builder: (column) => column);
+
+  GeneratedColumn<String> get storagePath => $composableBuilder(
+      column: $table.storagePath, builder: (column) => column);
+
+  GeneratedColumn<String> get localPath =>
+      $composableBuilder(column: $table.localPath, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<bool> get isDirty =>
+      $composableBuilder(column: $table.isDirty, builder: (column) => column);
+}
+
+class $$ProgressPhotoRowsTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $ProgressPhotoRowsTable,
+    ProgressPhotoRow,
+    $$ProgressPhotoRowsTableFilterComposer,
+    $$ProgressPhotoRowsTableOrderingComposer,
+    $$ProgressPhotoRowsTableAnnotationComposer,
+    $$ProgressPhotoRowsTableCreateCompanionBuilder,
+    $$ProgressPhotoRowsTableUpdateCompanionBuilder,
+    (
+      ProgressPhotoRow,
+      BaseReferences<_$AppDatabase, $ProgressPhotoRowsTable, ProgressPhotoRow>
+    ),
+    ProgressPhotoRow,
+    PrefetchHooks Function()> {
+  $$ProgressPhotoRowsTableTableManager(
+      _$AppDatabase db, $ProgressPhotoRowsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ProgressPhotoRowsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ProgressPhotoRowsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ProgressPhotoRowsTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> takenAt = const Value.absent(),
+            Value<String> pose = const Value.absent(),
+            Value<String> storagePath = const Value.absent(),
+            Value<String?> localPath = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<DateTime?> deletedAt = const Value.absent(),
+            Value<bool> isDirty = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              ProgressPhotoRowsCompanion(
+            id: id,
+            userId: userId,
+            takenAt: takenAt,
+            pose: pose,
+            storagePath: storagePath,
+            localPath: localPath,
+            updatedAt: updatedAt,
+            deletedAt: deletedAt,
+            isDirty: isDirty,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime takenAt,
+            required String pose,
+            required String storagePath,
+            Value<String?> localPath = const Value.absent(),
+            required DateTime updatedAt,
+            Value<DateTime?> deletedAt = const Value.absent(),
+            Value<bool> isDirty = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              ProgressPhotoRowsCompanion.insert(
+            id: id,
+            userId: userId,
+            takenAt: takenAt,
+            pose: pose,
+            storagePath: storagePath,
+            localPath: localPath,
+            updatedAt: updatedAt,
+            deletedAt: deletedAt,
+            isDirty: isDirty,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$ProgressPhotoRowsTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $ProgressPhotoRowsTable,
+    ProgressPhotoRow,
+    $$ProgressPhotoRowsTableFilterComposer,
+    $$ProgressPhotoRowsTableOrderingComposer,
+    $$ProgressPhotoRowsTableAnnotationComposer,
+    $$ProgressPhotoRowsTableCreateCompanionBuilder,
+    $$ProgressPhotoRowsTableUpdateCompanionBuilder,
+    (
+      ProgressPhotoRow,
+      BaseReferences<_$AppDatabase, $ProgressPhotoRowsTable, ProgressPhotoRow>
+    ),
+    ProgressPhotoRow,
     PrefetchHooks Function()>;
 typedef $$SyncMetaTableCreateCompanionBuilder = SyncMetaCompanion Function({
   required String key,
@@ -5975,6 +7441,10 @@ class $AppDatabaseManager {
       $$SleepRowsTableTableManager(_db, _db.sleepRows);
   $$ProfileRowsTableTableManager get profileRows =>
       $$ProfileRowsTableTableManager(_db, _db.profileRows);
+  $$WaterRowsTableTableManager get waterRows =>
+      $$WaterRowsTableTableManager(_db, _db.waterRows);
+  $$ProgressPhotoRowsTableTableManager get progressPhotoRows =>
+      $$ProgressPhotoRowsTableTableManager(_db, _db.progressPhotoRows);
   $$SyncMetaTableTableManager get syncMeta =>
       $$SyncMetaTableTableManager(_db, _db.syncMeta);
 }

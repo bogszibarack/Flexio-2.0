@@ -154,7 +154,7 @@ class WorkoutRepository {
       isDirty: true,
     ));
 
-    pushPending(userId);
+    await pushPending(userId);
   }
 
   Future<void> remove({required String userId, required String id}) async {
@@ -171,7 +171,7 @@ class WorkoutRepository {
       isDirty: true,
     ));
 
-    pushPending(userId);
+    await pushPending(userId);
   }
 
   Future<void> pushPending(String userId) async {

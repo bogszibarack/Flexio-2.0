@@ -67,6 +67,8 @@ class UserProfile {
   final FitnessGoal? goal;
   final NutritionGoals? manualGoals;
   final String? avatarPath;
+  final String? avatarUrl;
+  final DateTime? avatarUpdatedAt;
   final DateTime updatedAt;
 
   const UserProfile({
@@ -79,6 +81,8 @@ class UserProfile {
     this.goal,
     this.manualGoals,
     this.avatarPath,
+    this.avatarUrl,
+    this.avatarUpdatedAt,
     required this.updatedAt,
   });
 
@@ -219,8 +223,11 @@ class UserProfile {
     FitnessGoal? goal,
     NutritionGoals? manualGoals,
     String? avatarPath,
+    String? avatarUrl,
+    DateTime? avatarUpdatedAt,
     bool clearManualGoals = false,
     bool clearAvatar = false,
+    bool clearAvatarRemote = false,
   }) =>
       UserProfile(
         firstName: firstName ?? this.firstName,
@@ -233,6 +240,10 @@ class UserProfile {
         manualGoals:
             clearManualGoals ? null : (manualGoals ?? this.manualGoals),
         avatarPath: clearAvatar ? null : (avatarPath ?? this.avatarPath),
+        avatarUrl: clearAvatarRemote ? null : (avatarUrl ?? this.avatarUrl),
+        avatarUpdatedAt: clearAvatarRemote
+            ? null
+            : (avatarUpdatedAt ?? this.avatarUpdatedAt),
         updatedAt: DateTime.now(),
       );
 
@@ -247,6 +258,8 @@ class UserProfile {
         goal: goal ?? other.goal,
         manualGoals: manualGoals ?? other.manualGoals,
         avatarPath: avatarPath ?? other.avatarPath,
+        avatarUrl: avatarUrl ?? other.avatarUrl,
+        avatarUpdatedAt: avatarUpdatedAt ?? other.avatarUpdatedAt,
         updatedAt: updatedAt,
       );
 
@@ -261,6 +274,8 @@ class UserProfile {
         "weight_kg": weightKg,
         "activity_level": _activityToDb(activityLevel),
         "goal": _goalToDb(goal),
+        "avatar_url": avatarUrl,
+        "avatar_updated_at": avatarUpdatedAt?.toUtc().toIso8601String(),
         "updated_at": updatedAt.toUtc().toIso8601String(),
       };
 
@@ -274,6 +289,10 @@ class UserProfile {
         weightKg: Nutrients.readNullableDouble(row["weight_kg"]),
         activityLevel: _activityFromDb(row["activity_level"] as String?),
         goal: _goalFromDb(row["goal"] as String?),
+        avatarUrl: row["avatar_url"] as String?,
+        avatarUpdatedAt: row["avatar_updated_at"] == null
+            ? null
+            : DateTime.tryParse("${row["avatar_updated_at"]}")?.toLocal(),
         updatedAt: row["updated_at"] == null
             ? DateTime.now()
             : DateTime.parse("${row["updated_at"]}").toLocal(),

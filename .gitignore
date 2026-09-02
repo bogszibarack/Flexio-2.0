@@ -48,6 +48,7 @@ app.*.map.json
 # Supabase / backend titkok (scripts/setup_supabase.sh generálja)
 .env.supabase
 backend/.env.local
+.env.render
 supabase/.temp/
 
 # Node

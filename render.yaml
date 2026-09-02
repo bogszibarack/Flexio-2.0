@@ -1,11 +1,12 @@
-# Render blueprint: C# API + heti OFF import cron.
+# Render blueprint: C# API + heti OFF import cron (API hívás).
 services:
   - type: web
     name: flexio-api
     runtime: docker
     plan: free
     region: frankfurt
-    rootDir: backend
+    dockerfilePath: backend/Dockerfile
+    dockerContext: .
     healthCheckPath: /health/ready
     envVars:
       - key: SupabaseAuth__ProjectUrl
@@ -18,20 +19,18 @@ services:
         sync: false
       - key: Gemini__ApiKey
         sync: false
+      - key: OpenFoodFacts__UserAgent
+        value: "Flexio/1.0 (kapcsolat: hello@flexio.app)"
+      - key: OpenFoodFacts__BatchSize
+        value: "500"
 
   - type: cron
     name: flexio-off-import
-    runtime: node
-    plan: 0.5c-512mb
-    region: frankfurt
     schedule: "0 3 * * 1"
-    rootDir: server
-    buildCommand: npm install
-    startCommand: npm run import:off
+    startCommand: >
+      curl -sf -X POST
+      -H "X-Flexio-Job-Secret: ${INTERNAL_JOBS__SHAREDSECRET}"
+      https://flexio-api.onrender.com/internal/jobs/import-off
     envVars:
-      - key: DATABASE_URL
+      - key: INTERNAL_JOBS__SHAREDSECRET
         sync: false
-      - key: OFF_USER_AGENT
-        value: "Flexio/1.0 (kapcsolat: hello@flexio.app)"
-      - key: OFF_BATCH_SIZE
-        value: "500"

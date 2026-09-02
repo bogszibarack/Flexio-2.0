@@ -690,7 +690,7 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
     Map<String, String>? selectedExercise;
     int repetitions = 10;
     int rounds = 3;
-    final weightController = TextEditingController();
+    int weightKg = 0;
 
     showModalBottomSheet(
       context: context,
@@ -704,148 +704,162 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
                       .toLowerCase()
                       .contains(query.toLowerCase()))
               .toList();
+          final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
 
-          return SafeArea(
-            child: Material(
-              color: TColor.white,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(25)),
-              clipBehavior: Clip.antiAlias,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.82,
-                  child: Column(
-                children: [
-                  Container(
-                    width: 50,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: TColor.gray.withValues(alpha: 0.3),
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "Gyakorlat hozzáadása",
-                    style: TextStyle(
-                      color: TColor.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  TextField(
-                    autofocus: true,
-                    onChanged: (value) {
-                      setModalState(() {
-                        query = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: "Keress gyakorlatra, például: guggolás",
-                      prefixIcon: const Icon(Icons.search),
-                      filled: true,
-                      fillColor: TColor.lightGray,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: filteredExercises.length,
-                      itemBuilder: (context, index) {
-                        final exercise = filteredExercises[index];
-                        final isSelected = selectedExercise == exercise;
-                        return SheetOption(
-                            title: exercise["name"]!,
-                            onTap: () {
+          return GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: bottomInset),
+              child: SafeArea(
+                child: Material(
+                  color: TColor.white,
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(25)),
+                  clipBehavior: Clip.antiAlias,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.82,
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 4,
+                            decoration: BoxDecoration(
+                              color: TColor.gray.withValues(alpha: 0.3),
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            "Gyakorlat hozzáadása",
+                            style: TextStyle(
+                              color: TColor.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          TextField(
+                            autofocus: true,
+                            textInputAction: TextInputAction.search,
+                            onChanged: (value) {
                               setModalState(() {
-                                selectedExercise = exercise;
+                                query = value;
                               });
                             },
-                            leading: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                exercise["image"]!,
-                                width: 45,
-                                height: 45,
-                                fit: BoxFit.cover,
+                            onSubmitted: (_) =>
+                                FocusManager.instance.primaryFocus?.unfocus(),
+                            decoration: InputDecoration(
+                              hintText:
+                                  "Keress gyakorlatra, például: guggolás",
+                              prefixIcon: const Icon(Icons.search),
+                              filled: true,
+                              fillColor: TColor.lightGray,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: BorderSide.none,
                               ),
                             ),
-                            trailing: isSelected
-                                ? Icon(Icons.check_circle,
-                                    color: TColor.primaryColor1)
-                                : null,
-                          );
-                      },
-                    ),
-                  ),
-                  if (selectedExercise != null) ...[
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildNumberControl(
-                            "Ismétlés",
-                            repetitions,
-                            (value) => setModalState(() => repetitions = value),
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: TextField(
-                            controller: weightController,
-                            keyboardType: TextInputType.number,
-                            textAlign: TextAlign.center,
-                            decoration: const InputDecoration(
-                              labelText: "Súly (kg)",
-                              hintText: "0",
+                          const SizedBox(height: 10),
+                          Expanded(
+                            child: ListView.builder(
+                              keyboardDismissBehavior:
+                                  ScrollViewKeyboardDismissBehavior.onDrag,
+                              itemCount: filteredExercises.length,
+                              itemBuilder: (context, index) {
+                                final exercise = filteredExercises[index];
+                                final isSelected = selectedExercise == exercise;
+                                return SheetOption(
+                                  title: exercise["name"]!,
+                                  onTap: () {
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
+                                    setModalState(() {
+                                      selectedExercise = exercise;
+                                    });
+                                  },
+                                  leading: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.asset(
+                                      exercise["image"]!,
+                                      width: 45,
+                                      height: 45,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  trailing: isSelected
+                                      ? Icon(Icons.check_circle,
+                                          color: TColor.primaryColor1)
+                                      : null,
+                                );
+                              },
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: _buildNumberControl(
-                            "Kör",
-                            rounds,
-                            (value) => setModalState(() => rounds = value),
-                            minimum: 1,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 46,
-                      child: RoundButton(
-                        title: "Gyakorlat hozzáadása",
-                        fontSize: 14,
-                        onPressed: () {
-                          final weight =
-                              int.tryParse(weightController.text.trim()) ?? 0;
-                          setState(() {
-                            exercisesArr.add({
-                              "name": selectedExercise!["name"]!,
-                              "image": selectedExercise!["image"]!,
-                              "repetitions": repetitions,
-                              "weight": weight,
-                              "rounds": rounds,
-                              "roundWeights": List<int>.filled(rounds, weight),
-                              "completedRounds":
-                                  List<bool>.filled(rounds, false),
-                            });
-                          });
-                          Navigator.pop(context);
-                        },
+                          if (selectedExercise != null) ...[
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: _buildNumberControl(
+                                    "Ismétlés",
+                                    repetitions,
+                                    (value) => setModalState(
+                                        () => repetitions = value),
+                                    minimum: 1,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: _buildNumberControl(
+                                    "Súly (kg)",
+                                    weightKg,
+                                    (value) =>
+                                        setModalState(() => weightKg = value),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: _buildNumberControl(
+                                    "Kör",
+                                    rounds,
+                                    (value) =>
+                                        setModalState(() => rounds = value),
+                                    minimum: 1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 46,
+                              child: RoundButton(
+                                title: "Gyakorlat hozzáadása",
+                                fontSize: 14,
+                                onPressed: () {
+                                  setState(() {
+                                    exercisesArr.add({
+                                      "name": selectedExercise!["name"]!,
+                                      "image": selectedExercise!["image"]!,
+                                      "repetitions": repetitions,
+                                      "weight": weightKg,
+                                      "rounds": rounds,
+                                      "roundWeights":
+                                          List<int>.filled(rounds, weightKg),
+                                      "completedRounds":
+                                          List<bool>.filled(rounds, false),
+                                    });
+                                  });
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                          ],
+                        ],
                       ),
                     ),
-                  ],
-                ],
-              ),
+                  ),
                 ),
               ),
             ),

@@ -25,7 +25,13 @@ class _WelcomeViewState extends ConsumerState<WelcomeView> {
 
     final userId = session.userId;
     if (userId != null) {
-      await userScope.attachAndSync(userId);
+      await userScope.attachAndSync(
+        userId,
+        onAfterSync: () async {
+          await ref.read(dailyWaterProvider).reload();
+          await ref.read(profileControllerProvider).load();
+        },
+      );
     }
 
     if (!mounted) {

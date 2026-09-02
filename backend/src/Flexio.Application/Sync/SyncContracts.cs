@@ -36,6 +36,8 @@ public sealed class ProfileDto
     public decimal? WeightKg { get; init; }
     public string ActivityLevel { get; init; } = "moderate";
     public string? Goal { get; init; }
+    public string? AvatarUrl { get; init; }
+    public DateTimeOffset? AvatarUpdatedAt { get; init; }
     public DateTimeOffset UpdatedAt { get; init; }
 }
 

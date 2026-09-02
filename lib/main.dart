@@ -80,7 +80,13 @@ class _SessionGateState extends ConsumerState<SessionGate> {
 
     final userId = session.userId;
     if (userId != null) {
-      await ref.read(userScopeProvider).attachAndSync(userId);
+      await ref.read(userScopeProvider).attachAndSync(
+        userId,
+        onAfterSync: () async {
+          await ref.read(dailyWaterProvider).reload();
+          await ref.read(profileControllerProvider).load();
+        },
+      );
       ref.read(notificationServiceProvider).scheduleSoon();
     }
   }
