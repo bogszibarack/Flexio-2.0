@@ -6,7 +6,7 @@ services:
     plan: free
     region: frankfurt
     dockerfilePath: backend/Dockerfile
-    dockerContext: .
+    dockerContext: backend
     healthCheckPath: /health/ready
     envVars:
       - key: SupabaseAuth__ProjectUrl

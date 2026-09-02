@@ -209,8 +209,11 @@ async function main() {
   };
 
   await writeFile(outputPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+
+  const backendAssets = join(resolve(here, "../../backend/assets"), "food_catalog_hu.json");
+  await writeFile(backendAssets, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
   console.log(
-    `[catalog] ${foods.length} tétel írva: ${outputPath} (${warnings.length} figyelmeztetés)`
+    `[catalog] ${foods.length} tétel írva: ${outputPath} és ${backendAssets} (${warnings.length} figyelmeztetés)`
   );
 }
 

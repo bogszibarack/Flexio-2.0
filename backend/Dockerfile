@@ -1,19 +1,19 @@
 # syntax=docker/dockerfile:1
 
-# A build kontextus a repo gyökere (render.yaml: dockerContext: .).
+# A build kontextus a backend/ mappa (render.yaml: dockerContext: backend).
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY backend/global.json backend/Directory.Build.props backend/Directory.Packages.props ./backend/
-COPY backend/src/Flexio.Domain/Flexio.Domain.csproj backend/src/Flexio.Domain/
-COPY backend/src/Flexio.Application/Flexio.Application.csproj backend/src/Flexio.Application/
-COPY backend/src/Flexio.Infrastructure/Flexio.Infrastructure.csproj backend/src/Flexio.Infrastructure/
-COPY backend/src/Flexio.Api/Flexio.Api.csproj backend/src/Flexio.Api/
-RUN dotnet restore backend/src/Flexio.Api/Flexio.Api.csproj
+COPY global.json Directory.Build.props Directory.Packages.props ./
+COPY src/Flexio.Domain/Flexio.Domain.csproj src/Flexio.Domain/
+COPY src/Flexio.Application/Flexio.Application.csproj src/Flexio.Application/
+COPY src/Flexio.Infrastructure/Flexio.Infrastructure.csproj src/Flexio.Infrastructure/
+COPY src/Flexio.Api/Flexio.Api.csproj src/Flexio.Api/
+RUN dotnet restore src/Flexio.Api/Flexio.Api.csproj
 
-COPY backend/src/ backend/src/
+COPY src/ src/
 COPY assets/food_catalog_hu.json assets/
-RUN dotnet publish backend/src/Flexio.Api/Flexio.Api.csproj \
+RUN dotnet publish src/Flexio.Api/Flexio.Api.csproj \
     --configuration Release \
     --no-restore \
     --output /app/publish \
