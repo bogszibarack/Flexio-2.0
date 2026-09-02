@@ -24,6 +24,7 @@ class WorkoutStore {
   static const Uuid _uuid = Uuid();
   static WorkoutRepository? _repository;
   static String? _userId;
+  static Future<void> _persistChain = Future<void>.value();
 
   /// A felületek ezen keresztül tudják, hogy megjött-e a felhasználó adata.
   static final ValueNotifier<int> revision = ValueNotifier<int>(0);
@@ -36,6 +37,16 @@ class WorkoutStore {
     required WorkoutRepository repository,
     required String userId,
   }) async {
+    final orphanTemplates = _repository == null
+        ? List<Map<String, dynamic>>.from(workouts)
+        : const <Map<String, dynamic>>[];
+    final orphanScheduled = _repository == null
+        ? List<Map<String, dynamic>>.from(scheduledWorkouts)
+        : const <Map<String, dynamic>>[];
+    final orphanCompleted = _repository == null
+        ? List<Map<String, dynamic>>.from(completedWorkouts)
+        : const <Map<String, dynamic>>[];
+
     if (_userId != null && _userId != userId) {
       _clearLists();
     }
@@ -48,9 +59,27 @@ class WorkoutStore {
     workouts.addAll(snapshot.templates);
     scheduledWorkouts.addAll(snapshot.scheduled);
     completedWorkouts.addAll(snapshot.completed);
+
+    for (final item in orphanTemplates) {
+      workouts.add(item);
+      _persist(WorkoutRepository.kindTemplate, item);
+    }
+    for (final item in orphanScheduled) {
+      scheduledWorkouts.add(item);
+      _persist(WorkoutRepository.kindScheduled, item);
+    }
+    for (final item in orphanCompleted) {
+      completedWorkouts.add(item);
+      _persist(WorkoutRepository.kindCompleted, item);
+    }
+
     _relinkScheduledWorkouts();
+    await flushPersists();
     _bump();
   }
+
+  /// A háttérben futó mentések befejezésére várunk szinkron előtt.
+  static Future<void> flushPersists() => _persistChain;
 
   static void unbind() {
     _repository = null;
@@ -105,9 +134,10 @@ class WorkoutStore {
     if (repository == null || userId == null) {
       return;
     }
-    unawaited(
-      repository.save(userId: userId, kind: kind, item: _persistable(item)),
-    );
+    final payload = _persistable(item);
+    _persistChain = _persistChain.then((_) async {
+      await repository.save(userId: userId, kind: kind, item: payload);
+    });
   }
 
   static void _forget(Map<String, dynamic> item) {

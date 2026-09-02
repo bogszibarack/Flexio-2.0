@@ -10,6 +10,7 @@ import 'local/app_database.dart';
 import 'models/diary_entry.dart';
 import 'models/user_profile.dart';
 import 'repositories/sleep_repository.dart';
+import 'sync_ids.dart';
 
 /// Apple Health (HealthKit) híd. Csak iOS-en él: írja az edzést, alvást,
 /// testsúlyt, magasságot és étkezést, a lépésszámot pedig olvassa.
@@ -411,8 +412,9 @@ class HealthSyncService extends ChangeNotifier {
         if (night.ids.every(_synced.imported.contains)) {
           continue;
         }
+        final healthId = "hk_${night.ids.first}";
         final entry = await SleepStore.importFromHealth(
-          id: "hk_${night.ids.first}",
+          id: ensureSyncId(healthId),
           bedtime: night.bedtime,
           wakeTime: night.wakeTime,
         );
@@ -462,8 +464,9 @@ class HealthSyncService extends ChangeNotifier {
           activity = value.workoutActivityType;
         }
 
+        final healthId = ensureSyncId("hk_${point.uuid}");
         final entry = WorkoutStore.importFromHealth({
-          "id": "hk_${point.uuid}",
+          "id": healthId,
           "title": _workoutTitle(activity),
           "image": "assets/img/Workout1.png",
           "difficulty": "Középhaladó",
@@ -482,7 +485,7 @@ class HealthSyncService extends ChangeNotifier {
         if (entry != null) {
           imported++;
           _synced.imported.add(point.uuid);
-          _synced.workouts.add("hk_${point.uuid}");
+          _synced.workouts.add(healthId);
         }
       }
       if (imported > 0) {

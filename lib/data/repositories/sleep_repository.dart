@@ -3,6 +3,7 @@ import 'package:uuid/uuid.dart';
 
 import '../local/app_database.dart';
 import '../remote/supabase_gateway.dart';
+import '../sync_ids.dart';
 
 class SleepEntry {
   final String id;
@@ -56,7 +57,7 @@ class SleepRepository {
     String? id,
   }) async {
     final entry = SleepEntry(
-      id: id ?? _uuid.v4(),
+      id: ensureSyncId(id ?? _uuid.v4()),
       bedtime: bedtime,
       wakeTime: wakeTime.isAfter(bedtime)
           ? wakeTime
@@ -107,11 +108,11 @@ class SleepRepository {
       return;
     }
 
-    final pushed = await _gateway.pushRows(
+    final accepted = await _gateway.pushRows(
       "sleep_entries",
       rows
           .map((row) => {
-                "id": row.id,
+                "id": ensureSyncId(row.id),
                 "user_id": userId,
                 "bedtime": row.bedtime.toUtc().toIso8601String(),
                 "wake_time": row.wakeTime.toUtc().toIso8601String(),
@@ -123,9 +124,27 @@ class SleepRepository {
           .toList(),
     );
 
-    if (pushed) {
+    if (accepted == rows.length) {
       for (final row in rows) {
-        await _database.markSleepSynced(row.id);
+        final remoteId = ensureSyncId(row.id);
+        if (remoteId != row.id) {
+          await (_database.delete(_database.sleepRows)
+                ..where((t) => t.id.equals(row.id)))
+              .go();
+          await _database.saveSleepRow(SleepRow(
+            id: remoteId,
+            userId: row.userId,
+            bedtime: row.bedtime,
+            wakeTime: row.wakeTime,
+            quality: row.quality,
+            note: row.note,
+            updatedAt: row.updatedAt,
+            deletedAt: row.deletedAt,
+            isDirty: false,
+          ));
+        } else {
+          await _database.markSleepSynced(row.id);
+        }
       }
     }
   }

@@ -336,15 +336,18 @@ class UserScope {
     required SleepRepository sleep,
     required ProgressPhotoRepository progressPhotos,
     required SyncService sync,
+    Future<void> Function()? onAfterSync,
   })  : _workouts = workouts,
         _sleep = sleep,
         _progressPhotos = progressPhotos,
-        _sync = sync;
+        _sync = sync,
+        _onAfterSync = onAfterSync;
 
   final WorkoutRepository _workouts;
   final SleepRepository _sleep;
   final ProgressPhotoRepository _progressPhotos;
   final SyncService _sync;
+  final Future<void> Function()? _onAfterSync;
 
   Future<void> attach(String userId) async {
     await WorkoutStore.bind(repository: _workouts, userId: userId);
@@ -363,15 +366,13 @@ class UserScope {
 
   /// Belépés után: helyi adat azonnal, majd szinkron, végül újratöltés, hogy a
   /// másik eszközön rögzített adatok is megjelenjenek.
-  Future<void> attachAndSync(
-    String userId, {
-    Future<void> Function()? onAfterSync,
-  }) async {
+  Future<void> attachAndSync(String userId) async {
     await attach(userId);
+    await WorkoutStore.flushPersists();
     await _sync.syncAll(userId);
     await attach(userId);
-    if (onAfterSync != null) {
-      await onAfterSync();
+    if (_onAfterSync != null) {
+      await _onAfterSync();
     }
   }
 }
@@ -382,6 +383,10 @@ final userScopeProvider = Provider<UserScope>((ref) {
     sleep: ref.watch(sleepRepositoryProvider),
     progressPhotos: ref.watch(progressPhotoRepositoryProvider),
     sync: ref.watch(syncServiceProvider),
+    onAfterSync: () async {
+      await ref.read(dailyWaterProvider).reload();
+      await ref.read(profileControllerProvider).load();
+    },
   );
 });
 

@@ -115,7 +115,7 @@ class WaterRepository {
           .toList(),
     );
 
-    if (pushed) {
+    if (pushed > 0) {
       for (final row in rows) {
         await _database.markWaterSynced(row.id);
       }

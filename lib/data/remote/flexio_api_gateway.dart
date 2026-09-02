@@ -142,9 +142,9 @@ class FlexioApiGateway extends SupabaseGateway {
   }
 
   @override
-  Future<bool> pushRows(String table, List<Map<String, dynamic>> rows) async {
+  Future<int> pushRows(String table, List<Map<String, dynamic>> rows) async {
     if (rows.isEmpty) {
-      return false;
+      return 0;
     }
 
     final key = switch (table) {
@@ -156,11 +156,24 @@ class FlexioApiGateway extends SupabaseGateway {
       return super.pushRows(table, rows);
     }
 
-    return await _postJson("/api/v1/sync", {
-          key: rows,
-          "since": const <String, dynamic>{},
-        }) !=
-        null;
+    final response = await _postJson("/api/v1/sync", {
+      key: rows,
+      "since": const <String, dynamic>{},
+    });
+    if (response is! Map) {
+      return 0;
+    }
+
+    final push = response["push"];
+    if (push is! Map) {
+      return 0;
+    }
+
+    return switch (key) {
+      "workouts" => (push["workoutsAccepted"] as num?)?.toInt() ?? 0,
+      "sleep" => (push["sleepAccepted"] as num?)?.toInt() ?? 0,
+      _ => 0,
+    };
   }
 
   @override
@@ -254,7 +267,9 @@ class FlexioApiGateway extends SupabaseGateway {
           await request.close().timeout(const Duration(seconds: 30));
       final text = await response.transform(utf8.decoder).join();
       if (response.statusCode < 200 || response.statusCode >= 300) {
-        debugPrint("Flexio API POST $path -> ${response.statusCode}");
+        debugPrint(
+          "Flexio API POST $path -> ${response.statusCode}: $text",
+        );
         return null;
       }
       if (text.isEmpty) {

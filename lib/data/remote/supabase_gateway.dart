@@ -325,17 +325,17 @@ class SupabaseGateway {
 
   // --- Edzés és alvás -----------------------------------------------------
 
-  Future<bool> pushRows(String table, List<Map<String, dynamic>> rows) async {
+  Future<int> pushRows(String table, List<Map<String, dynamic>> rows) async {
     final client = _client;
     if (client == null || userId == null || rows.isEmpty) {
-      return false;
+      return 0;
     }
 
     try {
       await client.from(table).upsert(rows, onConflict: "id");
-      return true;
+      return rows.length;
     } on Object {
-      return false;
+      return 0;
     }
   }
 

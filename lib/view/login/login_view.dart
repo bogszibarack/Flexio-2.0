@@ -84,15 +84,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
       final userId = session.userId;
       if (userId != null) {
-        unawaited(
-          userScope.attachAndSync(
-            userId,
-            onAfterSync: () async {
-              await ref.read(dailyWaterProvider).reload();
-              await ref.read(profileControllerProvider).load();
-            },
-          ),
-        );
+        await userScope.attachAndSync(userId);
       }
 
       if (!mounted) {

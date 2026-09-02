@@ -167,7 +167,7 @@ class ProgressPhotoRepository {
     }
 
     final pushed = await _gateway.pushRows("progress_photos", payload);
-    if (pushed) {
+    if (pushed > 0) {
       for (final row in dirty) {
         await _database.markProgressPhotoSynced(row.id);
       }

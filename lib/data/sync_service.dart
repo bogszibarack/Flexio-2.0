@@ -7,6 +7,7 @@ import 'repositories/progress_photo_repository.dart';
 import 'repositories/sleep_repository.dart';
 import 'repositories/water_repository.dart';
 import 'repositories/workout_repository.dart';
+import '../view/workout_tracker/workout_store.dart';
 
 /// Kimenő és bejövő szinkron. A kimenő oldalt a helyi adatbázis `isDirty`
 /// soraiból építjük, a bejövő oldal `updated_at` alapján növekményes.
@@ -50,6 +51,7 @@ class SyncService {
     _running = true;
 
     try {
+      await WorkoutStore.flushPersists();
       await _pushEverything(userId);
       await _pullEverything(userId);
       await _database.purgeDeletedDiary(userId);

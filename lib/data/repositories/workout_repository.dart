@@ -4,6 +4,7 @@ import 'package:drift/drift.dart' show Value;
 
 import '../local/app_database.dart';
 import '../remote/supabase_gateway.dart';
+import '../sync_ids.dart';
 
 /// Az edzés-nézetek térkép alapú objektumokkal dolgoznak, ezért a részletes
 /// szerkezet JSON pillanatfelvételként utazik. A dátumokat külön jelöljük, hogy
@@ -130,9 +131,17 @@ class WorkoutRepository {
     required String kind,
     required Map<String, dynamic> item,
   }) async {
-    final id = "${item["id"] ?? ""}";
-    if (id.isEmpty) {
+    final rawId = "${item["id"] ?? ""}";
+    if (rawId.isEmpty) {
       return;
+    }
+
+    final id = ensureSyncId(rawId);
+    if (id != rawId) {
+      item["id"] = id;
+      await (_database.delete(_database.workoutRows)
+            ..where((t) => t.id.equals(rawId)))
+          .go();
     }
 
     final now = DateTime.now();
@@ -184,14 +193,34 @@ class WorkoutRepository {
       return;
     }
 
-    final pushed = await _gateway.pushRows(
-      "workout_sessions",
-      rows.map((row) => _toRemote(userId, row)).toList(),
-    );
+    final remoteRows = rows.map((row) => _toRemote(userId, row)).toList();
+    final accepted = await _gateway.pushRows("workout_sessions", remoteRows);
 
-    if (pushed) {
+    if (accepted == rows.length) {
       for (final row in rows) {
-        await _database.markWorkoutSynced(row.id);
+        final remoteId = ensureSyncId(row.id);
+        if (remoteId != row.id) {
+          await (_database.delete(_database.workoutRows)
+                ..where((t) => t.id.equals(row.id)))
+              .go();
+          await _database.saveWorkoutRow(WorkoutRow(
+            id: remoteId,
+            userId: row.userId,
+            kind: row.kind,
+            title: row.title,
+            scheduledAt: row.scheduledAt,
+            completedAt: row.completedAt,
+            durationMinutes: row.durationMinutes,
+            calories: row.calories,
+            difficulty: row.difficulty,
+            payloadJson: row.payloadJson,
+            updatedAt: row.updatedAt,
+            deletedAt: row.deletedAt,
+            isDirty: false,
+          ));
+        } else {
+          await _database.markWorkoutSynced(row.id);
+        }
       }
     }
   }
@@ -235,7 +264,7 @@ class WorkoutRepository {
   }
 
   Map<String, dynamic> _toRemote(String userId, WorkoutRow row) => {
-        "id": row.id,
+        "id": ensureSyncId(row.id),
         "user_id": userId,
         "title": row.title,
         "kind": row.kind,
