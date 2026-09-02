@@ -42,7 +42,7 @@ A Flexio egy **mobilalkalmazás** (iOS és Android). Nem weboldal — a felhaszn
 
 ## Mit implementáltam?
 
-Ez a szekció azt mutatja be, **mit tud a projekt technikailag** — állásinterjúhoz vagy kódbecsléshez.
+Ez a szekció azt mutatja be, **mit tud a projekt technikailag**.
 
 ### Mobil (Flutter)
 
