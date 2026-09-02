@@ -81,6 +81,7 @@ internal static class PersistenceServiceCollectionExtensions
 
     private static NpgsqlDataSource BuildDataSource(string connectionString, int commandTimeoutSeconds)
     {
+        connectionString = NormalizeConnectionString(connectionString);
         ArgumentException.ThrowIfNullOrWhiteSpace(connectionString);
 
         var builder = new NpgsqlDataSourceBuilder(connectionString);
@@ -91,5 +92,29 @@ internal static class PersistenceServiceCollectionExtensions
         // visszaáll. A ResetOnClose a pool biztonsági hálója.
         builder.ConnectionStringBuilder.NoResetOnClose = false;
         return builder.Build();
+    }
+
+    /// <summary>
+    /// A .env fájl teljes sorát néha a Render érték mezőbe másolják. Az
+    /// <c>Postgres__ApiConnectionString=Host=...</c> formátum Npgsql-ben hibát dob.
+    /// </summary>
+    internal static string NormalizeConnectionString(string connectionString)
+    {
+        var trimmed = connectionString.Trim();
+        foreach (var prefix in new[]
+                 {
+                     "Postgres__ApiConnectionString=",
+                     "Postgres__JobsConnectionString=",
+                     "POSTGRES__APICONNECTIONSTRING=",
+                     "POSTGRES__JOBSCONNECTIONSTRING=",
+                 })
+        {
+            if (trimmed.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            {
+                return trimmed[prefix.Length..].Trim();
+            }
+        }
+
+        return trimmed;
     }
 }

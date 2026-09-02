@@ -53,7 +53,7 @@ A kettős aláhúzás a szekció-elválasztó.
 | --- | --- | --- |
 | `SupabaseAuth__ProjectUrl` | **igen** | Például `https://abcdefgh.supabase.co`. Enélkül a szolgáltatás szándékosan nem indul el: token-kibocsátó nélkül nem lehet felhasználói adatot kiszolgálni. |
 | `SupabaseAuth__LegacyJwtSecret` | nem | Csak amíg a projekt HS256-tal ír alá. Aszimmetrikus kulcs esetén hagyd üresen. |
-| `Postgres__ApiConnectionString` | **igen** | A `flexio_api` role kapcsolata. RLS alatt fut; a `rolbypassrls` induláskor ellenőrzött. |
+| `Postgres__ApiConnectionString` | **igen** | A `flexio_api` role kapcsolata. RLS alatt fut; a `rolbypassrls` induláskor ellenőrzött. A Render **Value** mezőbe csak a kapcsolati string kerül (`Host=...;Port=...`), ne a teljes `.env` sor (`Postgres__ApiConnectionString=Host=...`). |
 | `Postgres__JobsConnectionString` | nem | A `flexio_jobs` role kapcsolata (OFF import, seed). Hiányában az import endpointok nem érhetők el. |
 | `Postgres__StartupProbeAttempts` | nem | Alap: `5`. A `0` kikapcsolja az induláskori DB-ellenőrzést (csak tesztekhez). |
 | `InternalJobs__SharedSecret` | nem* | Legalább 16 karakter. Hiányában a `/internal/jobs/*` végpontok 401-et adnak. |
