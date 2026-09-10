@@ -28,7 +28,7 @@ String dateToString(DateTime date, {String formatStr = "yyyy. MM. dd. HH:mm"}) {
 
 String _formatDate(DateTime date, String formatStr) {
   try {
-    return DateFormat(formatStr).format(date);
+    return DateFormat(formatStr, "hu").format(date);
   } on Object {
     return dateToNumeric(date);
   }

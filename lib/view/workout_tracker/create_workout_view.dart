@@ -21,6 +21,9 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
   List<String> repdbImageOptions = [];
   bool _loadedRepdbImages = false;
   final List<Map<String, dynamic>> exercises = [];
+  int? _expandedIndex;
+  TextEditingController? _editRepsController;
+  List<TextEditingController> _editWeightControllers = [];
 
   List<Map<String, String>> exerciseCatalog = [];
 
@@ -56,7 +59,60 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
   @override
   void dispose() {
     titleController.dispose();
+    _disposeEditControllers();
     super.dispose();
+  }
+
+  void _disposeEditControllers() {
+    _editRepsController?.dispose();
+    _editRepsController = null;
+    for (final controller in _editWeightControllers) {
+      controller.dispose();
+    }
+    _editWeightControllers = [];
+  }
+
+  List<int> _weightsOf(Map<String, dynamic> exercise) {
+    final stored = exercise["roundWeights"];
+    if (stored is List && stored.isNotEmpty) {
+      return stored.map((item) => (item as num).toInt()).toList();
+    }
+    final rounds = (exercise["rounds"] as num?)?.toInt() ?? 1;
+    final weight = (exercise["weight"] as num?)?.toInt() ?? 0;
+    return List<int>.filled(rounds, weight);
+  }
+
+  void _bindEditControllers(Map<String, dynamic> exercise) {
+    _disposeEditControllers();
+    final reps = (exercise["repetitions"] as num?)?.toInt() ?? 10;
+    _editRepsController = TextEditingController(text: "$reps");
+    _editWeightControllers = _weightsOf(exercise)
+        .map((weight) => TextEditingController(text: "$weight"))
+        .toList();
+  }
+
+  void _toggleExercise(int index) {
+    setState(() {
+      if (_expandedIndex == index) {
+        _disposeEditControllers();
+        _expandedIndex = null;
+        return;
+      }
+      _bindEditControllers(exercises[index]);
+      _expandedIndex = index;
+    });
+  }
+
+  void _applyExerciseEdits(Map<String, dynamic> exercise) {
+    final rounds = _editWeightControllers.length;
+    final weights = _editWeightControllers
+        .map((controller) => int.tryParse(controller.text) ?? 0)
+        .toList();
+    exercise["repetitions"] =
+        int.tryParse(_editRepsController?.text ?? "") ?? 1;
+    exercise["rounds"] = rounds;
+    exercise["roundWeights"] = weights;
+    exercise["weight"] = weights.isEmpty ? 0 : weights.first;
   }
 
   @override
@@ -65,115 +121,93 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
     return Container(
       decoration:
           BoxDecoration(gradient: LinearGradient(colors: TColor.primaryG)),
-      child: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            SliverAppBar(
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
-              elevation: 0,
-              leading: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  margin: const EdgeInsets.all(8),
-                  height: 40,
-                  width: 40,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: TColor.lightGray,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Image.asset(
-                    "assets/img/black_btn.png",
-                    width: 15,
-                    height: 15,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-              title: Text(
-                "Új Edzés Létrehozása",
-                style: TextStyle(
-                    color: TColor.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          centerTitle: true,
+          elevation: 0,
+          leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+              margin: const EdgeInsets.all(8),
+              height: 40,
+              width: 40,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: TColor.lightGray,
+                  borderRadius: BorderRadius.circular(10)),
+              child: Image.asset(
+                "assets/img/black_btn.png",
+                width: 15,
+                height: 15,
+                fit: BoxFit.contain,
               ),
             ),
-            SliverAppBar(
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
-              elevation: 0,
-              leadingWidth: 0,
-              leading: Container(),
-              expandedHeight: media.width * 0.5,
-              flexibleSpace: Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  height: media.width * 0.3,
-                  child: ListView.separated(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: repdbImageOptions.length,
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(width: 12),
-                    itemBuilder: (context, index) {
-                      var img = repdbImageOptions[index];
-                      var isSelected = img == selectedImage;
-                      return InkWell(
-                        onTap: () {
-                          setState(() {
-                            selectedImage = img;
-                          });
-                        },
-                        borderRadius: BorderRadius.circular(15),
-                        child: Container(
-                          width: media.width * 0.25,
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.15),
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                              color: isSelected
-                                  ? TColor.white
-                                  : Colors.transparent,
-                              width: 2,
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(13),
-                            child: Image.asset(
-                              img,
-                              width: double.infinity,
-                              height: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      );
+          ),
+          title: Text(
+            "Új Edzés Létrehozása",
+            style: TextStyle(
+                color: TColor.white, fontSize: 16, fontWeight: FontWeight.w700),
+          ),
+        ),
+        body: Column(
+          children: [
+            SizedBox(
+              height: media.width * 0.28,
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                scrollDirection: Axis.horizontal,
+                itemCount: repdbImageOptions.length,
+                separatorBuilder: (context, index) => const SizedBox(width: 12),
+                itemBuilder: (context, index) {
+                  var img = repdbImageOptions[index];
+                  var isSelected = img == selectedImage;
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        selectedImage = img;
+                      });
                     },
-                  ),
-                ),
+                    borderRadius: BorderRadius.circular(15),
+                    child: Container(
+                      width: media.width * 0.25,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(
+                          color: isSelected ? TColor.white : Colors.transparent,
+                          width: 2,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(13),
+                        child: Image.asset(
+                          img,
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
-          ];
-        },
-        body: Material(
-          color: TColor.white,
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(25), topRight: Radius.circular(25)),
-          clipBehavior: Clip.antiAlias,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Stack(
-              children: [
-                SingleChildScrollView(
+            const SizedBox(height: 8),
+            Expanded(
+              child: Material(
+                color: TColor.white,
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25)),
+                clipBehavior: Clip.antiAlias,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
                       Container(
                         width: 50,
                         height: 4,
@@ -181,9 +215,7 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                             color: TColor.gray.withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(3)),
                       ),
-                      SizedBox(
-                        height: media.width * 0.05,
-                      ),
+                      const SizedBox(height: 16),
                       _buildInputCard(
                         title: "Edzés neve",
                         icon: Icons.fitness_center_outlined,
@@ -199,9 +231,7 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: media.width * 0.05,
-                      ),
+                      const SizedBox(height: 16),
                       Row(
                         children: [
                           Icon(Icons.trending_up, color: TColor.gray, size: 20),
@@ -215,9 +245,7 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: media.width * 0.02,
-                      ),
+                      const SizedBox(height: 8),
                       Row(
                         children: difficultyOptions.map((d) {
                           var isSelected = d == difficulty;
@@ -229,15 +257,14 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                                 });
                               },
                               child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 4),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                   gradient: isSelected
-                                      ? LinearGradient(
-                                          colors: TColor.primaryG)
+                                      ? LinearGradient(colors: TColor.primaryG)
                                       : null,
                                   color: isSelected
                                       ? null
@@ -261,7 +288,7 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                           );
                         }).toList(),
                       ),
-                      SizedBox(height: media.width * 0.05),
+                      const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -279,19 +306,23 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      if (exercises.isEmpty)
-                        Text(
-                          "Még nem adtál hozzá gyakorlatot.",
-                          style: TextStyle(color: TColor.gray, fontSize: 12),
-                        )
-                      else
-                        ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: exercises.length,
-                          itemBuilder: (context, index) =>
-                              _buildExerciseCard(exercises[index]),
-                        ),
+                      Expanded(
+                        child: exercises.isEmpty
+                            ? Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  "Még nem adtál hozzá gyakorlatot.",
+                                  style: TextStyle(
+                                      color: TColor.gray, fontSize: 12),
+                                ),
+                              )
+                            : ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount: exercises.length,
+                                itemBuilder: (context, index) =>
+                                    _buildExerciseCard(exercises[index], index),
+                              ),
+                      ),
                       const SizedBox(height: 10),
                       SizedBox(
                         width: double.infinity,
@@ -302,39 +333,34 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                           onPressed: _showAddExerciseSheet,
                         ),
                       ),
-                      SizedBox(
-                        height: media.width * 0.3,
+                      const SizedBox(height: 10),
+                      SafeArea(
+                        top: false,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: RoundButton(
+                            title: "Létrehozás",
+                            onPressed: () {
+                              if (titleController.text.trim().isEmpty) {
+                                return;
+                              }
+                              Navigator.pop(context, {
+                                "image": selectedImage,
+                                "title": titleController.text.trim(),
+                                "exercises": "${exercises.length} gyakorlat",
+                                "difficulty": difficulty,
+                                "exerciseList": exercises,
+                              });
+                            },
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                SafeArea(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      RoundButton(
-                        title: "Létrehozás",
-                        onPressed: () {
-                          if (titleController.text.trim().isEmpty) {
-                            return;
-                          }
-                          Navigator.pop(context, {
-                            "image": selectedImage,
-                            "title": titleController.text.trim(),
-                            "exercises": "${exercises.length} gyakorlat",
-                            "difficulty": difficulty,
-                            "exerciseList": exercises,
-                          });
-                        },
-                      )
-                    ],
-                  ),
-                )
-              ],
+              ),
             ),
-          ),
-        ),
+          ],
         ),
       ),
     );
@@ -369,7 +395,8 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
     );
   }
 
-  Widget _buildExerciseCard(Map<String, dynamic> exercise) {
+  Widget _buildExerciseCard(Map<String, dynamic> exercise, int index) {
+    final expanded = _expandedIndex == index;
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.all(10),
@@ -377,44 +404,106 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
         color: TColor.lightGray,
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Row(
+      child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              exercise["image"] as String,
-              width: 52,
-              height: 52,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          InkWell(
+            onTap: () => _toggleExercise(index),
+            borderRadius: BorderRadius.circular(12),
+            child: Row(
               children: [
-                Text(
-                  exercise["name"] as String,
-                  style: TextStyle(
-                      color: TColor.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    exercise["image"] as String,
+                    width: 52,
+                    height: 52,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                Text(
-                  "${exercise["repetitions"]} ismétlés · ${exercise["weight"]} kg · ${exercise["rounds"]} kör",
-                  style: TextStyle(color: TColor.gray, fontSize: 12),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        exercise["name"] as String,
+                        style: TextStyle(
+                            color: TColor.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      Text(
+                        "${exercise["repetitions"]} ismétlés · ${exercise["weight"]} kg · ${exercise["rounds"]} kör",
+                        style: TextStyle(color: TColor.gray, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(
+                  expanded ? Icons.expand_less : Icons.expand_more,
+                  color: TColor.gray,
+                ),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      if (_expandedIndex == index) {
+                        _disposeEditControllers();
+                        _expandedIndex = null;
+                      } else if (_expandedIndex != null &&
+                          _expandedIndex! > index) {
+                        _expandedIndex = _expandedIndex! - 1;
+                      }
+                      exercises.removeAt(index);
+                    });
+                  },
+                  icon: Icon(Icons.close, color: TColor.gray, size: 20),
                 ),
               ],
             ),
           ),
-          IconButton(
-            onPressed: () {
-              setState(() {
-                exercises.remove(exercise);
-              });
-            },
-            icon: Icon(Icons.close, color: TColor.gray, size: 20),
-          ),
+          if (expanded && _editRepsController != null) ...[
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildNumberControl(
+                    "Ismétlés",
+                    _editRepsController!,
+                    (_) => setState(() => _applyExerciseEdits(exercise)),
+                    minimum: 1,
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: _buildRoundCountControl(
+                    _editWeightControllers.length,
+                    () => setState(() {
+                      if (_editWeightControllers.length > 1) {
+                        _editWeightControllers.removeLast().dispose();
+                        _applyExerciseEdits(exercise);
+                      }
+                    }),
+                    () => setState(() {
+                      _editWeightControllers
+                          .add(TextEditingController(text: "0"));
+                      _applyExerciseEdits(exercise);
+                    }),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            ...List.generate(_editWeightControllers.length, (roundIndex) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: _buildNumberControl(
+                  "${roundIndex + 1}. kör súlya (kg)",
+                  _editWeightControllers[roundIndex],
+                  (_) => setState(() => _applyExerciseEdits(exercise)),
+                ),
+              );
+            }),
+          ],
         ],
       ),
     );
@@ -426,6 +515,12 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
     int repetitions = 10;
     int rounds = 3;
     var roundWeights = List<int>.filled(rounds, 0);
+    final repetitionsController =
+        TextEditingController(text: "$repetitions");
+    var weightControllers = List.generate(
+      rounds,
+      (_) => TextEditingController(text: "0"),
+    );
 
     showModalBottomSheet(
       context: context,
@@ -535,7 +630,7 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                         Expanded(
                           child: _buildNumberControl(
                             "Ismétlés",
-                            repetitions,
+                            repetitionsController,
                             (value) =>
                                 setModalState(() => repetitions = value),
                             minimum: 1,
@@ -548,12 +643,15 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                             () => setModalState(() {
                               if (rounds > 1) {
                                 rounds--;
+                                weightControllers.removeLast().dispose();
                                 roundWeights =
                                     roundWeights.sublist(0, rounds);
                               }
                             }),
                             () => setModalState(() {
                               rounds++;
+                              weightControllers
+                                  .add(TextEditingController(text: "0"));
                               roundWeights = [...roundWeights, 0];
                             }),
                           ),
@@ -566,7 +664,7 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
                         padding: const EdgeInsets.only(bottom: 8),
                         child: _buildNumberControl(
                           "${index + 1}. kör súlya (kg)",
-                          roundWeights[index],
+                          weightControllers[index],
                           (value) =>
                               setModalState(() => roundWeights[index] = value),
                         ),
@@ -605,15 +703,37 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
           );
         },
       ),
-    );
+    ).whenComplete(() {
+      repetitionsController.dispose();
+      for (final controller in weightControllers) {
+        controller.dispose();
+      }
+    });
   }
 
   Widget _buildNumberControl(
     String label,
-    int value,
+    TextEditingController controller,
     ValueChanged<int> onChanged, {
     int minimum = 0,
   }) {
+    int parsed() {
+      final value = int.tryParse(controller.text);
+      if (value == null) {
+        return minimum;
+      }
+      return value.clamp(minimum, 9999);
+    }
+
+    void setValue(int value) {
+      final next = value.clamp(minimum, 9999);
+      controller.value = TextEditingValue(
+        text: "$next",
+        selection: TextSelection.collapsed(offset: "$next".length),
+      );
+      onChanged(next);
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -622,12 +742,42 @@ class _CreateWorkoutViewState extends State<CreateWorkoutView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
-              onPressed: value > minimum ? () => onChanged(value - 1) : null,
+              onPressed: parsed() > minimum ? () => setValue(parsed() - 1) : null,
               icon: const Icon(Icons.remove_circle_outline, size: 20),
             ),
-            Text("$value", style: TextStyle(color: TColor.black)),
+            SizedBox(
+              width: 64,
+              child: TextField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(4),
+                ],
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: TColor.black, fontWeight: FontWeight.w700),
+                decoration: const InputDecoration(
+                  isDense: true,
+                  hintText: "0",
+                  border: UnderlineInputBorder(),
+                  contentPadding: EdgeInsets.symmetric(vertical: 8),
+                ),
+                onChanged: (text) {
+                  if (text.isEmpty) {
+                    onChanged(minimum);
+                    return;
+                  }
+                  final value = int.tryParse(text);
+                  if (value != null) {
+                    onChanged(value.clamp(minimum, 9999));
+                  }
+                },
+                onSubmitted: (_) => setValue(parsed()),
+              ),
+            ),
             IconButton(
-              onPressed: () => onChanged(value + 1),
+              onPressed: () => setValue(parsed() + 1),
               icon: const Icon(Icons.add_circle_outline, size: 20),
             ),
           ],

@@ -277,6 +277,7 @@ class WorkoutStore {
     int totalSets = 0,
     int? rpe,
     Map<String, dynamic>? workout,
+    List<Map<String, dynamic>>? exerciseList,
   }) {
     final entry = <String, dynamic>{
       "title": title,
@@ -294,12 +295,37 @@ class WorkoutStore {
       "totalSets": totalSets,
       if (rpe != null) "rpe": rpe,
       "workout": workout,
+      if (exerciseList != null) "exerciseList": exerciseList,
     };
     completedWorkouts.add(entry);
     _persist(WorkoutRepository.kindCompleted, entry);
     _bump();
     onCompletedLogged?.call(entry);
     return entry;
+  }
+
+  /// A befejezett edzés gyakorlatai: először a napló saját listája, aztán a
+  /// beágyazott sablon. Régi bejegyzéseknél mindkettő lehet üres.
+  static List<Map<String, dynamic>> exercisesOfCompleted(
+      Map<String, dynamic> entry) {
+    final top = entry["exerciseList"];
+    if (top is List && top.isNotEmpty) {
+      return top
+          .whereType<Map>()
+          .map((item) => Map<String, dynamic>.from(item))
+          .toList();
+    }
+    final workout = entry["workout"];
+    if (workout is Map) {
+      final nested = workout["exerciseList"];
+      if (nested is List && nested.isNotEmpty) {
+        return nested
+            .whereType<Map>()
+            .map((item) => Map<String, dynamic>.from(item))
+            .toList();
+      }
+    }
+    return const [];
   }
 
   /// Az edzés utáni RPE a befejező lapon jön, a napló már létezik.

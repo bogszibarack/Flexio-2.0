@@ -68,10 +68,55 @@ class _MealPlannerViewState extends ConsumerState<MealPlannerView> {
     });
   }
 
-  List<DiaryEntry> get _todayMeals => _store.mealsForDay(
-        DateTime.now(),
-        category: _selectedCategory == allCategories ? null : _selectedCategory,
-      );
+  List<DiaryEntry> get _listedMeals {
+    final category =
+        _selectedCategory == allCategories ? null : _selectedCategory;
+    switch (_period) {
+      case MealPeriod.daily:
+        final now = DateTime.now();
+        return _store.mealsForDay(
+          DateTime(now.year, now.month, now.day + _periodOffset),
+          category: category,
+        );
+      case MealPeriod.weekly:
+        final start = MealStore.startOfWeek(DateTime.now())
+            .add(Duration(days: 7 * _periodOffset));
+        return _store.mealsInRange(
+          start,
+          start.add(const Duration(days: 7)),
+          category: category,
+        );
+      case MealPeriod.monthly:
+        final now = DateTime.now();
+        final month = DateTime(now.year, now.month + _periodOffset, 1);
+        return _store.mealsInRange(
+          month,
+          DateTime(month.year, month.month + 1, 1),
+          category: category,
+        );
+    }
+  }
+
+  String get _mealsSectionTitle {
+    if (_period == MealPeriod.daily && _periodOffset == 0) {
+      return "Mai étkezések";
+    }
+    if (_period == MealPeriod.daily && _periodOffset == -1) {
+      return "Tegnapi étkezések";
+    }
+    return "Étkezések – ${MealStore.periodLabel(period: _period, offset: _periodOffset)}";
+  }
+
+  String get _mealsEmptyMessage {
+    if (_period == MealPeriod.daily && _periodOffset == 0) {
+      return _selectedCategory == allCategories
+          ? "Ma még nem naplóztál étkezést."
+          : "Ma még nincs naplózott étkezés ebben a kategóriában: $_selectedCategory.";
+    }
+    return _selectedCategory == allCategories
+        ? "Ebben az időszakban nincs naplózott étkezés."
+        : "Ebben az időszakban nincs naplózott étkezés ebben a kategóriában: $_selectedCategory.";
+  }
 
   List<MealChartBucket> get _buckets =>
       _store.chartBuckets(period: _period, offset: _periodOffset);
@@ -160,26 +205,6 @@ class _MealPlannerViewState extends ConsumerState<MealPlannerView> {
           style: TextStyle(
               color: TColor.black, fontSize: 16, fontWeight: FontWeight.w700),
         ),
-        actions: [
-          InkWell(
-            onTap: () {},
-            child: Container(
-              margin: const EdgeInsets.all(8),
-              height: 40,
-              width: 40,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: TColor.lightGray,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Image.asset(
-                "assets/img/more_btn.png",
-                width: 15,
-                height: 15,
-                fit: BoxFit.contain,
-              ),
-            ),
-          )
-        ],
       ),
       backgroundColor: TColor.white,
       body: SingleChildScrollView(
@@ -283,7 +308,7 @@ class _MealPlannerViewState extends ConsumerState<MealPlannerView> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Mai Étkezések",
+                        _mealsSectionTitle,
                         style: TextStyle(
                             color: TColor.black,
                             fontSize: 16,
@@ -295,7 +320,7 @@ class _MealPlannerViewState extends ConsumerState<MealPlannerView> {
                   SizedBox(
                     height: media.width * 0.03,
                   ),
-                  if (_todayMeals.isEmpty)
+                  if (_listedMeals.isEmpty)
                     Container(
                       width: double.maxFinite,
                       padding: const EdgeInsets.symmetric(
@@ -306,9 +331,7 @@ class _MealPlannerViewState extends ConsumerState<MealPlannerView> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Text(
-                        _selectedCategory == allCategories
-                            ? "Ma még nem naplóztál étkezést."
-                            : "Ma még nincs naplózott étkezés ebben a kategóriában: $_selectedCategory.",
+                        _mealsEmptyMessage,
                         textAlign: TextAlign.center,
                         style: TextStyle(color: TColor.gray, fontSize: 12),
                       ),
@@ -318,9 +341,9 @@ class _MealPlannerViewState extends ConsumerState<MealPlannerView> {
                         padding: EdgeInsets.zero,
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: _todayMeals.length,
+                        itemCount: _listedMeals.length,
                         itemBuilder: (context, index) {
-                          final meal = _todayMeals[index];
+                          final meal = _listedMeals[index];
                           return Dismissible(
                             key: ValueKey(meal.id),
                             direction: DismissDirection.endToStart,

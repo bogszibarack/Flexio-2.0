@@ -409,6 +409,17 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
         ? 1
         : (_elapsed.inSeconds / 60).round();
 
+    // A mostani menet teljes gyakorlatait mentjük a naplóba és a sablonba is.
+    // Korábban a sablon üres/régi listája mentődött, ezért utólag nem látszott semmi.
+    final sessionExercises = exercisesArr
+        .map((exercise) =>
+            Map<String, dynamic>.from(exercise)..remove("completedRounds"))
+        .toList();
+    widget.dObj["exerciseList"] = sessionExercises
+        .map((exercise) => Map<String, dynamic>.from(exercise))
+        .toList();
+    widget.dObj["exercises"] = "${sessionExercises.length} gyakorlat";
+
     final entry = WorkoutStore.logCompletedWorkout(
       title: widget.dObj["title"].toString(),
       image: widget.dObj["image"].toString(),
@@ -417,7 +428,15 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
       volume: totals["volume"] as double,
       completedSets: totals["completedSets"] as int,
       totalSets: totals["totalSets"] as int,
-      workout: Map<String, dynamic>.from(widget.dObj),
+      workout: {
+        ...Map<String, dynamic>.from(widget.dObj),
+        "exerciseList": sessionExercises
+            .map((exercise) => Map<String, dynamic>.from(exercise))
+            .toList(),
+      },
+      exerciseList: sessionExercises
+          .map((exercise) => Map<String, dynamic>.from(exercise))
+          .toList(),
     );
     final progress = WorkoutStore.progressionFor(entry);
 
@@ -431,7 +450,7 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
       context: context,
       entry: entry,
       progress: progress,
-      sessionExercises: exercisesArr
+      sessionExercises: sessionExercises
           .map((exercise) => Map<String, dynamic>.from(exercise))
           .toList(),
       template: widget.dObj,
@@ -579,6 +598,7 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
                     setState(() {
                       exercisesArr.remove(exercise);
                     });
+                    _syncTemplate();
                   },
                   icon: Icon(Icons.close, color: TColor.gray, size: 20),
                 ),
@@ -619,7 +639,12 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
                     ),
                     onChanged: (value) {
                       roundWeights[index] = int.tryParse(value) ?? 0;
+                      exercise["weight"] = roundWeights.isNotEmpty
+                          ? roundWeights.first
+                          : 0;
                     },
+                    onEditingComplete: () => _syncTemplate(),
+                    onTapOutside: (_) => _syncTemplate(),
                   ),
                 ),
               ],
@@ -851,6 +876,7 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
                                           List<bool>.filled(rounds, false),
                                     });
                                   });
+                                  _syncTemplate();
                                   Navigator.pop(context);
                                 },
                               ),
