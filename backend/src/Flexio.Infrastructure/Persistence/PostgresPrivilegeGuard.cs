@@ -46,7 +46,10 @@ internal sealed class PostgresPrivilegeGuard : IHealthCheck
 
             try
             {
-                await VerifyPrivilegesAsync(cancellationToken).ConfigureAwait(false);
+                var roleName = await VerifyPrivilegesAsync(cancellationToken).ConfigureAwait(false);
+                _logger.LogInformation(
+                    "Adatbázis-jogosultság rendben: role={Role}, rolbypassrls=false, flexio_current_user_id=ok.",
+                    roleName);
                 return;
             }
             catch (Exception exception) when (exception is NpgsqlException or TimeoutException)
@@ -98,7 +101,9 @@ internal sealed class PostgresPrivilegeGuard : IHealthCheck
 
     private bool IsProbeDisabled => _options.StartupProbeAttempts <= 0;
 
-    private async Task VerifyPrivilegesAsync(CancellationToken cancellationToken)
+    // Nem logol: a readiness próba pár másodpercenként fut, a sikeres
+    // eredményt elég induláskor egyszer kiírni.
+    private async Task<string> VerifyPrivilegesAsync(CancellationToken cancellationToken)
     {
         await using var connection = await _dataSource
             .OpenConnectionAsync(cancellationToken)
@@ -140,8 +145,6 @@ internal sealed class PostgresPrivilegeGuard : IHealthCheck
                 "Futtasd a 20260830190000_api_role migrációt az adatbázison.");
         }
 
-        _logger.LogInformation(
-            "Adatbázis-jogosultság rendben: role={Role}, rolbypassrls=false, flexio_current_user_id=ok.",
-            roleName);
+        return roleName;
     }
 }
