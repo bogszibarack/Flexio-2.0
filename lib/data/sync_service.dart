@@ -49,11 +49,18 @@ bool shouldResyncOnResume(SyncStatus status, DateTime now) {
 /// nem tűnik el nyomtalanul. Korábban egyetlen kivétel az egész kört elvitte,
 /// így például egy elbukott feltöltés miatt a lehúzás sem futott le.
 class SyncStepRunner {
+  SyncStepRunner({this.stepTimeout = const Duration(minutes: 2)});
+
+  /// Egy lépés felső határa. A közvetlen Supabase-hívásoknak nincs saját
+  /// időkorlátja; enélkül egy beragadt kérés örökre „szinkronizál” állapotban
+  /// tartaná az appot. Az API-hívások 90 mp-es korlátja belefér.
+  final Duration stepTimeout;
+
   final List<String> failedSteps = [];
 
   Future<T?> run<T>(String name, Future<T> Function() action) async {
     try {
-      return await action();
+      return await action().timeout(stepTimeout);
     } on Object catch (error, stack) {
       failedSteps.add(name);
       debugPrint("Szinkron lépés sikertelen ($name): $error");

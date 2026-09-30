@@ -162,38 +162,40 @@ class SyncIndicator extends StatelessWidget {
       left: 0,
       right: 0,
       child: IgnorePointer(
-        // Rejtve a pörgő jelző ne animáljon tovább a háttérben.
-        child: TickerMode(
-          enabled: visible,
-          child: AnimatedOpacity(
-            opacity: visible ? 1 : 0,
-            duration: const Duration(milliseconds: 250),
-            child: Center(
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: TColor.black.withValues(alpha: 0.75),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      width: 12,
-                      height: 12,
-                      child: CircularProgressIndicator(
+        // Az átlátszóság animációja kívül van, hogy az eltűnés mindig
+        // lefusson. Csak a pörgő karika áll le rejtve (ne fogyasszon a
+        // háttérben). Korábban az egész jelző tickere állt le a szinkron
+        // végén, így a jelző félúton befagyott a képernyőn.
+        child: AnimatedOpacity(
+          opacity: visible ? 1 : 0,
+          duration: const Duration(milliseconds: 250),
+          child: Center(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: TColor.black.withValues(alpha: 0.75),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 12,
+                    height: 12,
+                    child: TickerMode(
+                      enabled: visible,
+                      child: const CircularProgressIndicator(
                         strokeWidth: 2,
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(width: 8),
-                    Text(
-                      "Szinkronizálás…",
-                      style: TextStyle(color: Colors.white, fontSize: 11),
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(width: 8),
+                  const Text(
+                    "Szinkronizálás…",
+                    style: TextStyle(color: Colors.white, fontSize: 11),
+                  ),
+                ],
               ),
             ),
           ),

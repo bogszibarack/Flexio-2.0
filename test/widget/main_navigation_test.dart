@@ -1,6 +1,7 @@
 import 'package:fitness/common_widget/tab_button.dart';
 import 'package:fitness/view/main_tab/main_tab_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../support/haptics_recorder.dart';
@@ -68,21 +69,28 @@ void main() {
     expect(haptics.played, isEmpty);
   });
 
-  testWidgets("a szinkron-jelzés csak futó szinkron alatt látszik",
+  testWidgets(
+      "a szinkron-jelzés a szinkron végén ténylegesen eltűnik, nem fagy be",
       (tester) async {
-    Future<double> opacity(bool visible) async {
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(body: Stack(children: [SyncIndicator(visible: visible)])),
-      ));
-      await tester.pump(const Duration(milliseconds: 300));
-      return tester.widget<AnimatedOpacity>(find.byType(AnimatedOpacity)).opacity;
-    }
+    Widget indicator(bool visible) => MaterialApp(
+          home: Scaffold(
+              body: Stack(children: [SyncIndicator(visible: visible)])),
+        );
+    double renderedOpacity() => tester
+        .renderObject<RenderAnimatedOpacity>(find.byType(AnimatedOpacity))
+        .opacity
+        .value;
 
-    expect(await opacity(true), 1);
-    expect(await opacity(false), 0);
+    await tester.pumpWidget(indicator(true));
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(renderedOpacity(), 1);
+    // Szinkron közben a karika pörög.
+    expect(tester.hasRunningAnimations, isTrue);
 
-    // Rejtve nincs futó animáció (nem fogyaszt a háttérben).
+    // A szinkron véget ér: a ténylegesen kirajzolt átlátszóság 0-ra megy.
+    await tester.pumpWidget(indicator(false));
     await tester.pumpAndSettle();
+    expect(renderedOpacity(), 0);
     expect(tester.hasRunningAnimations, isFalse);
   });
 }

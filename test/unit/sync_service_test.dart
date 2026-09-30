@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fitness/data/sync_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -17,6 +19,19 @@ void main() {
       expect(executed, ["push", "pull", "photos"]);
       expect(runner.failedSteps, ["push"]);
       expect(runner.hasFailures, isTrue);
+    });
+
+    test("beragadt lépés időtúllépéssel hibára fut, a kör nem akad el",
+        () async {
+      final runner =
+          SyncStepRunner(stepTimeout: const Duration(milliseconds: 50));
+      final executed = <String>[];
+
+      await runner.run("pull:photos", () => Completer<void>().future);
+      await runner.run("pull:water", () async => executed.add("water"));
+
+      expect(runner.failedSteps, ["pull:photos"]);
+      expect(executed, ["water"]);
     });
 
     test("sikeres lépés az eredményét adja vissza", () async {
