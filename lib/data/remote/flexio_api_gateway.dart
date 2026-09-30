@@ -64,26 +64,36 @@ class FlexioApiGateway extends SupabaseGateway {
       return false;
     }
 
-    final response = await _postJson("/api/v1/sync", {
-      "diary": entries.map((entry) => entry.toRemoteRow(uid)).toList(),
-      "since": const <String, dynamic>{},
-    });
-    return response != null;
+    const chunkSize = 200;
+    final rows = entries.map((entry) => entry.toRemoteRow(uid)).toList();
+
+    for (var offset = 0; offset < rows.length; offset += chunkSize) {
+      final end =
+          (offset + chunkSize) < rows.length ? offset + chunkSize : rows.length;
+      final response = await _postJson("/api/v1/sync", {
+        "diary": rows.sublist(offset, end),
+        "since": const <String, dynamic>{},
+      });
+      if (response == null) {
+        return false;
+      }
+    }
+    return true;
   }
 
   @override
-  Future<List<DiaryEntry>> pullDiaryEntries({DateTime? since}) async {
+  Future<List<DiaryEntry>?> pullDiaryEntries({DateTime? since}) async {
     final response = await _postJson("/api/v1/sync", {
       "since": {
         if (since != null) "diary": since.toUtc().toIso8601String(),
       },
     });
     if (response is! Map) {
-      return const [];
+      return null;
     }
     final diary = response["diary"];
     if (diary is! List) {
-      return const [];
+      return null;
     }
     return diary.whereType<Map>().map(DiaryEntry.fromRemoteRow).toList();
   }
@@ -156,28 +166,39 @@ class FlexioApiGateway extends SupabaseGateway {
       return super.pushRows(table, rows);
     }
 
-    final response = await _postJson("/api/v1/sync", {
-      key: rows,
-      "since": const <String, dynamic>{},
-    });
-    if (response is! Map) {
-      return 0;
+    // A szerver kötegenként legfeljebb 500 sort fogad el; a fölötti kérésre
+    // 400-at ad, és akkor semmi nem megy fel. Ezért darabolunk.
+    const chunkSize = 200;
+    var accepted = 0;
+
+    for (var offset = 0; offset < rows.length; offset += chunkSize) {
+      final end =
+          (offset + chunkSize) < rows.length ? offset + chunkSize : rows.length;
+      final response = await _postJson("/api/v1/sync", {
+        key: rows.sublist(offset, end),
+        "since": const <String, dynamic>{},
+      });
+      if (response is! Map) {
+        return accepted;
+      }
+
+      final push = response["push"];
+      if (push is! Map) {
+        return accepted;
+      }
+
+      accepted += switch (key) {
+        "workouts" => (push["workoutsAccepted"] as num?)?.toInt() ?? 0,
+        "sleep" => (push["sleepAccepted"] as num?)?.toInt() ?? 0,
+        _ => 0,
+      };
     }
 
-    final push = response["push"];
-    if (push is! Map) {
-      return 0;
-    }
-
-    return switch (key) {
-      "workouts" => (push["workoutsAccepted"] as num?)?.toInt() ?? 0,
-      "sleep" => (push["sleepAccepted"] as num?)?.toInt() ?? 0,
-      _ => 0,
-    };
+    return accepted;
   }
 
   @override
-  Future<List<Map<String, dynamic>>> pullRows(
+  Future<List<Map<String, dynamic>>?> pullRows(
     String table, {
     DateTime? since,
   }) async {
@@ -196,16 +217,34 @@ class FlexioApiGateway extends SupabaseGateway {
       },
     });
     if (response is! Map) {
-      return const [];
+      return null;
     }
     final rows = response[sinceKey];
     if (rows is! List) {
-      return const [];
+      return null;
     }
     return rows
         .whereType<Map>()
         .map((row) => Map<String, dynamic>.from(row))
         .toList();
+  }
+
+  /// A Render ingyenes példánya 15 perc tétlenség után elalszik, az ébredés
+  /// ~50 mp. Indításkor azonnal megbökjük, hogy mire a szinkron odaér, már
+  /// fent legyen. A hiba nem számít: ez csak gyorsítás.
+  @override
+  Future<void> warmUp() async {
+    final client = HttpClient();
+    try {
+      final request = await client.getUrl(_join("/health/live"));
+      final response =
+          await request.close().timeout(const Duration(seconds: 90));
+      await response.drain<void>();
+    } on Object catch (error) {
+      debugPrint("Flexio API ébresztés sikertelen: $error");
+    } finally {
+      client.close(force: true);
+    }
   }
 
   Uri _join(String path) {
@@ -235,7 +274,7 @@ class FlexioApiGateway extends SupabaseGateway {
       request.headers.set(HttpHeaders.authorizationHeader, "Bearer $token");
       request.headers.set(HttpHeaders.acceptHeader, "application/json");
       final response =
-          await request.close().timeout(const Duration(seconds: 20));
+          await request.close().timeout(const Duration(seconds: 45));
       final text = await response.transform(utf8.decoder).join();
       if (response.statusCode < 200 || response.statusCode >= 300) {
         debugPrint("Flexio API GET ${uri.path} -> ${response.statusCode}");
@@ -264,7 +303,10 @@ class FlexioApiGateway extends SupabaseGateway {
       request.headers.set(HttpHeaders.authorizationHeader, "Bearer $token");
       request.add(utf8.encode(jsonEncode(body)));
       final response =
-          await request.close().timeout(const Duration(seconds: 30));
+          // A Render ingyenes csomagján a példány 15 perc után elalszik, és
+          // az ébredés ~50 másodperc. A rövid időtúllépés miatt az első
+          // szinkron rendszeresen elbukott.
+          await request.close().timeout(const Duration(seconds: 90));
       final text = await response.transform(utf8.decoder).join();
       if (response.statusCode < 200 || response.statusCode >= 300) {
         debugPrint(

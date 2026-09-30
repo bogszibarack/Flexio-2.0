@@ -13,7 +13,10 @@ import 'sleep_schedule_view.dart';
 import 'sleep_store.dart';
 
 class SleepTrackerView extends ConsumerStatefulWidget {
-  const SleepTrackerView({super.key});
+  /// Az alsó sáv füleként nincs vissza gomb; máshonnan megnyitva van.
+  final bool inTab;
+
+  const SleepTrackerView({super.key, this.inTab = false});
 
   @override
   ConsumerState<SleepTrackerView> createState() => _SleepTrackerViewState();
@@ -158,7 +161,7 @@ class _SleepTrackerViewState extends ConsumerState<SleepTrackerView> {
         backgroundColor: TColor.white,
         centerTitle: true,
         elevation: 0,
-        leading: InkWell(
+        leading: widget.inTab ? const SizedBox.shrink() : InkWell(
           onTap: () => Navigator.pop(context),
           child: Container(
             margin: const EdgeInsets.all(8),

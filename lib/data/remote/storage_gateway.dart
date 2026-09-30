@@ -35,11 +35,17 @@ class StorageGateway {
       return null;
     }
 
+    final absolute =
+        await LocalImageStore.resolve(localPath, fallbackFolder: "avatars");
+    if (absolute == null) {
+      return null;
+    }
+
     try {
       final storagePath = "$uid/avatar.jpg";
       await client.storage.from("avatars").upload(
             storagePath,
-            File(localPath),
+            File(absolute),
             fileOptions: const FileOptions(
               upsert: true,
               contentType: "image/jpeg",
@@ -61,7 +67,7 @@ class StorageGateway {
       final bytes = await client.storage
           .from("avatars")
           .download("$userId/avatar.jpg");
-      return _persistBytes(bytes, folder: "avatars", fileName: "avatar.jpg");
+      return await _persistBytes(bytes, folder: "avatars", fileName: "avatar.jpg");
     } on Object {
       return null;
     }
@@ -77,11 +83,19 @@ class StorageGateway {
       return null;
     }
 
+    final absolute = await LocalImageStore.resolve(
+      localPath,
+      fallbackFolder: "progress_photos",
+    );
+    if (absolute == null) {
+      return null;
+    }
+
     try {
       final storagePath = "$uid/$photoId.jpg";
       await client.storage.from("progress-photos").upload(
             storagePath,
-            File(localPath),
+            File(absolute),
             fileOptions: const FileOptions(
               upsert: true,
               contentType: "image/jpeg",
@@ -103,7 +117,7 @@ class StorageGateway {
       final bytes =
           await client.storage.from("progress-photos").download(storagePath);
       final fileName = storagePath.split("/").last;
-      return _persistBytes(
+      return await _persistBytes(
         bytes,
         folder: "progress_photos",
         fileName: fileName,
@@ -126,6 +140,8 @@ class StorageGateway {
     }
   }
 
+  /// A letöltött fájlt elmentjük, és **relatív** útvonalat adunk vissza, mert
+  /// az abszolút út újratelepítés után már nem érvényes.
   Future<String> _persistBytes(
     Uint8List bytes, {
     required String folder,
@@ -134,6 +150,6 @@ class StorageGateway {
     final directory = await LocalImageStore.directoryFor(folder);
     final path = "${directory.path}/$fileName";
     await File(path).writeAsBytes(bytes, flush: true);
-    return path;
+    return LocalImageStore.relativeOf(folder: folder, fileName: fileName);
   }
 }

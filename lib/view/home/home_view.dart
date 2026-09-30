@@ -1,6 +1,6 @@
 import 'package:dotted_dashed_line/dotted_dashed_line.dart';
 import 'package:fitness/common_widget/round_button.dart';
-import 'package:fitness/common_widget/workout_row.dart';
+import 'package:fitness/common_widget/latest_workout_card.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +18,9 @@ import '../workout_tracker/completed_workout_list_view.dart';
 import '../workout_tracker/workout_store.dart';
 import 'activity_tracker_view.dart';
 import 'notification_view.dart';
+import '../main_tab/main_tab_view.dart';
+import '../profile/profile_view.dart';
+import '../../common_widget/profile_avatar_button.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   final String? firstName;
@@ -29,6 +32,19 @@ class HomeView extends ConsumerStatefulWidget {
 }
 
 class _HomeViewState extends ConsumerState<HomeView> {
+  /// Fülön belül fület vált, önállóan megnyitva (pl. képernyőkép-eszköz)
+  /// a régi módon új oldalt nyit.
+  void _openTab(MainTab tab, {required Widget Function() fallback}) {
+    AppHaptics.selection();
+    final scope = MainTabScope.maybeOf(context);
+    if (scope != null) {
+      scope.select(tab);
+      return;
+    }
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => fallback()));
+  }
+
   List<int> showingTooltipOnSpots = [];
   String _progressRange = "Heti";
 
@@ -77,7 +93,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
       return;
     }
 
-    AppHaptics.medium();
+    AppHaptics.waterFill(result);
     await ref.read(dailyWaterProvider).add(result);
     ref.read(healthSyncProvider).syncWaterMl(result);
   }
@@ -123,10 +139,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
       SleepStore.startOfWeek(DateTime.now()),
     );
     final hasSleepWeek = sleepHours.any((hours) => hours > 0);
-    final lastWorkouts = WorkoutStore.completedWorkoutsByDateDesc
-        .take(3)
-        .map(WorkoutStore.asWorkoutRow)
-        .toList();
+    final lastWorkouts =
+        WorkoutStore.completedWorkoutsByDateDesc.take(3).toList();
 
     final isWeekly = _progressRange == "Heti";
     final workoutCalories = isWeekly
@@ -203,22 +217,38 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         ),
                       ],
                     ),
-                    IconButton(
-                        onPressed: () {
-                          AppHaptics.light();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const NotificationView(),
-                            ),
-                          );
-                        },
-                        icon: Image.asset(
-                          "assets/img/notification_active.png",
-                          width: 25,
-                          height: 25,
-                          fit: BoxFit.fitHeight,
-                        ))
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                            tooltip: "Értesítések",
+                            onPressed: () {
+                              AppHaptics.light();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const NotificationView(),
+                                ),
+                              );
+                            },
+                            icon: Icon(Icons.notifications_none_rounded,
+                                size: 26, color: TColor.black)),
+                        ProfileAvatarButton(
+                          avatarPath: profile.avatarPath,
+                          onTap: () {
+                            AppHaptics.light();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProfileView(firstName: safeFirstName),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -778,15 +808,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const SleepTrackerView(),
-                              ),
-                            );
-                          },
+                          onTap: () => _openTab(MainTab.sleep,
+                              fallback: () => const SleepTrackerView()),
                           child: Container(
                           width: double.maxFinite,
                           height: media.width * 0.45,
@@ -848,15 +871,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           height: media.width * 0.05,
                         ),
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const MealPlannerView(),
-                              ),
-                            );
-                          },
+                          onTap: () => _openTab(MainTab.meals,
+                              fallback: () => const MealPlannerView()),
                           child: Container(
                           width: double.maxFinite,
                           height: media.width * 0.45,
@@ -1070,17 +1086,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       shrinkWrap: true,
                       itemCount: lastWorkouts.length,
                       itemBuilder: (context, index) {
-                        return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CompletedWorkoutListView(),
-                                ),
-                              );
-                            },
-                            child: WorkoutRow(wObj: lastWorkouts[index]));
+                        final entry = lastWorkouts[index];
+                        return LatestWorkoutCard(
+                          key: ObjectKey(entry),
+                          entry: entry,
+                        );
                       }),
                 SizedBox(
                   height: media.width * 0.1,

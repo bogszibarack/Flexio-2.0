@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:fitness/common/app_haptics.dart';
 import 'package:fitness/common/colo_extension.dart';
+import 'package:fitness/common_widget/app_snackbar.dart';
 import 'package:fitness/common_widget/icon_title_next_row.dart';
 import 'package:fitness/common_widget/round_button.dart';
 import 'package:fitness/common_widget/sheet_option.dart';
@@ -132,13 +134,45 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
               flexibleSpace: Container(
                 color: const Color(0xffD8F1FD),
                 child: ClipRect(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 6),
-                    child: Image.asset(
-                      widget.dObj["image"].toString(),
-                      fit: BoxFit.contain,
-                      alignment: Alignment.center,
+                  child: InkWell(
+                    onTap: _showImagePicker,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 6),
+                          child: Image.asset(
+                            widget.dObj["image"].toString(),
+                            fit: BoxFit.contain,
+                            alignment: Alignment.center,
+                          ),
+                        ),
+                        Positioned(
+                          right: 16,
+                          bottom: 16,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 6),
+                            decoration: BoxDecoration(
+                              color: Colors.black54,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.edit, color: Colors.white, size: 14),
+                                SizedBox(width: 4),
+                                Text(
+                                  "Kép módosítása",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 11),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -158,6 +192,8 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
             body: Stack(
               children: [
                 SingleChildScrollView(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
                   child: Column(
                     children: [
                       const SizedBox(
@@ -246,6 +282,13 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
                           ),
                         ],
                       ),
+                      if (_startedAt == null && exercisesArr.isNotEmpty) ...[
+                        const SizedBox(height: 4),
+                        Text(
+                          "A köröket az edzés indítása után tudod teljesítettnek jelölni.",
+                          style: TextStyle(color: TColor.gray, fontSize: 11),
+                        ),
+                      ],
                       const SizedBox(height: 12),
                       if (exercisesArr.isEmpty)
                         Text(
@@ -356,7 +399,30 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
     );
   }
 
+  void _warnNotStarted() {
+    // A lakat ikonos üzenet maga ad figyelmeztető rezgést.
+    showAppSnack(
+      context,
+      message: "Előbb indítsd el az edzést, utána jelölheted a köröket.",
+      icon: Icons.lock_outline,
+    );
+  }
+
+  void _toggleRound(List<bool> completedRounds, int index, bool done) {
+    setState(() {
+      completedRounds[index] = done;
+    });
+    if (!done) {
+      AppHaptics.selection();
+    } else if (completedRounds.every((round) => round)) {
+      AppHaptics.exerciseDone();
+    } else {
+      AppHaptics.roundDone();
+    }
+  }
+
   void _startWorkout() {
+    AppHaptics.workoutStart();
     setState(() {
       _startedAt = DateTime.now();
       _elapsed = Duration.zero;
@@ -403,6 +469,7 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
   }
 
   Future<void> _finishWorkout() async {
+    AppHaptics.workoutFinish();
     _timer?.cancel();
     final totals = _sessionTotals();
     final minutes = _elapsed.inSeconds < 60
@@ -541,7 +608,10 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
     final roundWeights = exercise["roundWeights"] as List<int>;
     final isExpanded = exercise["isExpanded"] as bool? ?? false;
 
+    // A kártya a gyakorlathoz kötött kulcsot kap, hogy törlés után a
+    // súlymezők állapota ne csússzon át a következő gyakorlatra.
     return Container(
+      key: ObjectKey(exercise),
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -552,6 +622,7 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
         children: [
           InkWell(
             onTap: () {
+              AppHaptics.selection();
               setState(() {
                 exercise["isExpanded"] = !isExpanded;
               });
@@ -595,6 +666,7 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
                 ),
                 IconButton(
                   onPressed: () {
+                    AppHaptics.delete();
                     setState(() {
                       exercisesArr.remove(exercise);
                     });
@@ -610,14 +682,19 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
             ...List.generate(rounds, (index) {
             return Row(
               children: [
-                Checkbox(
-                  value: completedRounds[index],
-                  activeColor: TColor.primaryColor1,
-                  onChanged: (value) {
-                    setState(() {
-                      completedRounds[index] = value ?? false;
-                    });
-                  },
+                // Csak futó edzés közben jelölhető teljesítettnek. Indítás
+                // előtt a koppintás figyelmeztet, hogy ne tűnjön hibának.
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: _startedAt == null ? _warnNotStarted : null,
+                  child: Checkbox(
+                    value: completedRounds[index],
+                    activeColor: TColor.primaryColor1,
+                    onChanged: _startedAt == null
+                        ? null
+                        : (value) =>
+                            _toggleRound(completedRounds, index, value ?? false),
+                  ),
                 ),
                 Expanded(
                   child: Text(
@@ -627,24 +704,15 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
                 ),
                 SizedBox(
                   width: 85,
-                  child: TextFormField(
-                    key: ValueKey(
-                        "${exercise["name"]}-$index-${roundWeights[index]}"),
-                    initialValue: "${roundWeights[index]}",
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    decoration: const InputDecoration(
-                      suffixText: "kg",
-                      isDense: true,
-                    ),
+                  child: _RoundWeightField(
+                    value: roundWeights[index],
                     onChanged: (value) {
-                      roundWeights[index] = int.tryParse(value) ?? 0;
+                      roundWeights[index] = value;
                       exercise["weight"] = roundWeights.isNotEmpty
                           ? roundWeights.first
                           : 0;
                     },
-                    onEditingComplete: () => _syncTemplate(),
-                    onTapOutside: (_) => _syncTemplate(),
+                    onCommitted: _syncTemplate,
                   ),
                 ),
               ],
@@ -654,6 +722,99 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
         ],
       ),
     );
+  }
+
+  Future<void> _showImagePicker() async {
+    final images = List<String>.from(jsonDecode(
+            await rootBundle.loadString("assets/repdb_image_paths.json"))
+        as List);
+    if (!mounted) {
+      return;
+    }
+
+    final selected = await showModalBottomSheet<String>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SafeArea(
+        child: Material(
+          color: TColor.white,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
+          clipBehavior: Clip.antiAlias,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.7,
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                Container(
+                  width: 50,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: TColor.gray.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  "Edzés képe",
+                  style: TextStyle(
+                      color: TColor.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(height: 12),
+                Expanded(
+                  child: GridView.builder(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                    ),
+                    itemCount: images.length,
+                    itemBuilder: (context, index) {
+                      final image = images[index];
+                      final isSelected =
+                          image == widget.dObj["image"]?.toString();
+                      return InkWell(
+                        onTap: () => Navigator.pop(context, image),
+                        borderRadius: BorderRadius.circular(12),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: TColor.lightGray,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: isSelected
+                                  ? TColor.primaryColor1
+                                  : Colors.transparent,
+                              width: 2,
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(image, fit: BoxFit.cover),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
+    if (selected == null || !mounted) {
+      return;
+    }
+    setState(() {
+      AppHaptics.selection();
+      widget.dObj["image"] = selected;
+    });
+    _syncTemplate();
   }
 
   void _showDifficultyPicker() {
@@ -697,6 +858,7 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
                         : null,
                     onTap: () {
                       setState(() {
+                        AppHaptics.selection();
                         widget.dObj["difficulty"] = difficulty;
                       });
                       Navigator.pop(context);
@@ -863,6 +1025,7 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
                                 title: "Gyakorlat hozzáadása",
                                 fontSize: 14,
                                 onPressed: () {
+                                  AppHaptics.success();
                                   setState(() {
                                     exercisesArr.add({
                                       "name": selectedExercise!["name"]!,
@@ -908,17 +1071,111 @@ class _WorkoutDetailViewState extends ConsumerState<WorkoutDetailView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
-              onPressed: value > minimum ? () => onChanged(value - 1) : null,
+              onPressed: value > minimum
+                  ? () {
+                      AppHaptics.selection();
+                      onChanged(value - 1);
+                    }
+                  : null,
               icon: const Icon(Icons.remove_circle_outline, size: 20),
             ),
             Text("$value", style: TextStyle(color: TColor.black)),
             IconButton(
-              onPressed: () => onChanged(value + 1),
+              onPressed: () {
+                AppHaptics.selection();
+                onChanged(value + 1);
+              },
               icon: const Icon(Icons.add_circle_outline, size: 20),
             ),
           ],
         ),
       ],
+    );
+  }
+}
+
+/// Egy kör súlymezője. Saját vezérlőt és fókuszt tart, így a szülő
+/// újraépülése (pl. a másodpercenként frissülő stopper) nem veszi el a
+/// fókuszt gépelés közben. A sablonba mentés a mező elhagyásakor történik.
+class _RoundWeightField extends StatefulWidget {
+  final int value;
+  final ValueChanged<int> onChanged;
+  final VoidCallback onCommitted;
+
+  const _RoundWeightField({
+    required this.value,
+    required this.onChanged,
+    required this.onCommitted,
+  });
+
+  @override
+  State<_RoundWeightField> createState() => _RoundWeightFieldState();
+}
+
+class _RoundWeightFieldState extends State<_RoundWeightField> {
+  late final TextEditingController _controller =
+      TextEditingController(text: "${widget.value}");
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(_onFocusChange);
+  }
+
+  @override
+  void didUpdateWidget(covariant _RoundWeightField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Kívülről jött változás csak akkor íródik be, ha épp nem gépel benne.
+    if (!_focusNode.hasFocus && widget.value != _parsed) {
+      _controller.text = "${widget.value}";
+    }
+  }
+
+  @override
+  void dispose() {
+    _focusNode.removeListener(_onFocusChange);
+    _focusNode.dispose();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  int get _parsed => int.tryParse(_controller.text.trim()) ?? 0;
+
+  void _onFocusChange() {
+    if (_focusNode.hasFocus) {
+      // Belépéskor kijelöljük az értéket, hogy rögtön felülírható legyen.
+      _controller.selection = TextSelection(
+          baseOffset: 0, extentOffset: _controller.text.length);
+      return;
+    }
+    if (_controller.text.trim().isEmpty) {
+      _controller.text = "0";
+    }
+    widget.onChanged(_parsed);
+    widget.onCommitted();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: _controller,
+      focusNode: _focusNode,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.done,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(4),
+      ],
+      textAlign: TextAlign.center,
+      decoration: const InputDecoration(
+        suffixText: "kg",
+        isDense: true,
+      ),
+      onChanged: (_) => widget.onChanged(_parsed),
+      onSubmitted: (_) => _focusNode.unfocus(),
+      // A mező mellé koppintva bezárul a billentyűzet és mentődik az érték.
+      onTapOutside: (_) => _focusNode.unfocus(),
     );
   }
 }

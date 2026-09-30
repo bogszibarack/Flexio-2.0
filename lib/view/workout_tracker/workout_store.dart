@@ -504,22 +504,6 @@ class WorkoutStore {
           .fold<double>(0, (sum, value) => sum + value);
     });
   }
-
-  /// A főoldal és a listák közös sora: cím, kép, kalória, perc, készültség.
-  static Map<String, dynamic> asWorkoutRow(Map<String, dynamic> entry) {
-    final image = "${entry["image"] ?? ""}";
-    final totalSets = entry["totalSets"] as int? ?? 0;
-    final completedSets = entry["completedSets"] as int? ?? 0;
-    return {
-      "name": "${entry["title"] ?? "Edzés"}",
-      "image": image.startsWith("assets/") ? image : "assets/img/Workout1.png",
-      "kcal": "${entry["calories"] ?? 0}",
-      "time": "${entry["minutes"] ?? 0}",
-      "progress": totalSets > 0
-          ? (completedSets / totalSets).clamp(0.0, 1.0)
-          : 1.0,
-    };
-  }
 }
 
 enum WorkoutMetric { calories, minutes }

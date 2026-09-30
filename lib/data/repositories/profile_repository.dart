@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../local/app_database.dart';
+import '../local/local_image_store.dart';
 import '../models/user_profile.dart';
 import '../remote/storage_gateway.dart';
 import '../remote/supabase_gateway.dart';
@@ -90,12 +91,31 @@ class ProfileRepository {
     return profile;
   }
 
+  static const String _avatarFolder = "avatars";
+
+  /// A metában relatív útvonal van (`avatars/avatar.jpg`), a felületnek viszont
+  /// létező abszolút út kell. A régi, abszolút értéket menet közben
+  /// normalizáljuk, mert újratelepítés után már nem mutat sehova.
   Future<String?> _avatarFor(String userId) async {
     final raw = await _database.metaValue(_avatarKey(userId));
     if (raw == null || raw.isEmpty) {
       return null;
     }
-    return raw;
+
+    final resolved = await LocalImageStore.resolve(
+      raw,
+      fallbackFolder: _avatarFolder,
+    );
+    if (resolved == null) {
+      return null;
+    }
+
+    final relative =
+        LocalImageStore.toRelative(raw, fallbackFolder: _avatarFolder);
+    if (relative != null && relative != raw) {
+      await _database.setMeta(_avatarKey(userId), relative);
+    }
+    return resolved;
   }
 
   Future<UserProfile> load(String userId) async {
@@ -124,7 +144,14 @@ class ProfileRepository {
       }
     }
 
-    await _database.setMeta(_avatarKey(userId), toSave.avatarPath ?? "");
+    await _database.setMeta(
+      _avatarKey(userId),
+      LocalImageStore.toRelative(
+            toSave.avatarPath,
+            fallbackFolder: _avatarFolder,
+          ) ??
+          "",
+    );
     await _database.saveProfileRow(_toRow(userId, toSave, dirty: true));
 
     if (_gateway.isSignedIn) {
@@ -208,8 +235,12 @@ class ProfileRepository {
     final downloaded = await _storage.downloadAvatar(userId);
     if (downloaded != null) {
       await _database.setMeta(_avatarKey(userId), downloaded);
+      final absolute = await LocalImageStore.resolve(
+        downloaded,
+        fallbackFolder: _avatarFolder,
+      );
       return merged.copyWith(
-        avatarPath: downloaded,
+        avatarPath: absolute ?? localAvatarPath,
         avatarUrl: remote.avatarUrl,
         avatarUpdatedAt: remoteAvatarAt,
       );

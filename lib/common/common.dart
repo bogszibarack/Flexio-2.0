@@ -6,32 +6,8 @@ String getTime(int value, {String formatStr = "hh:mm a"}) {
       DateTime.fromMillisecondsSinceEpoch(value * 60 * 1000, isUtc: true));
 }
 
-String getStringDateToOtherFormate(String dateStr,
-    {String inputFormatStr = "dd/MM/yyyy hh:mm aa",
-    String outFormatStr = "hh:mm a"}) {
-  var format = DateFormat(outFormatStr);
-  return format.format(stringToDate(dateStr, formatStr: inputFormatStr));
-}
-
-DateTime stringToDate(String dateStr, {String formatStr = "hh:mm a"}) {
-  var format = DateFormat(formatStr);
-  return format.parse(dateStr);
-}
-
 DateTime dateToStartDate(DateTime date) {
   return DateTime(date.year, date.month, date.day);
-}
-
-String dateToString(DateTime date, {String formatStr = "yyyy. MM. dd. HH:mm"}) {
-  return _formatDate(date, formatStr);
-}
-
-String _formatDate(DateTime date, String formatStr) {
-  try {
-    return DateFormat(formatStr, "hu").format(date);
-  } on Object {
-    return dateToNumeric(date);
-  }
 }
 
 const List<String> _huMonths = [
@@ -108,8 +84,4 @@ String dateToDayTitle(DateTime date) {
 
 String dateToTimeLabel(DateTime date) {
   return DateFormat("HH:mm").format(date);
-}
-
-String getDayTitle(String dateStr, {String formatStr = "dd/MM/yyyy hh:mm a"}) {
-  return dateToDayTitle(stringToDate(dateStr, formatStr: formatStr));
 }

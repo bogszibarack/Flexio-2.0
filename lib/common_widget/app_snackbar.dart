@@ -13,7 +13,7 @@ void showAppSnack(
   VoidCallback? onAction,
   Duration duration = const Duration(seconds: 4),
 }) {
-  AppHaptics.success();
+  hapticForSnack(icon)();
   final messenger = ScaffoldMessenger.of(context);
   messenger.hideCurrentSnackBar();
 
@@ -81,4 +81,25 @@ void showAppSnack(
       ),
     ),
   );
+}
+
+/// Az üzenet jellegéhez illő tapintás: hibára figyelmeztet, törlésre tompán
+/// koppan, tájékoztatásnál csak finoman jelez, sikernél „pipál”.
+Future<void> Function() hapticForSnack(IconData icon) {
+  final warnings = {
+    Icons.error_outline,
+    Icons.lock_outline,
+    Icons.link_off,
+    Icons.warning_amber_rounded,
+  };
+  if (warnings.contains(icon)) {
+    return AppHaptics.warning;
+  }
+  if (icon == Icons.delete_outline) {
+    return AppHaptics.delete;
+  }
+  if (icon == Icons.info_outline || icon == Icons.event) {
+    return AppHaptics.light;
+  }
+  return AppHaptics.success;
 }

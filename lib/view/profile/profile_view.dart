@@ -48,15 +48,21 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
       return;
     }
 
+    // A tárolt érték relatív (`avatars/...`), a felület viszont létező
+    // abszolút utat vár, ezért rögtön fel is oldjuk.
     final stored = await LocalImageStore.persist(
       sourcePath: picked.path,
       folder: "avatars",
       fileName: "avatar_${DateTime.now().millisecondsSinceEpoch}.jpg",
     );
+    final absolute =
+        await LocalImageStore.resolve(stored, fallbackFolder: "avatars");
 
     final previous = ref.read(profileControllerProvider).profile.avatarPath;
-    await ref.read(profileControllerProvider).update(avatarPath: stored);
-    await LocalImageStore.deleteFile(previous);
+    await ref
+        .read(profileControllerProvider)
+        .update(avatarPath: absolute ?? stored);
+    await LocalImageStore.deleteFile(previous, fallbackFolder: "avatars");
 
     if (mounted) {
       showAppSnack(context,
@@ -180,7 +186,24 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
         backgroundColor: TColor.white,
         centerTitle: true,
         elevation: 0,
-        leadingWidth: 0,
+        leading: InkWell(
+          onTap: () => Navigator.maybePop(context),
+          child: Container(
+            margin: const EdgeInsets.all(8),
+            height: 40,
+            width: 40,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: TColor.lightGray,
+                borderRadius: BorderRadius.circular(10)),
+            child: Image.asset(
+              "assets/img/black_btn.png",
+              width: 15,
+              height: 15,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
         title: Text(
           "Profil",
           style: TextStyle(

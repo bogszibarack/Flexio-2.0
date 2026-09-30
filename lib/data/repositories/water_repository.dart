@@ -122,12 +122,17 @@ class WaterRepository {
     }
   }
 
-  Future<void> pull(String userId, {DateTime? since}) async {
+  /// `true`, ha a lekérés lefutott (akkor is, ha nem jött új sor).
+  /// `false`, ha hiba volt — ilyenkor a hívó nem léptetheti a watermarkot.
+  Future<bool> pull(String userId, {DateTime? since}) async {
     if (!_gateway.isSignedIn) {
-      return;
+      return false;
     }
 
     final rows = await _gateway.pullRows("water_entries", since: since);
+    if (rows == null) {
+      return false;
+    }
     for (final row in rows) {
       final id = "${row["id"]}";
       final updatedAt =
@@ -152,6 +157,7 @@ class WaterRepository {
         isDirty: false,
       ));
     }
+    return true;
   }
 
   Future<void> _importLegacyMetaIfNeeded(String userId, DateTime day) async {

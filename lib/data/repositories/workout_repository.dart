@@ -225,12 +225,17 @@ class WorkoutRepository {
     }
   }
 
-  Future<void> pull(String userId, {DateTime? since}) async {
+  /// `true`, ha a lekérés lefutott (akkor is, ha nem jött új sor).
+  /// `false`, ha hiba volt — ilyenkor a hívó nem léptetheti a watermarkot.
+  Future<bool> pull(String userId, {DateTime? since}) async {
     if (!_gateway.isSignedIn) {
-      return;
+      return false;
     }
 
     final rows = await _gateway.pullRows("workout_sessions", since: since);
+    if (rows == null) {
+      return false;
+    }
     for (final row in rows) {
       final id = "${row["id"]}";
       final updatedAt =
@@ -261,6 +266,7 @@ class WorkoutRepository {
         isDirty: false,
       ));
     }
+    return true;
   }
 
   Map<String, dynamic> _toRemote(String userId, WorkoutRow row) => {

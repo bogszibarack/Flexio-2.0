@@ -33,21 +33,33 @@ class ProgressPhotoRepository {
     final photos = <ProgressPhoto>[];
 
     for (final row in rows) {
-      final localPath = row.localPath;
-      if (localPath != null && File(localPath).existsSync()) {
-        photos.add(_fromRow(row, localPath));
+      final resolved = await _resolve(row.localPath);
+      if (resolved != null) {
+        // Régi, abszolút útvonal esetén relatívra normalizáljuk, hogy a
+        // következő újratelepítés után is megtaláljuk.
+        final relative = LocalImageStore.toRelative(
+          row.localPath,
+          fallbackFolder: _folder,
+        );
+        if (relative != null && relative != row.localPath) {
+          await _database.saveProgressPhotoRow(
+            row.copyWith(localPath: Value(relative)),
+          );
+        }
+        photos.add(_fromRow(row, resolved));
         continue;
       }
 
       if (_gateway.isSignedIn && row.storagePath.isNotEmpty) {
         final downloaded =
             await _storage.downloadProgressPhoto(row.storagePath);
-        if (downloaded != null) {
+        final downloadedAbsolute = await _resolve(downloaded);
+        if (downloadedAbsolute != null) {
           await _database.saveProgressPhotoRow(row.copyWith(
             localPath: Value(downloaded),
             isDirty: false,
           ));
-          photos.add(_fromRow(row, downloaded));
+          photos.add(_fromRow(row, downloadedAbsolute));
           continue;
         }
       }
@@ -90,7 +102,8 @@ class ProgressPhotoRepository {
     await _database.saveProgressPhotoRow(row);
     await pushPending(userId);
 
-    return _fromRow(row, stored);
+    final absolute = await _resolve(stored);
+    return absolute == null ? null : _fromRow(row, absolute);
   }
 
   Future<void> remove({
@@ -113,7 +126,10 @@ class ProgressPhotoRepository {
     if (existing.storagePath.isNotEmpty) {
       await _storage.deleteProgressPhoto(existing.storagePath);
     }
-    await LocalImageStore.deleteFile(existing.localPath);
+    await LocalImageStore.deleteFile(
+      existing.localPath,
+      fallbackFolder: _folder,
+    );
 
     await pushPending(userId);
   }
@@ -174,12 +190,17 @@ class ProgressPhotoRepository {
     }
   }
 
-  Future<void> pull(String userId, {DateTime? since}) async {
+  /// `true`, ha a lekérés lefutott (akkor is, ha nem jött új sor).
+  /// `false`, ha hiba volt — ilyenkor a hívó nem léptetheti a watermarkot.
+  Future<bool> pull(String userId, {DateTime? since}) async {
     if (!_gateway.isSignedIn) {
-      return;
+      return false;
     }
 
     final rows = await _gateway.pullRows("progress_photos", since: since);
+    if (rows == null) {
+      return false;
+    }
     for (final row in rows) {
       final id = "${row["id"]}";
       final updatedAt =
@@ -198,12 +219,12 @@ class ProgressPhotoRepository {
       final deletedAt = DateTime.tryParse("${row["deleted_at"]}")?.toLocal();
 
       if (deletedAt == null && storagePath.isNotEmpty) {
-        final needsDownload = localPath == null || !File(localPath).existsSync();
+        final needsDownload = await _resolve(localPath) == null;
         if (needsDownload) {
           localPath = await _storage.downloadProgressPhoto(storagePath);
         }
       } else if (deletedAt != null) {
-        await LocalImageStore.deleteFile(localPath);
+        await LocalImageStore.deleteFile(localPath, fallbackFolder: _folder);
         localPath = null;
       }
 
@@ -219,6 +240,7 @@ class ProgressPhotoRepository {
         isDirty: false,
       ));
     }
+    return true;
   }
 
   Future<void> _importLegacyIndexIfNeeded(String userId) async {
@@ -242,7 +264,11 @@ class ProgressPhotoRepository {
       for (final item in decoded.whereType<Map>()) {
         final photo =
             ProgressPhoto.fromJson(Map<String, dynamic>.from(item));
-        if (!File(photo.filePath).existsSync()) {
+        final relative = LocalImageStore.toRelative(
+          photo.filePath,
+          fallbackFolder: _folder,
+        );
+        if (await _resolve(relative) == null) {
           continue;
         }
 
@@ -250,7 +276,7 @@ class ProgressPhotoRepository {
         if (_gateway.isSignedIn) {
           storagePath = await _storage.uploadProgressPhoto(
                 photoId: photo.id,
-                localPath: photo.filePath,
+                localPath: relative!,
               ) ??
               "";
         }
@@ -261,7 +287,7 @@ class ProgressPhotoRepository {
           takenAt: photo.takenAt,
           pose: photo.pose.name,
           storagePath: storagePath,
-          localPath: photo.filePath,
+          localPath: relative,
           updatedAt: photo.takenAt,
           isDirty: true,
         ));
@@ -272,6 +298,12 @@ class ProgressPhotoRepository {
       // Nem kritikus.
     }
   }
+
+  static const String _folder = "progress_photos";
+
+  /// A tárolt (relatív vagy régi abszolút) útvonalból létező abszolút fájl.
+  static Future<String?> _resolve(String? stored) =>
+      LocalImageStore.resolve(stored, fallbackFolder: _folder);
 
   static ProgressPhoto _fromRow(ProgressPhotoRow row, String filePath) =>
       ProgressPhoto(

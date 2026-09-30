@@ -61,7 +61,9 @@ class SessionService extends ChangeNotifier {
       : _database = database,
         _gateway = gateway;
 
-  static const String _localUserKey = "local_user_id";
+  /// A fiók nélküli (helyi) mód eszközhöz kötött azonosítója. A szinkron
+  /// ebből tudja, hogy a régebbi sorok melyik azonosító alatt maradtak.
+  static const String localUserKey = "local_user_id";
   static const String _localNameKey = "local_first_name";
   static const String _onboardingKey = "onboarding_done";
   static const String _sessionKey = "session_active";
@@ -135,12 +137,12 @@ class SessionService extends ChangeNotifier {
   }
 
   Future<String> _ensureLocalUser() async {
-    final existing = await _database.metaValue(_localUserKey);
+    final existing = await _database.metaValue(localUserKey);
     if (existing != null && existing.isNotEmpty) {
       return existing;
     }
     final generated = _uuid.v4();
-    await _database.setMeta(_localUserKey, generated);
+    await _database.setMeta(localUserKey, generated);
     return generated;
   }
 
@@ -282,7 +284,7 @@ class SessionService extends ChangeNotifier {
     }
 
     if (!usesRemote) {
-      await _database.setMeta(_localUserKey, "");
+      await _database.setMeta(localUserKey, "");
       await _database.setMeta(_sessionKey, "false");
       _userId = null;
       _sessionActive = false;

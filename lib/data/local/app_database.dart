@@ -385,6 +385,68 @@ class AppDatabase extends _$AppDatabase {
         const ProgressPhotoRowsCompanion(isDirty: Value(false)),
       );
 
+  // --- Karbantartás -------------------------------------------------------
+
+  /// Egy korábbi (pl. helyi, fiók nélküli) azonosító alatt maradt sorok
+  /// átkötése a most bejelentkezett felhasználóra.
+  ///
+  /// A sorok `isDirty = true` jelölést kapnak, hogy a következő szinkron
+  /// felküldje őket a szerverre. A visszatérési érték az átkötött sorok száma.
+  Future<int> adoptRowsFrom(String oldUserId, String newUserId) async {
+    if (oldUserId.isEmpty ||
+        newUserId.isEmpty ||
+        oldUserId == newUserId) {
+      return 0;
+    }
+
+    return transaction(() async {
+      var moved = 0;
+
+      moved += await (update(diaryRows)
+            ..where((t) => t.userId.equals(oldUserId)))
+          .write(DiaryRowsCompanion(
+        userId: Value(newUserId),
+        isDirty: const Value(true),
+      ));
+
+      moved += await (update(workoutRows)
+            ..where((t) => t.userId.equals(oldUserId)))
+          .write(WorkoutRowsCompanion(
+        userId: Value(newUserId),
+        isDirty: const Value(true),
+      ));
+
+      moved += await (update(sleepRows)
+            ..where((t) => t.userId.equals(oldUserId)))
+          .write(SleepRowsCompanion(
+        userId: Value(newUserId),
+        isDirty: const Value(true),
+      ));
+
+      moved += await (update(waterRows)
+            ..where((t) => t.userId.equals(oldUserId)))
+          .write(WaterRowsCompanion(
+        userId: Value(newUserId),
+        isDirty: const Value(true),
+      ));
+
+      moved += await (update(progressPhotoRows)
+            ..where((t) => t.userId.equals(oldUserId)))
+          .write(ProgressPhotoRowsCompanion(
+        userId: Value(newUserId),
+        isDirty: const Value(true),
+      ));
+
+      return moved;
+    });
+  }
+
+  /// A növekményes szinkron vízjeleinek törlése: a következő kör mindent
+  /// lehúz a szerverről, nem csak az utolsó szinkron óta változott sorokat.
+  Future<void> clearPullWatermarks() async {
+    await (delete(syncMeta)..where((t) => t.key.like("last_pull_%"))).go();
+  }
+
   /// Kilépésnél és fióktörlésnél a helyi adat is törlődik.
   Future<void> wipeUserData(String userId) async {
     await (delete(diaryRows)..where((t) => t.userId.equals(userId))).go();

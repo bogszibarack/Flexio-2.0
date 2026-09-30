@@ -65,7 +65,7 @@ class _ActivityTrackerViewState extends ConsumerState<ActivityTrackerView> {
     if (result == null) {
       return;
     }
-    AppHaptics.medium();
+    AppHaptics.waterFill(result);
     await ref.read(dailyWaterProvider).add(result);
     ref.read(healthSyncProvider).syncWaterMl(result);
   }

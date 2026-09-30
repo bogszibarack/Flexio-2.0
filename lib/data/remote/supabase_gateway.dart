@@ -27,6 +27,10 @@ class SupabaseGateway {
 
   bool get isSignedIn => userId != null;
 
+  /// A távoli oldal előkészítése a szinkron előtt. A közvetlen Supabase útnak
+  /// nincs mit felébreszteni.
+  Future<void> warmUp() async {}
+
   // --- Keresés ------------------------------------------------------------
 
   Future<List<FoodItem>> searchFoods(String query, {int limit = 30}) async {
@@ -226,11 +230,15 @@ class SupabaseGateway {
     }
   }
 
-  Future<List<DiaryEntry>> pullDiaryEntries({DateTime? since}) async {
+  /// `null` = a lekérés nem sikerült (hálózat, jogosultság, hibás válasz).
+  /// Üres lista = sikeres lekérés, de nincs új sor. A kettő megkülönböztetése
+  /// nélkül a szinkron „megjegyezné", hogy eddig szinkronizált, és a régi
+  /// adatok soha többé nem jönnének le.
+  Future<List<DiaryEntry>?> pullDiaryEntries({DateTime? since}) async {
     final client = _client;
     final uid = userId;
     if (client == null || uid == null) {
-      return const [];
+      return null;
     }
 
     try {
@@ -244,7 +252,7 @@ class SupabaseGateway {
           .map(DiaryEntry.fromRemoteRow)
           .toList();
     } on Object {
-      return const [];
+      return null;
     }
   }
 
@@ -339,12 +347,13 @@ class SupabaseGateway {
     }
   }
 
-  Future<List<Map<String, dynamic>>> pullRows(String table,
+  /// `null` = sikertelen lekérés (lásd [pullDiaryEntries]).
+  Future<List<Map<String, dynamic>>?> pullRows(String table,
       {DateTime? since}) async {
     final client = _client;
     final uid = userId;
     if (client == null || uid == null) {
-      return const [];
+      return null;
     }
 
     try {
@@ -358,7 +367,7 @@ class SupabaseGateway {
           .map((row) => Map<String, dynamic>.from(row))
           .toList();
     } on Object {
-      return const [];
+      return null;
     }
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+import '../../common/app_haptics.dart';
 import '../../common/colo_extension.dart';
 import '../../common_widget/round_button.dart';
 import '../../data/models/food_item.dart';
@@ -31,7 +32,7 @@ class _BarcodeScanViewState extends ConsumerState<BarcodeScanView> {
     ],
   );
 
-  bool _isResolving = false;
+  final BarcodeScanGate _gate = BarcodeScanGate();
   String? _status;
 
   @override
@@ -40,41 +41,47 @@ class _BarcodeScanViewState extends ConsumerState<BarcodeScanView> {
     super.dispose();
   }
 
+  bool get _isResolving => _gate.isBusy;
+
   Future<void> _onDetect(BarcodeCapture capture) async {
-    if (_isResolving) {
+    final code =
+        _gate.accept(capture.barcodes.map((barcode) => barcode.rawValue));
+    if (code == null) {
       return;
     }
-
-    final code = capture.barcodes
-        .map((barcode) => barcode.rawValue ?? "")
-        .firstWhere((value) => value.trim().length >= 8, orElse: () => "");
-
-    if (code.isEmpty) {
-      return;
-    }
-
     await _resolve(code);
   }
 
+  /// Hívás előtt a zárnak már foglaltnak kell lennie (lásd [BarcodeScanGate]).
+  /// A zár a kézi felvitel teljes idejére érvényes, és a kamerát is
+  /// leállítjuk: különben a háttérben futó olvasó ugyanazt a kódot újra
+  /// észleli, és minden találatnál újabb kézi felviteli oldalt nyit.
   Future<void> _resolve(String code) async {
     setState(() {
-      _isResolving = true;
       _status = "Termék keresése: $code";
     });
+    await _stopCamera();
 
-    final food = await ref.read(foodRepositoryProvider).resolveBarcode(code);
+    FoodItem? food;
+    try {
+      food = await ref.read(foodRepositoryProvider).resolveBarcode(code);
+    } on Object catch (error) {
+      // Hálózati hiba: a kézi felvitel felé visszük, nem ragad be a zár.
+      debugPrint("Vonalkód feloldása sikertelen: $error");
+    }
 
     if (!mounted) {
       return;
     }
 
     if (food != null) {
+      AppHaptics.scanned();
       Navigator.pop(context, food);
       return;
     }
 
+    AppHaptics.warning();
     setState(() {
-      _isResolving = false;
       _status = "Ezt a vonalkódot nem találjuk. Vedd fel kézzel a csomagolás adataival.";
     });
 
@@ -85,8 +92,36 @@ class _BarcodeScanViewState extends ConsumerState<BarcodeScanView> {
       ),
     );
 
-    if (created != null && mounted) {
+    if (!mounted) {
+      return;
+    }
+
+    if (created != null) {
       Navigator.pop(context, created);
+      return;
+    }
+
+    // Kézi felvitel megszakítva: újra lehet olvasni.
+    setState(() {
+      _gate.release();
+      _status = null;
+    });
+    await _startCamera();
+  }
+
+  Future<void> _stopCamera() async {
+    try {
+      await _controller.stop();
+    } catch (_) {
+      // Nincs kamera (szimulátor) vagy már leállt - nincs teendő.
+    }
+  }
+
+  Future<void> _startCamera() async {
+    try {
+      await _controller.start();
+    } catch (_) {
+      // Nincs kamera (szimulátor) - a kézi kódbevitel továbbra is működik.
     }
   }
 
@@ -133,11 +168,14 @@ class _BarcodeScanViewState extends ConsumerState<BarcodeScanView> {
       ),
     );
 
-    if (code == null || code.length < 8 || !mounted) {
+    if (code == null || !mounted) {
       return;
     }
-
-    await _resolve(code);
+    final accepted = _gate.accept([code]);
+    if (accepted == null) {
+      return;
+    }
+    await _resolve(accepted);
   }
 
   @override
@@ -248,4 +286,34 @@ class _BarcodeScanViewState extends ConsumerState<BarcodeScanView> {
           ),
         ),
       );
+}
+
+/// A beolvasás zárja. Egyszerre egy kódot dolgozunk fel; amíg az tart (a
+/// keresés és a kézi felvitel teljes ideje alatt), minden további észlelést
+/// eldobunk. Ez akadályozza meg, hogy a kamera ugyanarra a kódra újra és újra
+/// megnyissa a kézi felviteli oldalt.
+class BarcodeScanGate {
+  static const int minimumLength = 8;
+
+  bool _busy = false;
+
+  bool get isBusy => _busy;
+
+  /// Az első érvényes kód, és a zár lefoglalása. `null`, ha foglalt, vagy
+  /// nincs érvényes kód.
+  String? accept(Iterable<String?> rawValues) {
+    if (_busy) {
+      return null;
+    }
+    for (final raw in rawValues) {
+      final code = raw?.trim() ?? "";
+      if (code.length >= minimumLength) {
+        _busy = true;
+        return code;
+      }
+    }
+    return null;
+  }
+
+  void release() => _busy = false;
 }

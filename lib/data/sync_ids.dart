@@ -13,5 +13,3 @@ String ensureSyncId(String id) {
   }
   return _uuid.v5(Namespace.url.value, "flexio:$id");
 }
-
-bool isValidSyncId(String id) => Uuid.isValidUUID(fromString: id);

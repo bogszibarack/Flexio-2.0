@@ -7,8 +7,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'common/colo_extension.dart';
 import 'data/app_config.dart';
+import 'data/fresh_install_guard.dart';
 import 'data/providers.dart';
 import 'data/session_service.dart';
+import 'data/sync_service.dart';
 import 'view/login/login_view.dart';
 import 'view/main_tab/main_tab_view.dart';
 
@@ -17,6 +19,12 @@ Future<void> main() async {
   await initializeDateFormatting("hu");
 
   if (AppConfig.hasRemote) {
+    // A Supabase előtt kell futnia, különben a Keychainben maradt régi
+    // session már betöltődött.
+    await FreshInstallGuard.standard(
+      clearPersistedSession: SecureSessionStorage().removePersistedSession,
+    ).run();
+
     await Supabase.initialize(
       url: AppConfig.supabaseUrl,
       publishableKey: AppConfig.supabaseKey,
@@ -63,11 +71,38 @@ class SessionGate extends ConsumerStatefulWidget {
   ConsumerState<SessionGate> createState() => _SessionGateState();
 }
 
-class _SessionGateState extends ConsumerState<SessionGate> {
+class _SessionGateState extends ConsumerState<SessionGate>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _bootstrap();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  /// Előtérbe kerüléskor újra szinkronizálunk, ha az előző kör elbukott (pl.
+  /// alvó szerver, nincs térerő) vagy már régi. Így nem kell újraindítani az
+  /// appot ahhoz, hogy a szerveren lévő adat megjelenjen.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state != AppLifecycleState.resumed) {
+      return;
+    }
+    final session = ref.read(sessionServiceProvider);
+    final userId = session.userId;
+    if (!session.isSignedIn || userId == null) {
+      return;
+    }
+    final status = ref.read(syncServiceProvider).status.value;
+    if (shouldResyncOnResume(status, DateTime.now())) {
+      ref.read(userScopeProvider).attachAndSync(userId);
+    }
   }
 
   Future<void> _bootstrap() async {

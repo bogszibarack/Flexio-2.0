@@ -16,7 +16,10 @@ import 'meal_store.dart';
 import 'portion_sheet.dart';
 
 class MealPlannerView extends ConsumerStatefulWidget {
-  const MealPlannerView({super.key});
+  /// Az alsó sáv füleként nincs vissza gomb; máshonnan megnyitva van.
+  final bool inTab;
+
+  const MealPlannerView({super.key, this.inTab = false});
 
   @override
   ConsumerState<MealPlannerView> createState() => _MealPlannerViewState();
@@ -180,7 +183,7 @@ class _MealPlannerViewState extends ConsumerState<MealPlannerView> {
         backgroundColor: TColor.white,
         centerTitle: true,
         elevation: 0,
-        leading: InkWell(
+        leading: widget.inTab ? const SizedBox.shrink() : InkWell(
           onTap: () {
             Navigator.pop(context);
           },

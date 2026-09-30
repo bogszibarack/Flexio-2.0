@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 
 /// Tápanyagértékek. A katalógusban 100 grammra, a naplóban a tényleges
 /// mennyiségre vetítve értendők.
@@ -155,6 +154,4 @@ class Nutrients {
     }
     return value.toStringAsFixed(1);
   }
-
-  static double clampPositive(double value) => math.max(0, value);
 }

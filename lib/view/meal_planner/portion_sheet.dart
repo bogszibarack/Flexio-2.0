@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../../common/app_haptics.dart';
 import '../../common/colo_extension.dart';
 import '../../common_widget/round_button.dart';
 import '../../data/models/diary_entry.dart';
@@ -194,6 +195,7 @@ class _PortionSheetState extends ConsumerState<PortionSheet> {
     // A naplózott étel bekerül a legutóbbiak közé, és a keresési rangsorban is
     // előrébb sorolódik.
     await foods.markUsed(widget.food);
+    AppHaptics.success();
 
     if (!mounted) {
       return;
@@ -323,7 +325,10 @@ class _PortionSheetState extends ConsumerState<PortionSheet> {
   Widget _servingChip(FoodServing serving) {
     final isSelected = _serving?.label == serving.label;
     return InkWell(
-      onTap: () => _selectServing(serving),
+      onTap: () {
+        AppHaptics.selection();
+        _selectServing(serving);
+      },
       borderRadius: BorderRadius.circular(14),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -354,7 +359,10 @@ class _PortionSheetState extends ConsumerState<PortionSheet> {
         child: Row(
           children: [
             IconButton(
-              onPressed: () => _changeMultiplier(-1),
+              onPressed: () {
+                AppHaptics.selection();
+                _changeMultiplier(-1);
+              },
               icon: Icon(Icons.remove, size: 18, color: TColor.gray),
               visualDensity: VisualDensity.compact,
             ),
@@ -367,7 +375,10 @@ class _PortionSheetState extends ConsumerState<PortionSheet> {
               ),
             ),
             IconButton(
-              onPressed: () => _changeMultiplier(1),
+              onPressed: () {
+                AppHaptics.selection();
+                _changeMultiplier(1);
+              },
               icon: Icon(Icons.add, size: 18, color: TColor.gray),
               visualDensity: VisualDensity.compact,
             ),
@@ -435,6 +446,7 @@ class _PortionSheetState extends ConsumerState<PortionSheet> {
               if (value == null) {
                 return;
               }
+              AppHaptics.selection();
               setState(() => _mealType = value);
             },
           ),

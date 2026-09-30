@@ -10,9 +10,8 @@ class MealTypes {
   static const String lunch = "Ebéd";
   static const String snack = "Snack";
   static const String dinner = "Vacsora";
-  static const String dessert = "Desszert";
 
-  static const List<String> all = [breakfast, lunch, snack, dinner, dessert];
+  static const List<String> all = [breakfast, lunch, snack, dinner];
 
   static const List<String> mains = [breakfast, lunch, dinner];
 
@@ -23,7 +22,6 @@ class MealTypes {
     lunch: "Ebéd",
     snack: "Snack",
     dinner: "Vacs.",
-    dessert: "Dessz.",
   };
 
   static String normalize(String? value) {
@@ -35,8 +33,10 @@ class MealTypes {
         return type;
       }
     }
-    // A régi mock adatokban többes szám is előfordult.
-    if (value.toLowerCase().startsWith("snack")) {
+    // A régi mock adatokban többes szám is előfordult, a megszűnt
+    // "Desszert" kategória bejegyzései pedig snackként élnek tovább.
+    final lower = value.trim().toLowerCase();
+    if (lower.startsWith("snack") || lower == "desszert") {
       return snack;
     }
     return breakfast;

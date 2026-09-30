@@ -2,6 +2,8 @@ import 'package:fitness/common/colo_extension.dart';
 import 'package:fitness/common_widget/flexio_logo.dart';
 import 'package:fitness/view/on_boarding/on_boarding_view.dart';
 import 'package:flutter/material.dart';
+
+import '../../common/app_haptics.dart';
 import 'package:flutter/services.dart';
 
 class StartedView extends StatefulWidget {
@@ -71,7 +73,7 @@ class _StartedViewState extends State<StartedView> {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(31),
                       onTap: () async {
-                        HapticFeedback.mediumImpact();
+                        AppHaptics.medium();
                         final navigator = Navigator.of(context);
                         setState(() {
                           isColorChanged = true;

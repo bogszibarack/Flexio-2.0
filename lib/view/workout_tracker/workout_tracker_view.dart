@@ -18,7 +18,10 @@ import '../../common_widget/upcoming_workout_row.dart';
 import '../../common_widget/what_train_row.dart';
 
 class WorkoutTrackerView extends ConsumerStatefulWidget {
-  const WorkoutTrackerView({super.key});
+  /// Az alsó sáv füleként nincs vissza gomb; máshonnan megnyitva van.
+  final bool inTab;
+
+  const WorkoutTrackerView({super.key, this.inTab = false});
 
   @override
   ConsumerState<WorkoutTrackerView> createState() => _WorkoutTrackerViewState();
@@ -72,7 +75,7 @@ class _WorkoutTrackerViewState extends ConsumerState<WorkoutTrackerView> {
               centerTitle: true,
               elevation: 0,
               // pinned: true,
-              leading: InkWell(
+              leading: widget.inTab ? const SizedBox.shrink() : InkWell(
                 onTap: () {
                   Navigator.pop(context);
                 },
